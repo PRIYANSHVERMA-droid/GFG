@@ -3,8 +3,35 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cadet Registration — DOOMSDAY | GFG × Bennett University</title>
+  <!-- Primary Meta Tags -->
+  <title>REGISTER // DOOMSDAY Recruitment — GFG × Bennett University</title>
+  <meta name="title" content="REGISTER // DOOMSDAY Recruitment — GFG × Bennett University">
   <meta name="description" content="Official recruitment portal for GeeksForGeeks Student Chapter × Bennett University. Choose your realm and transmit your application dossier.">
+  <meta name="keywords" content="GFG Registration, Bennett University Recruitment, Junior Core Apply, Coding Chapter Application">
+  <meta name="author" content="GeeksforGeeks Student Chapter, Bennett University">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://gfgbu.tech/register.html">
+
+  <!-- High-Contrast Vector Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0A0A'/><circle cx='50' cy='50' r='42' fill='none' stroke='%23D91E36' stroke-width='6'/><polygon points='50,22 75,65 25,65' fill='none' stroke='%233AFFA0' stroke-width='5'/><circle cx='50' cy='50' r='7' fill='%233AFFA0'/></svg>">
+  <meta name="theme-color" content="#0A0A0A">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://gfgbu.tech/register.html">
+  <meta property="og:site_name" content="GFG Bennett University Student Chapter">
+  <meta property="og:title" content="REGISTER // DOOMSDAY Recruitment — GFG × Bennett University">
+  <meta property="og:description" content="Choose your realm and submit your application for GFG Bennett University Junior Core. Positions open across Web Dev, AI/ML, Design, and Event Ops.">
+  <meta property="og:image" content="https://gfgbu.tech/assets/images/og-doomsday-preview.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@geeksforgeeks_bu">
+  <meta name="twitter:title" content="REGISTER // DOOMSDAY Recruitment — GFG × Bennett University">
+  <meta name="twitter:description" content="Choose your realm and submit your application for GFG Bennett University Junior Core.">
+  <meta name="twitter:image" content="https://gfgbu.tech/assets/images/og-doomsday-preview.jpg">
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -150,6 +177,13 @@
       <!-- REGISTRATION FORM -->
       <form id="dossier-form" novalidate autocomplete="on">
         
+        <!-- Anti-Abuse Layer: Honeypot field (hidden from screen & a11y trees) -->
+        <div class="field-hp-guard" aria-hidden="true" style="position: absolute; left: -9999px; top: -9999px; width: 0; height: 0; opacity: 0; pointer-events: none;">
+          <label for="contact_company_hp">Leave this empty</label>
+          <input type="text" id="contact_company_hp" name="contact_company_hp" tabindex="-1" autocomplete="off">
+        </div>
+        <input type="hidden" id="form-render-ts" name="_render_ts" value="">
+
         <!-- STEP 2: CADET IDENTITY -->
         <section class="form-step-section">
           <div class="form-section-header">

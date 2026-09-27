@@ -33,6 +33,41 @@
   });
 
   /* ----------------------------------------------------------------------
+     GRACEFUL ON-SCREEN FALLBACK FOR 3D CANVASES
+     If a model fails to load, gracefully illuminate the 2D SVG glyphs
+     and show a high-tech HUD indicator so the canvas never sits blank.
+     ---------------------------------------------------------------------- */
+  function triggerModelFallback(container, contextType) {
+    if (!container) return;
+    container.classList.add('model-fallback-active');
+
+    // Restore full visibility to abstract/SVG visual glyphs
+    var glyphs = container.querySelectorAll('.doom-core-rune, .char-glyph-monolith, .spidey-web-complex, .thor-lightning-rig, .cap-shield-rig, .card-abstract-art');
+    glyphs.forEach(function (g) {
+      g.style.opacity = '1';
+      g.style.visibility = 'visible';
+    });
+
+    // Ensure conic/energy rings remain active and animated
+    var rings = container.querySelectorAll('.conic-energy-ring, .char-rings-conic, .thor-storm-vortex');
+    rings.forEach(function (r) {
+      r.style.opacity = '1';
+    });
+
+    // Display on-screen HUD status pill
+    if (!container.querySelector('.hud-fallback-pill')) {
+      var pill = document.createElement('div');
+      pill.className = 'hud-fallback-pill';
+      pill.setAttribute('aria-hidden', 'true');
+      pill.textContent = contextType === 'card' ? 'DOSSIER // SIMULATED' : 'HOLO-TELEMETRY // ACTIVE';
+      container.appendChild(pill);
+    }
+
+    var dragHint = container.querySelector('.model-drag-hint');
+    if (dragHint) dragHint.style.display = 'none';
+  }
+
+  /* ----------------------------------------------------------------------
      SHARED DRACO DECODER POOL
      Reused by all loaders so workers are initialized once and remain warm.
      ---------------------------------------------------------------------- */
@@ -296,7 +331,7 @@
           startLoop();
         }
       }, undefined, function (err) {
-        console.error('[models3d] Failed to load hero doom mask:', err);
+        triggerModelFallback(container, 'hero');
       });
 
       // Mouse move listener on hero section
@@ -401,7 +436,19 @@
       if (reducedMotion && pivot) renderer.render(scene, camera);
     }
 
-    init();
+    if ('IntersectionObserver' in window) {
+      var doomIO = new IntersectionObserver(function (entries, observer) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            observer.disconnect();
+            init();
+          }
+        });
+      }, { rootMargin: '250px 0px' });
+      doomIO.observe(heroSection);
+    } else {
+      init();
+    }
   }
 
   /* ======================================================================
@@ -427,6 +474,7 @@
     var cardControllers = [];
     var isRosterVisible = false;
     var rosterScrollProgress = 0;
+    var cardsInitialized = false;
 
     var cardConfigs = {
       doom: {
@@ -455,7 +503,11 @@
       }
     };
 
-    canvases.forEach(function (canvasEl) {
+    function setupCards() {
+      if (cardsInitialized) return;
+      cardsInitialized = true;
+
+      canvases.forEach(function (canvasEl) {
       var heroKey = canvasEl.getAttribute('data-card-hero');
       var modelPath = canvasEl.getAttribute('data-model');
       var cfg = cardConfigs[heroKey] || { baseRotation: [0, 0, 0], targetSize: 2.0, accent: 0xffffff };
@@ -523,7 +575,7 @@
 
         if (reducedMotion) renderer.render(scene, camera);
       }, undefined, function (err) {
-        console.error('[models3d] Failed to load card model ' + modelPath, err);
+        triggerModelFallback(cardFront, 'card');
       });
 
       // Card hover tilt tracking
@@ -599,8 +651,10 @@
         }
       });
     });
+  }
 
-    // Hook into card 360° twirl buttons and "360° MULTIVERSE SCAN" button
+  // Hook into card 360° twirl buttons and "360° MULTIVERSE SCAN" button
+  function setupTwirlControls() {
     var twirlAllBtn = document.getElementById('btn-twirl-all');
     if (twirlAllBtn) {
       twirlAllBtn.addEventListener('click', function () {
@@ -620,6 +674,7 @@
         if (ctrl) ctrl.twirl360();
       });
     });
+  }
 
     // ScrollTrigger on roster section
     if (!reducedMotion && typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
@@ -652,13 +707,21 @@
       var io = new IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
           isRosterVisible = entry.isIntersecting;
-          if (isRosterVisible && !rafCardId && !reducedMotion) {
-            rafCardId = requestAnimationFrame(runCardsLoop);
+          if (isRosterVisible) {
+            if (!cardsInitialized) {
+              setupCards();
+              setupTwirlControls();
+            }
+            if (!rafCardId && !reducedMotion) {
+              rafCardId = requestAnimationFrame(runCardsLoop);
+            }
           }
         });
-      }, { rootMargin: '200px 0px' });
+      }, { rootMargin: '250px 0px' });
       io.observe(rosterSection);
     } else {
+      setupCards();
+      setupTwirlControls();
       isRosterVisible = true;
       rafCardId = requestAnimationFrame(runCardsLoop);
     }
@@ -815,7 +878,7 @@
 
         if (reducedMotion) renderOnce();
       }, undefined, function (err) {
-        console.error('[models3d] Failed to load character model ' + modelPath, err);
+        triggerModelFallback(container, 'character');
       });
 
       window.addEventListener('resize', handleResize, { passive: true });

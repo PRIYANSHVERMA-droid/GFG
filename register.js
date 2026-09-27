@@ -3,11 +3,20 @@
    Cadet Registration Portal Script Controller
    ========================================================================== */
 
-// --- GOOGLE SHEETS INTEGRATION ENDPOINT ---
-// Paste your deployed Google Apps Script Web App URL below:
-const GOOGLE_SHEET_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbyaYaOJwX2crDTppHa-jzHKDRQCSmi33a_htgE1bT45jz5Q8Cudtg0oapR6ddnyETLy2g/exec";
+// --- GOOGLE SHEETS INTEGRATION ENDPOINT & ANTI-ABUSE CONFIG ---
+const _EP_HOST = 'https://script.google.com/macros/s/';
+const _EP_ID = 'AKfycbyaYaOJwX2crDTppHa-jzHKDRQCSmi33a_htgE1bT45jz5Q8Cudtg0oapR6ddnyETLy2g';
+const GOOGLE_SHEET_WEBHOOK_URL = `${_EP_HOST}${_EP_ID}/exec`;
+const SUBMISSION_COOLDOWN_MS = 45 * 1000; // 45-second rate limit
+const MIN_FILL_TIME_MS = 2500; // 2.5-second bot velocity check
+let FORM_RENDER_TIMESTAMP = Date.now();
 
 document.addEventListener('DOMContentLoaded', () => {
+  FORM_RENDER_TIMESTAMP = Date.now();
+  const renderTsField = document.getElementById('form-render-ts');
+  if (renderTsField) {
+    renderTsField.value = String(FORM_RENDER_TIMESTAMP);
+  }
   initRealmSelector();
   initFormValidationAndDraft();
   initCharacterCounters();
@@ -194,6 +203,31 @@ function initFormValidationAndDraft() {
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
+    // 1. Rate-Limit Cooldown Check
+    const lastSubmit = localStorage.getItem('gfg_dossier_last_submit');
+    const now = Date.now();
+    if (lastSubmit && (now - Number(lastSubmit)) < SUBMISSION_COOLDOWN_MS) {
+      const remainingSec = Math.ceil((SUBMISSION_COOLDOWN_MS - (now - Number(lastSubmit))) / 1000);
+      showToast(`⚠️ Transmission rate-limit active. Please wait ${remainingSec}s before retrying.`);
+      return;
+    }
+
+    // 2. Anti-Abuse Honeypot Trap
+    const honeypot = form.querySelector('#contact_company_hp');
+    if (honeypot && honeypot.value.trim() !== '') {
+      // Fake successful transmission for automated bot harvesters without hitting Google Sheets
+      const fakePayload = collectFormData(form);
+      completeSubmission(form, fakePayload);
+      return;
+    }
+
+    // 3. Human Velocity Check (< 2.5s is an automated script)
+    if ((now - FORM_RENDER_TIMESTAMP) < MIN_FILL_TIME_MS) {
+      showToast('⚠️ Rapid automated submission detected. Please review your dossier.');
+      return;
+    }
+
+    // 4. Form Validation
     const isValid = validateForm(form);
     if (!isValid) {
       showToast('⚠️ Please correct flagged fields before transmitting.');
@@ -211,7 +245,7 @@ function initFormValidationAndDraft() {
       if (submitText) submitText.textContent = 'TRANSMITTING TO MULTIVERSE VAULT...';
     }
 
-    // Collect all cadet data
+    // Collect all cadet data with verification signatures
     const payload = collectFormData(form);
 
     // Asynchronously transmit to Google Sheets
@@ -355,12 +389,14 @@ function collectFormData(form) {
     resumeUrl: form.querySelector('#resumeUrl')?.value.trim() || '',
     directiveStatement: form.querySelector('#directiveStatement')?.value.trim() || '',
     greatestProject: form.querySelector('#greatestProject')?.value.trim() || '',
+    // Anti-Abuse Security Telemetry
+    _clientSignature: btoa(`${form.querySelector('#bennettEmail')?.value || ''}_${FORM_RENDER_TIMESTAMP}`).slice(0, 16),
+    _fillDurationSec: Math.round((Date.now() - FORM_RENDER_TIMESTAMP) / 1000),
   };
 }
 
 async function transmitToGoogleSheet(payload) {
   if (!GOOGLE_SHEET_WEBHOOK_URL || GOOGLE_SHEET_WEBHOOK_URL.trim() === '') {
-    console.info('Google Sheet Webhook URL not configured. Preview simulation active.');
     return { success: true, simulated: true };
   }
 
@@ -374,9 +410,10 @@ async function transmitToGoogleSheet(payload) {
       },
       body: JSON.stringify(payload),
     });
+    // Record timestamp for client-side rate limiting
+    localStorage.setItem('gfg_dossier_last_submit', String(Date.now()));
     return { success: true };
   } catch (err) {
-    console.error('Google Sheet transmission notice:', err);
     return { success: false, error: err };
   }
 }

@@ -3556,6 +3556,42 @@ a {
   transform: translateX(-50%) translateY(4px);
 }
 
+/* On-Screen Graceful Fallback Status Badge */
+.hud-fallback-pill {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.38rem 0.95rem;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: #3AFFA0;
+  background: rgba(10, 16, 26, 0.88);
+  border: 1px solid rgba(58, 255, 160, 0.35);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 10;
+  pointer-events: none;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), 0 0 15px rgba(58, 255, 160, 0.15);
+  user-select: none;
+}
+
+.hud-fallback-pill::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #3AFFA0;
+  box-shadow: 0 0 6px #3AFFA0;
+  animation: radarPulse 1.5s infinite;
+}
+
 /* Once a live model/embed is up, fade out the abstract placeholder rig
    (ambient glow orbs + conic rings stay — they frame the model). */
 .character-visual.has-live-model .char-glyph-monolith,
