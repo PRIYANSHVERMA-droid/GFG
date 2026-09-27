@@ -492,9 +492,9 @@ function initHeroParticles() {
 /* ==========================================================================
    5.1  COSMIC COLLISION — scroll-driven planet convergence & impact
    Two planet orbs (emerald-green / crimson-red) drift from opposite screen
-   edges toward centre as the user scrolls from #hero → #breach-selector.
-   At full convergence the collision syncs with the breach fracture crack,
-   then the canvas fades out over ~300 px of additional scroll.
+   edges toward centre as the user scrolls past the #trailer section toward
+   #breach-selector. At full convergence the collision syncs with the breach
+   fracture crack, then the canvas fades out over ~300 px of additional scroll.
    ========================================================================== */
 function initCosmicCollision() {
   if (prefersReducedMotion) return;
@@ -527,10 +527,11 @@ function initCosmicCollision() {
   let fadeProgress = 0;  /* 0 → 1 : post-collision fade-out phase     */
   let collided     = false;
 
-  /* ── convergence ScrollTrigger (hero → breach-beat) ── */
+  /* ── convergence ScrollTrigger (trailer → breach-beat) ── */
+  /* Planets start converging after the trailer and collide at the breach */
   ScrollTrigger.create({
-    trigger: '#hero',
-    start: 'top top',
+    trigger: '#trailer',
+    start: 'bottom 80%',
     endTrigger: '#breach-beat',
     end: 'top 80%',
     scrub: true,
