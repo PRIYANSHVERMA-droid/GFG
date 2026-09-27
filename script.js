@@ -176,6 +176,14 @@ function initNavigation() {
     });
   }
 
+  // Close button inside the mobile menu overlay
+  const mobileMenuClose = document.getElementById('mobile-menu-close');
+  if (mobileMenuClose) {
+    mobileMenuClose.addEventListener('click', () => {
+      closeMobileMenu();
+    });
+  }
+
   // Close mobile menu on Escape key
   window.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeMobileMenu();

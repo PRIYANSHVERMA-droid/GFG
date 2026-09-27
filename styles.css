@@ -706,6 +706,39 @@ a {
   pointer-events: all;
 }
 
+/* Mobile Menu Close Button (inside the menu overlay) */
+.mobile-menu-close {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.5rem;
+  width: 32px;
+  height: 32px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.close-bar {
+  width: 24px;
+  height: 2px;
+  background-color: var(--text-primary);
+  position: absolute;
+}
+
+.close-bar:nth-child(1) {
+  transform: rotate(45deg);
+}
+
+.close-bar:nth-child(2) {
+  transform: rotate(-45deg);
+}
+
 .mobile-menu-inner {
   display: flex;
   flex-direction: column;

@@ -199,36 +199,40 @@
         <span class="toggle-bar"></span>
       </button>
     </div>
+  </header>
 
-    <!-- Mobile Drawer Menu (Consolidated & Numbered) -->
-    <div class="mobile-menu" id="mobile-nav-menu" aria-hidden="true">
-      <div class="mobile-menu-inner">
-        <span class="mobile-menu-eyebrow">TACTICAL DIRECTIVE</span>
-        <a href="#trailer" class="mobile-nav-link" data-section="trailer">
-          <span class="mobile-num">01</span> TRAILER
-        </a>
-        <a href="#breach-selector" class="mobile-nav-link" data-section="heroes">
-          <span class="mobile-num">02</span> HEROES
-        </a>
-        <a href="#mission" class="mobile-nav-link" data-section="mission">
-          <span class="mobile-num">03</span> MISSION
-        </a>
-        <a href="#perks-block" class="mobile-nav-link" data-section="perks">
-          <span class="mobile-num">04</span> PERKS
-        </a>
-        <a href="#timeline-block" class="mobile-nav-link" data-section="timeline">
-          <span class="mobile-num">05</span> TIMELINE
-        </a>
-        <a href="register.html" class="mobile-nav-link mobile-nav-link--accent" data-section="register">
-          <span class="mobile-num">★</span> REGISTER NOW →
-        </a>
-        <div class="mobile-menu-footer">
-          <span>GFG STUDENT CHAPTER × BENNETT UNIVERSITY</span>
-          <span class="text-dim">JUNIOR CORE RECRUITMENT 2026</span>
-        </div>
+  <!-- Mobile Drawer Menu (moved outside header to avoid stacking context trap) -->
+  <div class="mobile-menu" id="mobile-nav-menu" aria-hidden="true">
+    <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close navigation menu">
+      <span class="close-bar"></span>
+      <span class="close-bar"></span>
+    </button>
+    <div class="mobile-menu-inner">
+      <span class="mobile-menu-eyebrow">TACTICAL DIRECTIVE</span>
+      <a href="#trailer" class="mobile-nav-link" data-section="trailer">
+        <span class="mobile-num">01</span> TRAILER
+      </a>
+      <a href="#breach-selector" class="mobile-nav-link" data-section="heroes">
+        <span class="mobile-num">02</span> HEROES
+      </a>
+      <a href="#mission" class="mobile-nav-link" data-section="mission">
+        <span class="mobile-num">03</span> MISSION
+      </a>
+      <a href="#perks-block" class="mobile-nav-link" data-section="perks">
+        <span class="mobile-num">04</span> PERKS
+      </a>
+      <a href="#timeline-block" class="mobile-nav-link" data-section="timeline">
+        <span class="mobile-num">05</span> TIMELINE
+      </a>
+      <a href="register.html" class="mobile-nav-link mobile-nav-link--accent" data-section="register">
+        <span class="mobile-num">★</span> REGISTER NOW →
+      </a>
+      <div class="mobile-menu-footer">
+        <span>GFG STUDENT CHAPTER × BENNETT UNIVERSITY</span>
+        <span class="text-dim">JUNIOR CORE RECRUITMENT 2026</span>
       </div>
     </div>
-  </header>
+  </div>
 
   <!-- MAIN SCROLL CONTAINER -->
   <main id="smooth-wrapper">
