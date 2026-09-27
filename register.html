@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadet Registration — DOOMSDAY | GFG × Bennett University</title>
+  <meta name="description" content="Official recruitment portal for GeeksForGeeks Student Chapter × Bennett University. Choose your realm and transmit your application dossier.">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Base Styles and Registration Specific Styles -->
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="register.css">
+</head>
+<body class="reg-body">
+  <!-- Subtle Cinematic Noise Texture -->
+  <div class="film-grain" aria-hidden="true"></div>
+
+  <!-- Ambient Multiverse Reactor Glow -->
+  <div class="reg-ambient-glow" id="reg-ambient-glow" aria-hidden="true"></div>
+
+  <!-- Tactical Navigation Bar -->
+  <nav class="reg-nav">
+    <div class="reg-nav-inner">
+      <a href="index.html" class="reg-back-link" aria-label="Return to Main Event Page">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" class="back-arrow-svg">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        <span>RETURN TO HQ</span>
+      </a>
+
+      <div class="reg-nav-brand">
+        <span class="reg-badge-gfg">GFG</span>
+        <span class="reg-cross">×</span>
+        <span class="reg-brand-sub">BENNETT UNIVERSITY</span>
+      </div>
+
+      <div class="reg-status-pill">
+        <span class="status-pulse-dot"></span>
+        <span class="status-pill-text">ENROLLMENT PORTAL // ACTIVE</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Registration Container -->
+  <main class="reg-main-container">
+    
+    <!-- Hero / Header Protocol -->
+    <header class="reg-header">
+      <div class="reg-eyebrow-wrap">
+        <span class="reg-eyebrow-tag">CLASSIFIED // JUNIOR CORE RECRUITMENT 2026</span>
+        <span class="reg-timestamp" id="live-protocol-clock">SEC-TIME: 2026.09.27 // ONLINE</span>
+      </div>
+      <h1 class="reg-main-title">
+        <span>TRANSMIT YOUR</span>
+        <span class="text-accent-red">DOSSIER.</span>
+      </h1>
+      <p class="reg-description">
+        The multiverse is under incursion. The GeeksForGeeks Student Chapter at Bennett University is drafting developers, designers, algorists, and strategists. State your realm affiliation, present your proof of work, and face the council.
+      </p>
+    </header>
+
+    <!-- FORM WRAPPER -->
+    <div class="reg-form-card" id="form-container">
+      
+      <!-- Faction / Realm Selector Stage -->
+      <section class="realm-selector-section" aria-labelledby="realm-section-title">
+        <div class="form-section-header">
+          <span class="form-step-num">01</span>
+          <div>
+            <h2 class="form-step-title" id="realm-section-title">AFFILIATION PROTOCOL — CHOOSE YOUR REALM</h2>
+            <p class="form-step-subtitle">Your chosen vanguard dictates your specialization, tactical mentor, and core domain.</p>
+          </div>
+        </div>
+
+        <div class="realm-choice-grid" role="radiogroup" aria-label="Choose your Realm">
+          
+          <!-- Doom / Technical -->
+          <label class="realm-card is-selected" data-realm="doom">
+            <input type="radio" name="chosenRealm" value="doom" checked class="sr-only">
+            <div class="realm-card-corner"></div>
+            <div class="realm-card-header">
+              <span class="realm-code">SECTOR 01 // LATVERIA</span>
+              <span class="realm-char-tag tag-doom">DOCTOR DOOM</span>
+            </div>
+            <h3 class="realm-name">IRON ARCHITECTURE</h3>
+            <p class="realm-track">Technical Realm • Systems, Full-Stack, Web3, AI/ML & Cloud Infrastructure</p>
+            <div class="realm-quote">"True mastery is crafting systems that bend reality to cold logic."</div>
+            <div class="realm-indicator"></div>
+          </label>
+
+          <!-- Spider-Man / Creative -->
+          <label class="realm-card" data-realm="spiderman">
+            <input type="radio" name="chosenRealm" value="spiderman" class="sr-only">
+            <div class="realm-card-corner"></div>
+            <div class="realm-card-header">
+              <span class="realm-code">SECTOR 02 // QUEENS</span>
+              <span class="realm-char-tag tag-spiderman">SPIDER-MAN</span>
+            </div>
+            <h3 class="realm-name">THE CREATIVE WEB</h3>
+            <p class="realm-track">Creative Realm • UI/UX Design, Visual Motion, 3D Assets, Video & Media</p>
+            <div class="realm-quote">"With great design power comes the responsibility to craft seamless realities."</div>
+            <div class="realm-indicator"></div>
+          </label>
+
+          <!-- Thor / Algorithms -->
+          <label class="realm-card" data-realm="thor">
+            <input type="radio" name="chosenRealm" value="thor" class="sr-only">
+            <div class="realm-card-corner"></div>
+            <div class="realm-card-header">
+              <span class="realm-code">SECTOR 03 // ASGARD</span>
+              <span class="realm-char-tag tag-thor">THOR ODINSON</span>
+            </div>
+            <h3 class="realm-name">LIGHTNING ALGORITHMS</h3>
+            <p class="realm-track">DSA Realm • Competitive Programming, CodeForces, Hackathons & Problem Solving</p>
+            <div class="realm-quote">"Smash through computational bottlenecks with pure, untamed algorithmic thunder."</div>
+            <div class="realm-indicator"></div>
+          </label>
+
+          <!-- Captain America / Operations -->
+          <label class="realm-card" data-realm="cap">
+            <input type="radio" name="chosenRealm" value="cap" class="sr-only">
+            <div class="realm-card-corner"></div>
+            <div class="realm-card-header">
+              <span class="realm-code">SECTOR 04 // BROOKLYN</span>
+              <span class="realm-char-tag tag-cap">CAPTAIN AMERICA</span>
+            </div>
+            <h3 class="realm-name">STRATEGIC COMMAND</h3>
+            <p class="realm-track">Operations Realm • Event Management, Sponsorship, Corporate Outreach, PR & Content</p>
+            <div class="realm-quote">"A code base is only as resilient as the team standing shoulder-to-shoulder behind it."</div>
+            <div class="realm-indicator"></div>
+          </label>
+
+        </div>
+
+        <!-- Dynamic Character Transmission Banner -->
+        <div class="realm-transmission-box" id="realm-transmission">
+          <div class="transmission-icon">⚡</div>
+          <div class="transmission-text">
+            <strong id="transmission-lead">TRANSMISSION ESTABLISHED: DR. DOOM // TECHNICAL ARCHITECTURE</strong>
+            <p id="transmission-body">Cadets entering this realm will undergo technical problem-solving trials and architecture reviews.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- REGISTRATION FORM -->
+      <form id="dossier-form" novalidate autocomplete="on">
+        
+        <!-- STEP 2: CADET IDENTITY -->
+        <section class="form-step-section">
+          <div class="form-section-header">
+            <span class="form-step-num">02</span>
+            <div>
+              <h2 class="form-step-title">CADET IDENTITY & CREDENTIALS</h2>
+              <p class="form-step-subtitle">Official Bennett University student authentication details.</p>
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <!-- Full Name -->
+            <div class="form-group">
+              <label for="fullName" class="form-label">
+                FULL NAME <span class="req">*</span>
+              </label>
+              <div class="input-wrapper">
+                <input type="text" id="fullName" name="fullName" class="form-input" placeholder="e.g. Tony Stark" required minlength="3">
+                <span class="input-focus-line"></span>
+              </div>
+              <span class="field-error" id="error-fullName">Please enter your official full name.</span>
+            </div>
+
+            <!-- Bennett Email -->
+            <div class="form-group">
+              <label for="bennettEmail" class="form-label">
+                BENNETT UNIVERSITY EMAIL <span class="req">*</span>
+              </label>
+              <div class="input-wrapper">
+                <input type="email" id="bennettEmail" name="bennettEmail" class="form-input" placeholder="name@bennett.edu.in" required pattern="^[a-zA-Z0-9._%+-]+@bennett\.edu\.in$">
+                <span class="input-focus-line"></span>
+              </div>
+              <span class="field-hint">Must end with @bennett.edu.in</span>
+              <span class="field-error" id="error-bennettEmail">Valid @bennett.edu.in email address is required.</span>
+            </div>
+
+            <!-- Enrollment Number -->
+            <div class="form-group">
+              <label for="enrollmentNumber" class="form-label">
+                ENROLLMENT NUMBER <span class="req">*</span>
+              </label>
+              <div class="input-wrapper">
+                <input type="text" id="enrollmentNumber" name="enrollmentNumber" class="form-input text-uppercase" placeholder="e.g. E23CSEU0000" required pattern="^[A-Za-z0-9]{8,15}$">
+                <span class="input-focus-line"></span>
+              </div>
+              <span class="field-error" id="error-enrollmentNumber">Please provide a valid enrollment number.</span>
+            </div>
+
+            <!-- Phone / WhatsApp Number -->
+            <div class="form-group">
+              <label for="phoneNumber" class="form-label">
+                PHONE / WHATSAPP NUMBER <span class="req">*</span>
+              </label>
+              <div class="input-wrapper">
+                <input type="tel" id="phoneNumber" name="phoneNumber" class="form-input" placeholder="e.g. 9876543210" required pattern="^[0-9+ -]{10,13}$">
+                <span class="input-focus-line"></span>
+              </div>
+              <span class="field-error" id="error-phoneNumber">Please provide a valid 10-digit mobile number.</span>
+            </div>
+
+            <!-- Year of Study -->
+            <div class="form-group">
+              <label for="studyYear" class="form-label">
+                ACADEMIC YEAR <span class="req">*</span>
+              </label>
+              <div class="input-wrapper select-wrapper">
+                <select id="studyYear" name="studyYear" class="form-input form-select" required>
+                  <option value="" disabled selected>Select Year of Study</option>
+                  <option value="1st Year">1st Year (Batch of 2029 / Freshmen)</option>
+                  <option value="2nd Year">2nd Year (Batch of 2028 / Sophomores)</option>
+                  <option value="3rd Year">3rd Year (Batch of 2027 / Juniors)</option>
+                  <option value="4th Year">4th Year (Batch of 2026 / Seniors)</option>
+                </select>
+                <span class="select-chevron">▼</span>
+              </div>
+              <span class="field-error" id="error-studyYear">Select your academic year.</span>
+            </div>
+
+            <!-- Branch / Department -->
+            <div class="form-group">
+              <label for="branch" class="form-label">
+                BRANCH / DEPARTMENT <span class="req">*</span>
+              </label>
+              <div class="input-wrapper select-wrapper">
+                <select id="branch" name="branch" class="form-input form-select" required>
+                  <option value="" disabled selected>Select Branch</option>
+                  <option value="CSE">Computer Science & Engineering (B.Tech CSE)</option>
+                  <option value="CSE-AI">Computer Science & Engineering (AI / ML)</option>
+                  <option value="CSET">Computer Science & Engineering Technology (CSET)</option>
+                  <option value="ECE">Electronics & Communication Engineering (ECE)</option>
+                  <option value="BCA">Bachelor of Computer Applications (BCA)</option>
+                  <option value="Biotech">Biotechnology / Applied Sciences</option>
+                  <option value="Management">School of Management (BBA / MBA)</option>
+                  <option value="Other">Other / School of Law</option>
+                </select>
+                <span class="select-chevron">▼</span>
+              </div>
+              <span class="field-error" id="error-branch">Select your branch.</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- STEP 3: SPECIALIZATION & SKILL DOMAIN -->
+        <section class="form-step-section">
+          <div class="form-section-header">
+            <span class="form-step-num">03</span>
+            <div>
+              <h2 class="form-step-title">DOMAIN SPECIALIZATION</h2>
+              <p class="form-step-subtitle">Select your primary target department within the GFG Student Chapter.</p>
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <!-- Primary Domain -->
+            <div class="form-group">
+              <label for="primaryDomain" class="form-label">
+                PRIMARY DEPARTMENT FOCUS <span class="req">*</span>
+              </label>
+              <div class="input-wrapper select-wrapper">
+                <select id="primaryDomain" name="primaryDomain" class="form-input form-select" required>
+                  <option value="" disabled selected>Select Primary Track</option>
+                  <optgroup label="Technical & Engineering (Doom)">
+                    <option value="Frontend Development">Frontend Web Development (HTML/CSS/JS/React/Next)</option>
+                    <option value="Backend Development">Backend & Microservices (Node, Python, Go, Databases)</option>
+                    <option value="Full Stack Development">Full Stack Engineering</option>
+                    <option value="Mobile App Development">Mobile App Dev (Flutter, Kotlin, React Native)</option>
+                    <option value="AI / ML Engineering">Artificial Intelligence & Deep Learning</option>
+                    <option value="DevOps & Cloud">DevOps, Cloud Infrastructure & CyberSecurity</option>
+                  </optgroup>
+                  <optgroup label="Creative & Motion (Spider-Man)">
+                    <option value="UI/UX Design">UI/UX Design & Prototyping (Figma)</option>
+                    <option value="Graphic Design">Graphic Design & Poster Art (Photoshop, Illustrator)</option>
+                    <option value="Video Editing & Motion">Video Production, Motion Graphics & Reels</option>
+                    <option value="3D Art & VFX">3D Modeling & Creative Visuals (Blender, Spline)</option>
+                  </optgroup>
+                  <optgroup label="Competitive Programming (Thor)">
+                    <option value="Data Structures & Algorithms">Data Structures & Competitive Programming</option>
+                    <option value="Hackathon Lead">Competitive Hackathons & Problem Solving</option>
+                  </optgroup>
+                  <optgroup label="Operations & Strategy (Captain America)">
+                    <option value="Event Operations">Event Planning, Stage Operations & Logistics</option>
+                    <option value="Sponsorship & Outreach">Corporate Sponsorship & Industry Outreach</option>
+                    <option value="PR & Social Media">Public Relations, Community Engagement & Socials</option>
+                    <option value="Content & Editorial">Technical Writing, Scripting & Creative Content</option>
+                  </optgroup>
+                </select>
+                <span class="select-chevron">▼</span>
+              </div>
+              <span class="field-error" id="error-primaryDomain">Please select your primary domain.</span>
+            </div>
+
+            <!-- Secondary Interest -->
+            <div class="form-group">
+              <label for="secondaryDomain" class="form-label">
+                SECONDARY / COMPLEMENTARY DOMAIN (OPTIONAL)
+              </label>
+              <div class="input-wrapper select-wrapper">
+                <select id="secondaryDomain" name="secondaryDomain" class="form-input form-select">
+                  <option value="None" selected>None / Pure Specialization</option>
+                  <option value="Frontend Web Development">Frontend Web Development</option>
+                  <option value="Backend & APIs">Backend & APIs</option>
+                  <option value="UI/UX Design">UI/UX Design</option>
+                  <option value="Graphic Design">Graphic Design & Media</option>
+                  <option value="Video Editing">Video Editing</option>
+                  <option value="Competitive Programming">Competitive Programming</option>
+                  <option value="Event Management">Event Management</option>
+                  <option value="PR & Outreach">PR & Outreach</option>
+                  <option value="Content Writing">Content Writing</option>
+                </select>
+                <span class="select-chevron">▼</span>
+              </div>
+            </div>
+
+            <!-- Proficiency Level -->
+            <div class="form-group full-width">
+              <label class="form-label">CURRENT PROFICIENCY LEVEL <span class="req">*</span></label>
+              <div class="proficiency-radio-group">
+                <label class="prof-option">
+                  <input type="radio" name="proficiencyLevel" value="Beginner" required>
+                  <span class="prof-box">
+                    <span class="prof-tier">TIER 1</span>
+                    <span class="prof-title">INITIATE / EXPLORING</span>
+                    <span class="prof-desc">Eager to learn, strong foundations, building first major projects.</span>
+                  </span>
+                </label>
+                <label class="prof-option">
+                  <input type="radio" name="proficiencyLevel" value="Intermediate" checked>
+                  <span class="prof-box">
+                    <span class="prof-tier">TIER 2</span>
+                    <span class="prof-title">VANGUARD / PRACTITIONER</span>
+                    <span class="prof-desc">Solid portfolio of projects, active on GitHub/Figma/LeetCode.</span>
+                  </span>
+                </label>
+                <label class="prof-option">
+                  <input type="radio" name="proficiencyLevel" value="Advanced">
+                  <span class="prof-box">
+                    <span class="prof-tier">TIER 3</span>
+                    <span class="prof-title">MASTER / VETERAN</span>
+                    <span class="prof-desc">Experienced builder, hackathon winner, production deployer.</span>
+                  </span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- STEP 4: PROOF OF WORK & ARSENAL -->
+        <section class="form-step-section">
+          <div class="form-section-header">
+            <span class="form-step-num">04</span>
+            <div>
+              <h2 class="form-step-title">PROOF OF WORK & ARSENAL</h2>
+              <p class="form-step-subtitle">Links to your code repositories, design portfolios, and credentials.</p>
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <!-- GitHub Profile -->
+            <div class="form-group">
+              <label for="githubUrl" class="form-label">GITHUB PROFILE URL</label>
+              <div class="input-wrapper">
+                <input type="url" id="githubUrl" name="githubUrl" class="form-input" placeholder="https://github.com/username">
+                <span class="input-focus-line"></span>
+              </div>
+              <span class="field-hint">Essential for technical & CP applicants</span>
+            </div>
+
+            <!-- Portfolio / Behance / LinkedIn -->
+            <div class="form-group">
+              <label for="portfolioUrl" class="form-label">PORTFOLIO / BEHANCE / LINKEDIN</label>
+              <div class="input-wrapper">
+                <input type="url" id="portfolioUrl" name="portfolioUrl" class="form-input" placeholder="https://linkedin.com/in/... or behance.net/...">
+                <span class="input-focus-line"></span>
+              </div>
+              <span class="field-hint">Portfolio link for designers, LinkedIn for management</span>
+            </div>
+
+            <!-- Resume / Google Drive Link -->
+            <div class="form-group full-width">
+              <label for="resumeUrl" class="form-label">RESUME / DRIVE DOSSIER LINK</label>
+              <div class="input-wrapper">
+                <input type="url" id="resumeUrl" name="resumeUrl" class="form-input" placeholder="https://drive.google.com/file/d/... (ensure link sharing is Public/Viewer)">
+                <span class="input-focus-line"></span>
+              </div>
+              <span class="field-hint">Ensure Google Drive link access is set to "Anyone with the link can view".</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- STEP 5: THE CRUCIBLE DIRECTIVE -->
+        <section class="form-step-section">
+          <div class="form-section-header">
+            <span class="form-step-num">05</span>
+            <div>
+              <h2 class="form-step-title">THE CRUCIBLE — STATEMENT & CODE DIRECTIVE</h2>
+              <p class="form-step-subtitle">Tell the council who you are beyond raw syntax.</p>
+            </div>
+          </div>
+
+          <div class="form-group full-width">
+            <div class="label-with-counter">
+              <label for="directiveStatement" class="form-label">
+                WHY SHOULD GFG STUDENT CHAPTER INDUCT YOU? <span class="req">*</span>
+              </label>
+              <span class="char-counter" id="char-counter-directive">0 / 600</span>
+            </div>
+            <div class="input-wrapper">
+              <textarea id="directiveStatement" name="directiveStatement" class="form-textarea" rows="4" maxlength="600" required placeholder="What drives you? What unique skills, energy, and commitment will you contribute to the DOOMSDAY core? (Minimum 50 characters)"></textarea>
+              <span class="input-focus-line"></span>
+            </div>
+            <span class="field-error" id="error-directiveStatement">Please provide at least 50 characters explaining your interest.</span>
+          </div>
+
+          <div class="form-group full-width">
+            <div class="label-with-counter">
+              <label for="greatestProject" class="form-label">
+                YOUR GREATEST WEAPON / PROUDEST FEAT (OPTIONAL)
+              </label>
+              <span class="char-counter" id="char-counter-project">0 / 500</span>
+            </div>
+            <div class="input-wrapper">
+              <textarea id="greatestProject" name="greatestProject" class="form-textarea" rows="3" maxlength="500" placeholder="Describe the most complex project you built, bug you hunted, event you organized, or creative piece you published."></textarea>
+              <span class="input-focus-line"></span>
+            </div>
+          </div>
+        </section>
+
+        <!-- STEP 6: VOW OF THE VANGUARD (AGREEMENTS) -->
+        <section class="form-step-section">
+          <div class="form-section-header">
+            <span class="form-step-num">06</span>
+            <div>
+              <h2 class="form-step-title">VOW OF THE VANGUARD</h2>
+              <p class="form-step-subtitle">Operational obligations and recruitment policies.</p>
+            </div>
+          </div>
+
+          <div class="agreements-list">
+            <label class="agreement-checkbox-label">
+              <input type="checkbox" id="agreeAttendance" name="agreeAttendance" required>
+              <span class="custom-checkbox"></span>
+              <span class="agreement-text">
+                <strong>In-Person Availability:</strong> I verify that I will be available on campus at Bennett University for the DOOMSDAY interview rounds and induction events. <span class="req">*</span>
+              </span>
+            </label>
+            <span class="field-error" id="error-agreeAttendance">You must confirm in-person attendance.</span>
+
+            <label class="agreement-checkbox-label">
+              <input type="checkbox" id="agreeIntegrity" name="agreeIntegrity" required>
+              <span class="custom-checkbox"></span>
+              <span class="agreement-text">
+                <strong>Honor & Integrity:</strong> All links, identities, and projects submitted in this dossier are my own original work. I agree to abide by the GFG Student Chapter Bennett University Code of Conduct. <span class="req">*</span>
+              </span>
+            </label>
+            <span class="field-error" id="error-agreeIntegrity">You must pledge adherence to chapter code of conduct.</span>
+          </div>
+        </section>
+
+        <!-- FORM ACTION BAR -->
+        <div class="form-action-bar">
+          <div class="action-tools">
+            <button type="button" class="btn-tool" id="btn-save-draft">
+              <span>💾 SAVE DRAFT</span>
+            </button>
+            <button type="button" class="btn-tool btn-tool--danger" id="btn-clear-draft">
+              <span>✕ CLEAR DRAFT</span>
+            </button>
+            <span class="draft-indicator" id="draft-status-msg"></span>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-large btn-submit-dossier" id="btn-submit-dossier">
+            <span class="btn-submit-content">
+              <span class="btn-submit-text">TRANSMIT APPLICATION DOSSIER</span>
+              <span class="btn-submit-arrow">→</span>
+            </span>
+            <span class="btn-submit-glow" aria-hidden="true"></span>
+          </button>
+        </div>
+
+      </form>
+    </div>
+
+    <!-- TRANSMISSION SUCCESS SCREEN / MULTIVERSE CLEARANCE PASS -->
+    <div class="clearance-pass-container is-hidden" id="clearance-pass-view" aria-live="polite">
+      
+      <div class="pass-header-strip">
+        <span class="pass-confirmed-badge">✓ DOSSIER TRANSMITTED SUCCESSFULLY</span>
+        <span class="pass-timestamp-badge" id="pass-stamp-time">TIMESTAMP: 2026.09.27 // VERIFIED</span>
+      </div>
+
+      <!-- Holographic Marvel x GFG Clearance Pass Card -->
+      <div class="clearance-pass-card" id="printable-pass">
+        <div class="pass-corner-decor pass-tl"></div>
+        <div class="pass-corner-decor pass-tr"></div>
+        <div class="pass-corner-decor pass-bl"></div>
+        <div class="pass-corner-decor pass-br"></div>
+
+        <div class="pass-top-bar">
+          <div class="pass-org">
+            <span class="pass-gfg">GEEKSFORGEEKS</span>
+            <span class="pass-sub">STUDENT CHAPTER • BENNETT UNIVERSITY</span>
+          </div>
+          <div class="pass-seal-badge">
+            <span>OFFICIAL CLEARANCE</span>
+            <strong class="pass-clearance-level">LEVEL-4 VANGUARD</strong>
+          </div>
+        </div>
+
+        <div class="pass-hero-nameplate">
+          <span class="pass-label">CADET IDENTIFICATION</span>
+          <h2 class="pass-candidate-name" id="pass-val-name">RECRUIT CANDIDATE</h2>
+          <div class="pass-meta-row">
+            <div><span class="meta-label">ENROLLMENT:</span> <span class="meta-val" id="pass-val-enrollment">E23CSEU0000</span></div>
+            <div><span class="meta-label">SECTOR:</span> <span class="meta-val" id="pass-val-sector">LATVERIA (DOOM)</span></div>
+            <div><span class="meta-label">FOCUS:</span> <span class="meta-val" id="pass-val-domain">FULL STACK ENGINEERING</span></div>
+          </div>
+        </div>
+
+        <div class="pass-body-grid">
+          <div class="pass-details-col">
+            <div class="pass-data-item">
+              <span class="pdi-label">INSTITUTION:</span>
+              <span class="pdi-val">BENNETT UNIVERSITY, GREATER NOIDA</span>
+            </div>
+            <div class="pass-data-item">
+              <span class="pdi-label">ACADEMIC YEAR & BRANCH:</span>
+              <span class="pdi-val" id="pass-val-academic">2nd Year • B.Tech CSE</span>
+            </div>
+            <div class="pass-data-item">
+              <span class="pdi-label">SECURITY TRANSMISSION ID:</span>
+              <span class="pdi-val font-mono" id="pass-val-txid">GFG-BU-DOOMSDAY-7842</span>
+            </div>
+            <div class="pass-data-item">
+              <span class="pdi-label">STATUS:</span>
+              <span class="pdi-status-approved">● PENDING COUNCIL INTERVIEW</span>
+            </div>
+          </div>
+
+          <!-- Stylized Tactical Barcode & QR Stamp -->
+          <div class="pass-barcode-col">
+            <div class="pass-barcode-graphic" aria-hidden="true">
+              <div class="barcode-lines"></div>
+              <span class="barcode-num" id="pass-barcode-text">9827 4910 8841 0029</span>
+            </div>
+            <div class="pass-digital-stamp">
+              <div class="stamp-inner">
+                <span>GFG BU</span>
+                <strong>VERIFIED</strong>
+                <span>2026</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pass-footer-bar">
+          <span>PRESENT THIS CLEARANCE DOSSIER UPON ADMISSION AT BENNETT UNIVERSITY CAMPUS</span>
+          <span>DOOMSDAY PROTOCOL // COUNCIL CLEARANCE CODE: 0xALPHA-7</span>
+        </div>
+      </div>
+
+      <!-- Action Buttons for the Pass -->
+      <div class="pass-action-bar">
+        <button type="button" class="btn btn-secondary btn-print-pass" id="btn-print-pass">
+          <span>🖨️ PRINT / DOWNLOAD CLEARANCE PASS</span>
+        </button>
+        <a href="https://chat.whatsapp.com" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-join-hub" id="btn-join-hub">
+          <span>COMMUNITY DISCORD / WHATSAPP HUB →</span>
+        </a>
+        <a href="index.html" class="btn btn-link btn-back-home">
+          <span>← BACK TO EVENT OVERVIEW</span>
+        </a>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Notification Toast for Save Draft / Alerts -->
+  <div class="reg-toast" id="reg-toast" role="alert" aria-live="assertive"></div>
+
+  <!-- Registration Scripts -->
+  <script src="register.js"></script>
+</body>
+</html>

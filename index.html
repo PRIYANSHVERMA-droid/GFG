@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DOOMSDAY — GFG × Bennett University</title>
+  <meta name="description" content="Cinematic Marvel-themed recruitment experience for GeeksForGeeks Student Chapter Bennett University. The multiverse is collapsing. Answer the call.">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="is-loading">
+  <!-- Subtle Cinematic Noise Texture -->
+  <div class="film-grain" aria-hidden="true"></div>
+
+  <!-- FULL BLACK MARVEL × GFG FLIPBOOK INTRO SCREEN -->
+  <div id="intro-screen" class="intro-screen marvel-intro-screen" aria-live="polite">
+    <div class="marvel-intro-container">
+      
+      <!-- Rapid Comic / Character Flipbook Background -->
+      <div class="marvel-flipbook-film" aria-hidden="true">
+        <!-- Panel 1: Doctor Doom -->
+        <div class="flip-panel panel-doom">
+          <svg viewBox="0 0 400 240" class="flip-panel-svg">
+            <rect width="100%" height="100%" fill="#051710" />
+            <circle cx="200" cy="120" r="85" stroke="#3AFFA0" stroke-width="2" opacity="0.6"/>
+            <polygon points="200,45 270,165 130,165" stroke="#3AFFA0" stroke-width="3" fill="none"/>
+            <path d="M165,115 L185,115 M215,115 L235,115" stroke="#3AFFA0" stroke-width="4" stroke-linecap="round"/>
+            <text x="20" y="220" font-family="'Space Grotesk', monospace" font-size="12" fill="#3AFFA0" letter-spacing="4">ARCHITECT // DR. DOOM // LATVERIA</text>
+          </svg>
+        </div>
+
+        <!-- Panel 2: Spider-Man -->
+        <div class="flip-panel panel-spiderman">
+          <svg viewBox="0 0 400 240" class="flip-panel-svg">
+            <rect width="100%" height="100%" fill="#1a0407" />
+            <circle cx="200" cy="120" r="75" stroke="#D91E36" stroke-width="1.5" stroke-dasharray="6 4"/>
+            <line x1="200" y1="20" x2="200" y2="220" stroke="#D91E36" stroke-width="1.5"/>
+            <line x1="80" y1="120" x2="320" y2="120" stroke="#D91E36" stroke-width="1.5"/>
+            <path d="M160,100 Q180,85 195,110 Q170,125 160,100 Z" fill="#D91E36"/>
+            <path d="M240,100 Q220,85 205,110 Q230,125 240,100 Z" fill="#D91E36"/>
+            <text x="20" y="220" font-family="'Space Grotesk', monospace" font-size="12" fill="#D91E36" letter-spacing="4">THE WEB // PETER PARKER // QUEENS</text>
+          </svg>
+        </div>
+
+        <!-- Panel 3: Thor -->
+        <div class="flip-panel panel-thor">
+          <svg viewBox="0 0 400 240" class="flip-panel-svg">
+            <rect width="100%" height="100%" fill="#0a0822" />
+            <path d="M200,20 L160,120 L210,120 L170,220 L250,110 L200,110 Z" fill="rgba(123, 92, 255, 0.4)" stroke="#7B5CFF" stroke-width="3"/>
+            <circle cx="200" cy="120" r="85" stroke="#7B5CFF" stroke-width="1" stroke-dasharray="4 6"/>
+            <text x="20" y="220" font-family="'Space Grotesk', monospace" font-size="12" fill="#7B5CFF" letter-spacing="4">THE STORM // THOR ODINSON // ASGARD</text>
+          </svg>
+        </div>
+
+        <!-- Panel 4: Captain America -->
+        <div class="flip-panel panel-cap">
+          <svg viewBox="0 0 400 240" class="flip-panel-svg">
+            <rect width="100%" height="100%" fill="#060c18" />
+            <circle cx="200" cy="120" r="80" stroke="#D91E36" stroke-width="8" fill="none"/>
+            <circle cx="200" cy="120" r="66" stroke="#F5F5F0" stroke-width="8" fill="none"/>
+            <circle cx="200" cy="120" r="52" stroke="#D91E36" stroke-width="8" fill="none"/>
+            <circle cx="200" cy="120" r="38" fill="#1B2A4A"/>
+            <polygon points="200,92 206,110 226,110 210,122 216,140 200,128 184,140 190,122 174,110 194,110" fill="#F5F5F0"/>
+            <text x="20" y="220" font-family="'Space Grotesk', monospace" font-size="12" fill="#6384B8" letter-spacing="4">THE SHIELD // STEVE ROGERS // BROOKLYN</text>
+          </svg>
+        </div>
+
+        <!-- Panel 5: GFG Code Terminal -->
+        <div class="flip-panel panel-gfg">
+          <div class="flip-code-content">
+            <div class="code-stream-line">&gt; GFG_STUDENT_CHAPTER.init()</div>
+            <div class="code-stream-line">&gt; target: BENNETT_UNIVERSITY</div>
+            <div class="code-stream-line">&gt; threat_level = "OMEGA_DOOMSDAY"</div>
+            <div class="code-stream-line">&gt; heroes.assemble([Doom, Spidey, Thor, Cap])</div>
+            <div class="code-stream-line">&gt; recruit_junior_core();</div>
+          </div>
+          <span class="code-watermark">&lt; GFG × BENNETT /&gt;</span>
+        </div>
+      </div>
+
+      <!-- CRT Scanline & Grain Layer -->
+      <div class="intro-crt-overlay" aria-hidden="true"></div>
+
+      <!-- The Iconic Marvel Studios Box Style Banner -->
+      <div class="marvel-centerpiece">
+        <div class="marvel-badge-wrap">
+          <div class="marvel-red-box">
+            <span class="marvel-red-box-text">GEEKSFORGEEKS</span>
+          </div>
+          <div class="marvel-studios-strip">
+            <span class="strip-text">STUDENT CHAPTER</span>
+            <span class="strip-cross">×</span>
+            <span class="strip-text">BENNETT UNIVERSITY</span>
+          </div>
+        </div>
+
+        <div class="marvel-event-title-wrap">
+          <h2 class="marvel-title-doomsday">DOOMSDAY</h2>
+          <div class="marvel-title-reflection" aria-hidden="true">DOOMSDAY</div>
+        </div>
+      </div>
+
+      <!-- Bottom Audio-Visual Telemetry & Skip Control -->
+      <div class="intro-footer-hud">
+        <div class="hud-status-row">
+          <span class="hud-radar-dot"></span>
+          <span class="hud-status-text">INITIALIZING MULTIVERSE PROTOCOL</span>
+        </div>
+        <div class="hud-progress-rail">
+          <div class="hud-progress-fill" id="intro-progress-fill"></div>
+        </div>
+        <button class="intro-skip-btn" id="intro-skip-btn" aria-label="Skip intro animation">
+          SKIP INTRO <span class="skip-key">[ESC]</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- GLOBAL NAVIGATION -->
+  <header id="global-nav" class="global-nav">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-brand" aria-label="Doomsday Home">
+        <span class="brand-text">GFG</span>
+        <span class="brand-cross">×</span>
+        <span class="brand-text">BENNETT</span>
+      </a>
+
+      <div class="nav-status-chip">
+        <span class="status-radar"></span>
+        <span class="status-label">MULTIVERSE ACTIVE</span>
+      </div>
+
+      <nav class="desktop-nav" aria-label="Main Navigation">
+        <a href="#breach-selector" class="nav-link" data-section="breach-selector">HEROES</a>
+        <a href="#mission" class="nav-link" data-section="mission">MISSION</a>
+        <a href="#timeline-block" class="nav-link" data-section="timeline-block">TIMELINE</a>
+        <a href="#register-block" class="nav-link nav-link--register" data-section="register-block">REGISTER</a>
+      </nav>
+
+      <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-nav-menu">
+        <span class="toggle-bar"></span>
+        <span class="toggle-bar"></span>
+      </button>
+    </div>
+
+    <!-- Mobile Drawer Menu -->
+    <div class="mobile-menu" id="mobile-nav-menu" aria-hidden="true">
+      <div class="mobile-menu-inner">
+        <span class="mobile-menu-eyebrow">NAVIGATION DIRECTIVE</span>
+        <a href="#breach-selector" class="mobile-nav-link" data-section="breach-selector">
+          <span class="mobile-num">01</span> HEROES
+        </a>
+        <a href="#mission" class="mobile-nav-link" data-section="mission">
+          <span class="mobile-num">02</span> MISSION
+        </a>
+        <a href="#timeline-block" class="mobile-nav-link" data-section="timeline-block">
+          <span class="mobile-num">03</span> TIMELINE
+        </a>
+        <a href="#register-block" class="mobile-nav-link mobile-nav-link--accent" data-section="register-block">
+          <span class="mobile-num">04</span> REGISTER NOW
+        </a>
+        <div class="mobile-menu-footer">
+          <span>GFG × BENNETT UNIVERSITY</span>
+          <span class="text-dim">JUNIOR CORE RECRUITMENT</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN SCROLL CONTAINER -->
+  <main id="smooth-wrapper">
+
+    <!-- 1. INTRO + HERO (COMBINED) -->
+    <section id="hero" class="section hero-section" data-nav="hero">
+      <div class="hero-bg-vignette" aria-hidden="true"></div>
+      <canvas id="hero-particles" class="hero-particles" aria-hidden="true"></canvas>
+
+      <div class="hero-content">
+        <div class="hero-eyebrow-wrap">
+          <span class="eyebrow-badge">CHAPTER INITIATION</span>
+          <p class="hero-eyebrow">GFG STUDENT CHAPTER × BENNETT UNIVERSITY</p>
+        </div>
+
+        <h1 class="hero-title">
+          <span class="title-line">THE MULTIVERSE</span>
+          <span class="title-line text-doom-gradient">IS COLLAPSING.</span>
+        </h1>
+
+        <p class="hero-support">
+          Four heroes. One mission. One universe left to save.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#breach-selector" class="btn btn-primary" id="hero-primary-cta">
+            <span class="btn-glow"></span>
+            <span class="btn-text">ENTER THE MULTIVERSE</span>
+          </a>
+          <a href="#breach-selector" class="btn btn-ghost" id="hero-secondary-cta">
+            <span class="btn-text">EXPLORE HEROES</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Doom Hero Central Visual -->
+      <div class="doom-placeholder" id="doom-hero-visual" aria-label="Doctor Doom Cosmic 3D Visual">
+        <canvas id="hero-doom-canvas" class="hero-doom-canvas" data-model="assets/Modles/doom_mask.glb" data-accent="#3AFFA0" aria-hidden="true"></canvas>
+        <div class="doom-glow-backdrop" aria-hidden="true"></div>
+        <div class="conic-energy-ring ring-outer" aria-hidden="true"></div>
+        <div class="conic-energy-ring ring-inner" aria-hidden="true"></div>
+        <div class="doom-core-rune" aria-hidden="true">
+          <svg viewBox="0 0 100 100" class="doom-glyph-svg" fill="none" stroke="currentColor">
+            <polygon points="50,5 90,25 90,75 50,95 10,75 10,25" stroke-width="1.5" class="glyph-polygon"></polygon>
+            <circle cx="50" cy="50" r="28" stroke-width="1.2" stroke-dasharray="4 3" class="glyph-circle"></circle>
+            <polygon points="50,22 75,65 25,65" stroke-width="1.5" class="glyph-triangle"></polygon>
+            <circle cx="50" cy="50" r="6" fill="#3AFFA0" class="glyph-center"></circle>
+          </svg>
+        </div>
+        <div class="doom-fog-base" aria-hidden="true"></div>
+      </div>
+
+      <!-- Scroll Cue -->
+      <div class="scroll-cue" aria-hidden="true">
+        <span class="scroll-label">SCROLL</span>
+        <div class="scroll-indicator-bar">
+          <div class="scroll-indicator-pip"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. MULTIVERSE BREACH → HERO SELECTOR (COMBINED) -->
+    <section id="breach-selector" class="section breach-selector-section" data-nav="heroes">
+      <!-- Breach Transition Beat -->
+      <div class="breach-beat" id="breach-beat">
+        <div class="breach-fracture-wrap" aria-hidden="true">
+          <svg class="fracture-svg" viewBox="0 0 1440 600" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="crack-glow" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#3AFFA0" stop-opacity="0.8"/>
+                <stop offset="45%" stop-color="#D91E36" stop-opacity="0.9"/>
+                <stop offset="70%" stop-color="#7B5CFF" stop-opacity="0.9"/>
+                <stop offset="100%" stop-color="#3AFFA0" stop-opacity="0.8"/>
+              </linearGradient>
+            </defs>
+            <path class="crack-path crack-1" d="M -50 290 Q 320 220 540 310 T 960 270 T 1500 330" fill="none" stroke="url(#crack-glow)" stroke-width="2.5" />
+            <path class="crack-path crack-2" d="M -50 320 Q 280 380 620 290 T 1100 340 T 1500 280" fill="none" stroke="url(#crack-glow)" stroke-width="1.8" />
+            <path class="crack-path crack-3" d="M 400 -50 L 520 280 L 610 330 L 720 650" fill="none" stroke="#3AFFA0" stroke-width="1.2" stroke-dasharray="6 4" />
+          </svg>
+        </div>
+        <div class="breach-text-wrap">
+          <span class="section-label">REALITY DISRUPTION DETECTED</span>
+          <h2 class="breach-headline">THE BREACH HAS BEGUN.</h2>
+          <p class="breach-sub">THE MULTIVERSE NEEDS ITS HEROES.</p>
+        </div>
+      </div>
+
+      <!-- Hero Selector Beat -->
+      <div class="selector-beat" id="selector-beat">
+        <div class="selector-header-row">
+          <div class="selector-header-copy">
+            <span class="section-label">ROSTER SELECTION</span>
+            <h2 class="section-title">CHOOSE YOUR HERO.</h2>
+            <p class="section-desc">Select a champion below to descend into their reality stream, or engage the 360° scanner.</p>
+          </div>
+          <div class="selector-controls">
+            <button class="btn-twirl-scan" id="btn-twirl-all" aria-label="Trigger 360 Degree Multiverse Scan">
+              <span class="scan-ring" aria-hidden="true"></span>
+              <span class="scan-icon" aria-hidden="true">↻</span>
+              <span class="scan-text">360° MULTIVERSE SCAN</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="hero-selector-grid" role="tablist" aria-label="Hero Selection Cards">
+          
+          <!-- Card 01: Doctor Doom -->
+          <div class="hero-card-3d-wrapper" data-hero="doom">
+            <div class="hero-card-flipper" id="flipper-doom">
+              <!-- Front Face -->
+              <div class="hero-card card-face card-front" data-hero="doom" data-target="#hero-doom" role="tab" tabindex="0" aria-selected="false" aria-controls="hero-doom">
+                <div class="card-bg-glow card-glow-doom" aria-hidden="true"></div>
+                <div class="card-specular-glare" aria-hidden="true"></div>
+                <div class="card-top">
+                  <span class="card-number">01</span>
+                  <span class="card-accent-tag tag-doom">EMERALD REIGN</span>
+                  <button class="card-twirl-action-btn" data-twirl="doom" aria-label="360 Degree Twirl Doctor Doom Card" title="360° Twirl">
+                    <span class="twirl-glyph">↻</span>
+                    <span class="twirl-label">360°</span>
+                  </button>
+                </div>
+                <div class="card-visual-slot">
+                  <canvas class="card-3d-canvas" id="card-canvas-doom" data-card-hero="doom" data-model="assets/Modles/doom_mask.glb" data-accent="#3AFFA0" aria-hidden="true"></canvas>
+                  <div class="card-abstract-art art-doom">
+                    <div class="art-ring art-ring-doom" aria-hidden="true"></div>
+                    <div class="art-core art-core-doom" aria-hidden="true"></div>
+                  </div>
+                </div>
+                <div class="card-info">
+                  <h3 class="card-name">DOCTOR DOOM</h3>
+                  <p class="card-desc">THE ARCHITECT</p>
+                </div>
+                <div class="card-footer">
+                  <span class="card-prompt">ENTER REALM</span>
+                  <span class="card-arrow">→</span>
+                </div>
+              </div>
+
+              <!-- Back Face (Classified 3D Dossier) -->
+              <div class="hero-card card-face card-back" data-hero="doom">
+                <div class="card-bg-glow card-glow-doom" aria-hidden="true"></div>
+                <div class="card-top">
+                  <span class="card-number">01 // DOSSIER</span>
+                  <span class="card-accent-tag tag-doom">OMEGA CLASS</span>
+                  <button class="card-flipback-btn" data-flipback="doom" aria-label="Flip back to front">
+                    <span class="twirl-glyph">↺</span>
+                  </button>
+                </div>
+                <div class="card-dossier-body">
+                  <div class="dossier-stat"><span class="d-label">SECTOR:</span><span class="d-val text-doom">LATVERIA // CORE</span></div>
+                  <div class="dossier-stat"><span class="d-label">QUANTUM SYN:</span><span class="d-val">99.8% STABLE</span></div>
+                  <div class="dossier-stat"><span class="d-label">DISCIPLINE:</span><span class="d-val">ARCANE ENGINEERING</span></div>
+                  <p class="dossier-directive">Enforces timeline stability through mathematical sovereign will and tachyon containment grids.</p>
+                </div>
+                <div class="card-footer card-back-footer">
+                  <a href="#hero-doom" class="btn-dossier-action">DESCEND TO REALM →</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 02: Spider-Man -->
+          <div class="hero-card-3d-wrapper" data-hero="spiderman">
+            <div class="hero-card-flipper" id="flipper-spiderman">
+              <!-- Front Face -->
+              <div class="hero-card card-face card-front" data-hero="spiderman" data-target="#hero-spiderman" role="tab" tabindex="0" aria-selected="false" aria-controls="hero-spiderman">
+                <div class="card-bg-glow card-glow-spiderman" aria-hidden="true"></div>
+                <div class="card-specular-glare" aria-hidden="true"></div>
+                <div class="card-top">
+                  <span class="card-number">02</span>
+                  <span class="card-accent-tag tag-spiderman">TENSILE FORCE</span>
+                  <button class="card-twirl-action-btn" data-twirl="spiderman" aria-label="360 Degree Twirl Spider-Man Card" title="360° Twirl">
+                    <span class="twirl-glyph">↻</span>
+                    <span class="twirl-label">360°</span>
+                  </button>
+                </div>
+                <div class="card-visual-slot">
+                  <canvas class="card-3d-canvas" id="card-canvas-spiderman" data-card-hero="spiderman" data-model="assets/Modles/spider_logo3d.glb" data-accent="#D91E36" aria-hidden="true"></canvas>
+                  <div class="card-abstract-art art-spiderman">
+                    <svg viewBox="0 0 100 100" class="art-web-svg" fill="none" stroke="#D91E36" stroke-width="1.2">
+                      <circle cx="50" cy="50" r="14" stroke-dasharray="2 2"></circle>
+                      <circle cx="50" cy="50" r="28" stroke-dasharray="3 3"></circle>
+                      <circle cx="50" cy="50" r="42"></circle>
+                      <line x1="50" y1="8" x2="50" y2="92"></line>
+                      <line x1="8" y1="50" x2="92" y2="50"></line>
+                      <line x1="20" y1="20" x2="80" y2="80"></line>
+                      <line x1="20" y1="80" x2="80" y2="20"></line>
+                    </svg>
+                  </div>
+                </div>
+                <div class="card-info">
+                  <h3 class="card-name">SPIDER-MAN</h3>
+                  <p class="card-desc">THE WEB</p>
+                </div>
+                <div class="card-footer">
+                  <span class="card-prompt">ENTER REALM</span>
+                  <span class="card-arrow">→</span>
+                </div>
+              </div>
+
+              <!-- Back Face (Classified 3D Dossier) -->
+              <div class="hero-card card-face card-back" data-hero="spiderman">
+                <div class="card-bg-glow card-glow-spiderman" aria-hidden="true"></div>
+                <div class="card-top">
+                  <span class="card-number">02 // DOSSIER</span>
+                  <span class="card-accent-tag tag-spiderman">VANGUARD</span>
+                  <button class="card-flipback-btn" data-flipback="spiderman" aria-label="Flip back to front">
+                    <span class="twirl-glyph">↺</span>
+                  </button>
+                </div>
+                <div class="card-dossier-body">
+                  <div class="dossier-stat"><span class="d-label">SECTOR:</span><span class="d-val text-accent-red">QUEENS // EARTH-616</span></div>
+                  <div class="dossier-stat"><span class="d-label">REFLEX LATENCY:</span><span class="d-val">0.02 MS</span></div>
+                  <div class="dossier-stat"><span class="d-label">WEAPONRY:</span><span class="d-val">SYNTHETIC FLUID WEB</span></div>
+                  <p class="dossier-directive">Binds expanding dimensional fissures together through instinctual agility and tensile anchoring networks.</p>
+                </div>
+                <div class="card-footer card-back-footer">
+                  <a href="#hero-spiderman" class="btn-dossier-action">DESCEND TO REALM →</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 03: Thor -->
+          <div class="hero-card-3d-wrapper" data-hero="thor">
+            <div class="hero-card-flipper" id="flipper-thor">
+              <!-- Front Face -->
+              <div class="hero-card card-face card-front" data-hero="thor" data-target="#hero-thor" role="tab" tabindex="0" aria-selected="false" aria-controls="hero-thor">
+                <div class="card-bg-glow card-glow-thor" aria-hidden="true"></div>
+                <div class="card-specular-glare" aria-hidden="true"></div>
+                <div class="card-top">
+                  <span class="card-number">03</span>
+                  <span class="card-accent-tag tag-thor">TEMPEST SURGE</span>
+                  <button class="card-twirl-action-btn" data-twirl="thor" aria-label="360 Degree Twirl Thor Card" title="360° Twirl">
+                    <span class="twirl-glyph">↻</span>
+                    <span class="twirl-label">360°</span>
+                  </button>
+                </div>
+                <div class="card-visual-slot">
+                  <canvas class="card-3d-canvas" id="card-canvas-thor" data-card-hero="thor" data-model="assets/Modles/lightning_bolt.glb" data-accent="#7B5CFF" aria-hidden="true"></canvas>
+                  <div class="card-abstract-art art-thor">
+                    <svg viewBox="0 0 100 100" class="art-lightning-svg" fill="none">
+                      <path d="M52 10 L30 50 L48 50 L40 90 L74 42 L54 42 Z" fill="rgba(123, 92, 255, 0.25)" stroke="#7B5CFF" stroke-width="1.8" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                </div>
+                <div class="card-info">
+                  <h3 class="card-name">THOR</h3>
+                  <p class="card-desc">THE STORM</p>
+                </div>
+                <div class="card-footer">
+                  <span class="card-prompt">ENTER REALM</span>
+                  <span class="card-arrow">→</span>
+                </div>
+              </div>
+
+              <!-- Back Face (Classified 3D Dossier) -->
+              <div class="hero-card card-face card-back" data-hero="thor">
+                <div class="card-bg-glow card-glow-thor" aria-hidden="true"></div>
+                <div class="card-top">
+                  <span class="card-number">03 // DOSSIER</span>
+                  <span class="card-accent-tag tag-thor">DIVINE FORCE</span>
+                  <button class="card-flipback-btn" data-flipback="thor" aria-label="Flip back to front">
+                    <span class="twirl-glyph">↺</span>
+                  </button>
+                </div>
+                <div class="card-dossier-body">
+                  <div class="dossier-stat"><span class="d-label">SECTOR:</span><span class="d-val text-thor">ASGARD // REALM 09</span></div>
+                  <div class="dossier-stat"><span class="d-label">OUTPUT:</span><span class="d-val">1.21 GIGAVOLTS</span></div>
+                  <div class="dossier-stat"><span class="d-label">CATALYST:</span><span class="d-val">MJOLNIR URU FORGE</span></div>
+                  <p class="dossier-directive">Discharges celestial shockwaves across temporal fault-lines to restart frozen universe engines.</p>
+                </div>
+                <div class="card-footer card-back-footer">
+                  <a href="#hero-thor" class="btn-dossier-action">DESCEND TO REALM →</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 04: Captain America -->
+          <div class="hero-card-3d-wrapper" data-hero="cap">
+            <div class="hero-card-flipper" id="flipper-cap">
+              <!-- Front Face -->
+              <div class="hero-card card-face card-front" data-hero="cap" data-target="#hero-cap" role="tab" tabindex="0" aria-selected="false" aria-controls="hero-cap">
+                <div class="card-bg-glow card-glow-cap" aria-hidden="true"></div>
+                <div class="card-specular-glare" aria-hidden="true"></div>
+                <div class="card-top">
+                  <span class="card-number">04</span>
+                  <span class="card-accent-tag tag-cap">VIBRANIUM CORE</span>
+                  <button class="card-twirl-action-btn" data-twirl="cap" aria-label="360 Degree Twirl Captain America Card" title="360° Twirl">
+                    <span class="twirl-glyph">↻</span>
+                    <span class="twirl-label">360°</span>
+                  </button>
+                </div>
+                <div class="card-visual-slot">
+                  <canvas class="card-3d-canvas" id="card-canvas-cap" data-card-hero="cap" data-model="assets/Modles/shield.glb" data-accent="#5E81AC" aria-hidden="true"></canvas>
+                  <div class="card-abstract-art art-cap">
+                    <svg viewBox="0 0 100 100" class="art-shield-svg" fill="none">
+                      <circle cx="50" cy="50" r="44" stroke="#D91E36" stroke-width="2.5"></circle>
+                      <circle cx="50" cy="50" r="34" stroke="#F5F5F0" stroke-width="2" stroke-opacity="0.8"></circle>
+                      <circle cx="50" cy="50" r="24" stroke="#D91E36" stroke-width="2.5"></circle>
+                      <circle cx="50" cy="50" r="14" fill="#1B2A4A" stroke="#7B92B2" stroke-width="1"></circle>
+                      <polygon points="50,38 53,46 62,46 55,51 57,59 50,54 43,59 45,51 38,46 47,46" fill="#F5F5F0"></polygon>
+                    </svg>
+                  </div>
+                </div>
+                <div class="card-info">
+                  <h3 class="card-name">CAPTAIN AMERICA</h3>
+                  <p class="card-desc">THE SHIELD</p>
+                </div>
+                <div class="card-footer">
+                  <span class="card-prompt">ENTER REALM</span>
+                  <span class="card-arrow">→</span>
+                </div>
+              </div>
+
+              <!-- Back Face (Classified 3D Dossier) -->
+              <div class="hero-card card-face card-back" data-hero="cap">
+                <div class="card-bg-glow card-glow-cap" aria-hidden="true"></div>
+                <div class="card-top">
+                  <span class="card-number">04 // DOSSIER</span>
+                  <span class="card-accent-tag tag-cap">TACTICAL LEAD</span>
+                  <button class="card-flipback-btn" data-flipback="cap" aria-label="Flip back to front">
+                    <span class="twirl-glyph">↺</span>
+                  </button>
+                </div>
+                <div class="card-dossier-body">
+                  <div class="dossier-stat"><span class="d-label">SECTOR:</span><span class="d-val text-cap">BROOKLYN // S.H.I.E.L.D.</span></div>
+                  <div class="dossier-stat"><span class="d-label">ALLOY:</span><span class="d-val">WAKANDAN VIBRANIUM</span></div>
+                  <div class="dossier-stat"><span class="d-label">ROLE:</span><span class="d-val">RECRUITMENT COMMAND</span></div>
+                  <p class="dossier-directive">Orchestrates battlefield cohesion, inspiring student recruits to stand as an unbreakable tactical front.</p>
+                </div>
+                <div class="card-footer card-back-footer">
+                  <a href="#hero-cap" class="btn-dossier-action">DESCEND TO REALM →</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. CHARACTER SECTION: DOCTOR DOOM -->
+    <section id="hero-doom" class="section character-section char-doom" data-hero="doom">
+      <div class="char-bg-grid" aria-hidden="true"></div>
+
+      <div class="char-container">
+        <div class="char-copy">
+          <div class="char-eyebrow-row">
+            <span class="char-eyebrow">01 — THE ARCHITECT</span>
+            <span class="char-accent-dot dot-doom"></span>
+          </div>
+          <h2 class="char-name">DOCTOR DOOM</h2>
+          <p class="char-descriptor">"Victor von Doom."</p>
+          <div class="char-divider"></div>
+          <p class="char-bio">
+            Sovereign of Latveria and architect of reality's survival. When the timeline collapses into entropic dust, Doom enforces cosmic order through unrivaled mastery of arcane science and emerald tachyon energy.
+          </p>
+          <div class="char-traits">
+            <div class="trait-chip"><span>DOMAIN:</span> LATVERIA / BATTLEWORLD</div>
+            <div class="trait-chip"><span>POWER:</span> QUANTUM SORCERY</div>
+            <div class="trait-chip"><span>STATUS:</span> INEVITABLE</div>
+          </div>
+        </div>
+
+        <div class="character-visual doom-visual" id="char-visual-doom" aria-label="Doctor Doom Visual Chamber">
+          <canvas class="character-canvas" id="canvas-doom" data-model="assets/Modles/doom_mask.glb" data-accent="#3AFFA0" aria-hidden="true"></canvas>
+          <div class="sketchfab-embed-wrapper sketchfab-lazy" id="doom-embed" style="display:none;">
+            <iframe title="Doctor Doom" frameborder="0"
+              allow="autoplay; fullscreen; xr-spatial-tracking"
+              xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share
+              data-src="https://sketchfab.com/models/ab4b9003adec4dfc86831a1b36d0100f/embed?autostart=1&amp;autospin=0.4&amp;camera=0&amp;ui_infos=0&amp;ui_controls=0&amp;ui_watermark=0&amp;ui_ar=0&amp;ui_stop=0&amp;transparent=1"
+              loading="lazy">
+            </iframe>
+            <p class="sketchfab-attrib">
+              <a href="https://sketchfab.com/3d-models/doctor-doom-ab4b9003adec4dfc86831a1b36d0100f" target="_blank" rel="nofollow noopener">Doctor Doom</a>
+              by <a href="https://sketchfab.com/patromes" target="_blank" rel="nofollow noopener">patromes</a>
+              on <a href="https://sketchfab.com" target="_blank" rel="nofollow noopener">Sketchfab</a>
+            </p>
+          </div>
+          <div class="char-glow-orb glow-doom" aria-hidden="true"></div>
+          <div class="char-rings-conic ring-doom-a" aria-hidden="true"></div>
+          <div class="char-rings-conic ring-doom-b" aria-hidden="true"></div>
+          
+          <div class="char-glyph-monolith" aria-hidden="true">
+            <svg viewBox="0 0 200 200" class="monolith-svg">
+              <circle cx="100" cy="100" r="90" stroke="#3AFFA0" stroke-width="1" stroke-dasharray="6 6" opacity="0.6"/>
+              <polygon points="100,20 170,140 30,140" stroke="#3AFFA0" stroke-width="2" fill="none" opacity="0.8"/>
+              <polygon points="100,180 30,60 170,60" stroke="#0F3D2E" stroke-width="1.5" fill="none"/>
+              <circle cx="100" cy="100" r="45" stroke="#3AFFA0" stroke-width="2" fill="rgba(15, 61, 46, 0.45)"/>
+              <circle cx="100" cy="100" r="12" fill="#3AFFA0"/>
+            </svg>
+          </div>
+          <div class="char-particles-dust dust-doom" aria-hidden="true"></div>
+        </div>
+      </div>
+
+      <!-- Transition Doom -> Spider-Man (Green glow fractures outward into red web-line streaks) -->
+      <div class="char-transition transition-doom-spidey" id="trans-doom-spidey" aria-hidden="true">
+        <svg class="trans-svg" viewBox="0 0 1000 300" preserveAspectRatio="none">
+          <path class="trans-path fracture-out" d="M 0 150 Q 250 80 500 150 T 1000 150" fill="none" stroke="#3AFFA0" stroke-width="2"/>
+          <path class="trans-path web-streak streak-1" d="M 500 150 L 750 40 L 980 90" fill="none" stroke="#D91E36" stroke-width="1.8"/>
+          <path class="trans-path web-streak streak-2" d="M 500 150 L 680 260 L 950 210" fill="none" stroke="#D91E36" stroke-width="1.8"/>
+        </svg>
+      </div>
+    </section>
+
+    <!-- 4. CHARACTER SECTION: SPIDER-MAN -->
+    <section id="hero-spiderman" class="section character-section char-spiderman" data-hero="spiderman">
+      <div class="char-bg-grid" aria-hidden="true"></div>
+
+      <div class="char-container">
+        <div class="char-copy">
+          <div class="char-eyebrow-row">
+            <span class="char-eyebrow">02 — THE WEB</span>
+            <span class="char-accent-dot dot-spiderman"></span>
+          </div>
+          <h2 class="char-name">SPIDER-MAN</h2>
+          <p class="char-descriptor">"The friendly neighborhood."</p>
+          <div class="char-divider"></div>
+          <p class="char-bio">
+            Nexus of the Great Web and guardian of humanity's heartbeat. Moving with fluid instinct through splintered dimensions, Peter Parker anchors collapsing timelines with tensile resolve and unbreakable grit.
+          </p>
+          <div class="char-traits">
+            <div class="trait-chip"><span>DOMAIN:</span> QUEENS / EARTH-616</div>
+            <div class="trait-chip"><span>POWER:</span> ARACHNID REFLEXES</div>
+            <div class="trait-chip"><span>STATUS:</span> ON CALL</div>
+          </div>
+        </div>
+
+        <div class="character-visual spiderman-visual" id="char-visual-spiderman" aria-label="Spider-Man Visual Chamber">
+          <!-- Native Three.js Spider-Man (Draco-compressed spiderman.glb). models3d.js mounts the scene only
+               when this section scrolls near, and disposes it on scroll-away. The CSS web art below remains
+               underneath as the fallback — a failed/slow load never blanks the section. -->
+          <canvas class="character-canvas" id="canvas-spiderman" data-model="assets/Modles/spiderman.glb" data-accent="#D91E36" aria-hidden="true"></canvas>
+          <div class="char-glow-orb glow-spiderman" aria-hidden="true"></div>
+          
+          <div class="spidey-web-complex" aria-hidden="true">
+            <svg viewBox="0 0 240 240" class="web-complex-svg">
+              <!-- Radial web rings -->
+              <circle cx="120" cy="120" r="28" stroke="#D91E36" stroke-width="1" stroke-opacity="0.8" fill="none"/>
+              <circle cx="120" cy="120" r="56" stroke="#D91E36" stroke-width="1.2" stroke-opacity="0.6" stroke-dasharray="4 4" fill="none"/>
+              <circle cx="120" cy="120" r="88" stroke="#D91E36" stroke-width="1.4" stroke-opacity="0.4" fill="none"/>
+              <circle cx="120" cy="120" r="114" stroke="#D91E36" stroke-width="1" stroke-opacity="0.25" fill="none"/>
+              <!-- Spoke lines -->
+              <line x1="120" y1="6" x2="120" y2="234" stroke="#D91E36" stroke-width="1.2" stroke-opacity="0.7"/>
+              <line x1="6" y1="120" x2="234" y2="120" stroke="#D91E36" stroke-width="1.2" stroke-opacity="0.7"/>
+              <line x1="39" y1="39" x2="201" y2="201" stroke="#D91E36" stroke-width="1" stroke-opacity="0.5"/>
+              <line x1="39" y1="201" x2="201" y2="39" stroke="#D91E36" stroke-width="1" stroke-opacity="0.5"/>
+              <!-- Core Spider insignia glyph -->
+              <ellipse cx="120" cy="120" rx="14" ry="18" fill="#D91E36" fill-opacity="0.8"/>
+              <circle cx="120" cy="106" r="8" fill="#D91E36"/>
+            </svg>
+          </div>
+          <div class="tensile-pulse-line" aria-hidden="true"></div>
+        </div>
+      </div>
+
+      <!-- Transition Spider-Man -> Thor (A web line travels upward and morphs into a lightning bolt) -->
+      <div class="char-transition transition-spidey-thor" id="trans-spidey-thor" aria-hidden="true">
+        <svg class="trans-svg" viewBox="0 0 1000 300" preserveAspectRatio="none">
+          <path class="trans-path spidey-lead-line" d="M 100 240 Q 300 200 500 150" fill="none" stroke="#D91E36" stroke-width="1.8"/>
+          <path class="trans-path lightning-morph" d="M 500 150 L 530 110 L 515 110 L 560 50 L 580 90 L 630 20" fill="none" stroke="#7B5CFF" stroke-width="2.5"/>
+        </svg>
+      </div>
+    </section>
+
+    <!-- 5. CHARACTER SECTION: THOR -->
+    <section id="hero-thor" class="section character-section char-thor" data-hero="thor">
+      <div class="char-bg-grid" aria-hidden="true"></div>
+
+      <div class="char-container">
+        <div class="char-copy">
+          <div class="char-eyebrow-row">
+            <span class="char-eyebrow">03 — THE STORM</span>
+            <span class="char-accent-dot dot-thor"></span>
+          </div>
+          <h2 class="char-name">THOR</h2>
+          <p class="char-descriptor">"God of Thunder."</p>
+          <div class="char-divider"></div>
+          <p class="char-bio">
+            Son of Odin and wielder of primordial celestial stormwinds. Channeling the electrostatic voltage of dying galaxies, Thor shatters dimensional invaders with lightning strikes that re-energize the multiverse core.
+          </p>
+          <div class="char-traits">
+            <div class="trait-chip"><span>DOMAIN:</span> ASGARD / COSMOS</div>
+            <div class="trait-chip"><span>WEAPON:</span> MJOLNIR / STORMBREAKER</div>
+            <div class="trait-chip"><span>VOLTAGE:</span> INFINITE</div>
+          </div>
+        </div>
+
+        <div class="character-visual thor-visual" id="char-visual-thor" aria-label="Thor Visual Chamber">
+          <canvas class="character-canvas" id="canvas-thor" data-model="assets/Modles/lightning_bolt.glb" data-accent="#7B5CFF" aria-hidden="true"></canvas>
+          <div class="sketchfab-embed-wrapper sketchfab-lazy" id="thor-embed" style="display:none;">
+            <iframe title="Thor 3D Model" frameborder="0"
+              allow="autoplay; fullscreen; xr-spatial-tracking"
+              xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share
+              data-src="https://sketchfab.com/models/b67b500eab01473fa43db8818a6834cd/embed?autostart=1&amp;autospin=0.4&amp;camera=0&amp;ui_infos=0&amp;ui_controls=0&amp;ui_watermark=0&amp;ui_ar=0&amp;ui_stop=0&amp;transparent=1"
+              loading="lazy">
+            </iframe>
+            <p class="sketchfab-attrib">
+              <a href="https://sketchfab.com/3d-models/thor-3d-model-b67b500eab01473fa43db8818a6834cd" target="_blank" rel="nofollow noopener">Thor 3D Model</a>
+              by <a href="https://sketchfab.com/omaxxff" target="_blank" rel="nofollow noopener">OmaxxFF</a>
+              on <a href="https://sketchfab.com" target="_blank" rel="nofollow noopener">Sketchfab</a>
+            </p>
+          </div>
+          <div class="char-glow-orb glow-thor" aria-hidden="true"></div>
+          <div class="char-rings-conic ring-thor" aria-hidden="true"></div>
+
+          <div class="thor-lightning-rig" aria-hidden="true">
+            <svg viewBox="0 0 240 240" class="lightning-rig-svg">
+              <filter id="thor-glow" x="-20%" y="-20%" width="140%" height="140%">
+                <feGaussianBlur stdDeviation="4" result="blur" />
+                <feMerge>
+                  <feMergeNode in="blur"/>
+                  <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+              </filter>
+              <!-- Ambient lightning strikes -->
+              <path class="bolt-main" d="M120 10 L95 100 L135 100 L105 210 L165 95 L125 95 Z" fill="rgba(123, 92, 255, 0.4)" stroke="#7B5CFF" stroke-width="2" filter="url(#thor-glow)"/>
+              <path class="bolt-branch branch-1" d="M95 100 L60 135 L80 140 L50 175" fill="none" stroke="#9A82FF" stroke-width="1.2"/>
+              <path class="bolt-branch branch-2" d="M135 100 L170 125 L155 135 L190 160" fill="none" stroke="#9A82FF" stroke-width="1.2"/>
+              <circle cx="120" cy="120" r="85" stroke="#7B5CFF" stroke-width="1" stroke-dasharray="8 6" opacity="0.4" fill="none"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Transition Thor -> Captain America (Lightning flash resolves into shield outline) -->
+      <div class="char-transition transition-thor-cap" id="trans-thor-cap" aria-hidden="true">
+        <svg class="trans-svg" viewBox="0 0 1000 300" preserveAspectRatio="none">
+          <circle class="trans-flash-ring" cx="500" cy="150" r="30" fill="none" stroke="#7B5CFF" stroke-width="3"/>
+          <circle class="trans-shield-ring ring-1" cx="500" cy="150" r="50" fill="none" stroke="#D91E36" stroke-width="2.5" stroke-dasharray="10 5"/>
+          <circle class="trans-shield-ring ring-2" cx="500" cy="150" r="75" fill="none" stroke="#F5F5F0" stroke-width="1.8"/>
+        </svg>
+      </div>
+    </section>
+
+    <!-- 6. CHARACTER SECTION: CAPTAIN AMERICA -->
+    <section id="hero-cap" class="section character-section char-cap" data-hero="cap">
+      <div class="char-bg-grid" aria-hidden="true"></div>
+
+      <div class="char-container">
+        <div class="char-copy">
+          <div class="char-eyebrow-row">
+            <span class="char-eyebrow">04 — THE SHIELD</span>
+            <span class="char-accent-dot dot-cap"></span>
+          </div>
+          <h2 class="char-name">CAPTAIN AMERICA</h2>
+          <p class="char-descriptor">"The First Avenger."</p>
+          <div class="char-divider"></div>
+          <p class="char-bio">
+            The moral fortitude and tactical vanguard of Earth's greatest defense. Armed with an indomitable vibranium shield and unwavering leadership, Steve Rogers commands the recruitment frontier: whatever it takes.
+          </p>
+          <div class="char-traits">
+            <div class="trait-chip"><span>DOMAIN:</span> BROOKLYN / AVENGERS HQ</div>
+            <div class="trait-chip"><span>AEGIS:</span> VIBRANIUM ALLOY</div>
+            <div class="trait-chip"><span>CREED:</span> STAND AS ONE</div>
+          </div>
+        </div>
+
+        <div class="character-visual cap-visual" id="char-visual-cap" aria-label="Captain America Visual Chamber">
+          <!-- Native Three.js Captain America + orbiting shield accent (both Draco-compressed GLBs).
+               Lazy-mounted by models3d.js; the CSS shield rig below remains visible until the model is
+               ready, and stays as the permanent fallback if WebGL or the load fails. -->
+          <canvas class="character-canvas" id="canvas-cap" data-model="assets/Modles/captain_america.glb" data-accent="#5E81AC" data-accent-model="assets/Modles/shield.glb" aria-hidden="true"></canvas>
+          <div class="char-glow-orb glow-cap" aria-hidden="true"></div>
+
+          <div class="cap-shield-rig" aria-hidden="true">
+            <svg viewBox="0 0 240 240" class="shield-rig-svg">
+              <!-- Outer vibranium red ring -->
+              <circle cx="120" cy="120" r="108" stroke="#D91E36" stroke-width="12" fill="none" class="shield-outer-ring"/>
+              <!-- Middle silver ring -->
+              <circle cx="120" cy="120" r="90" stroke="#F5F5F0" stroke-width="12" fill="none" class="shield-silver-ring"/>
+              <!-- Inner red ring -->
+              <circle cx="120" cy="120" r="72" stroke="#D91E36" stroke-width="12" fill="none" class="shield-inner-ring"/>
+              <!-- Center deep navy disc -->
+              <circle cx="120" cy="120" r="54" fill="#1B2A4A" stroke="#2B406B" stroke-width="2"/>
+              <!-- Center silver star -->
+              <polygon points="120,78 129,106 158,106 135,123 144,151 120,134 96,151 105,123 82,106 111,106" fill="#F5F5F0" class="shield-star"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Transition Captain America -> Mission (Shield outline expands to fill viewport, fades into next section) -->
+      <div class="char-transition transition-cap-mission" id="trans-cap-mission" aria-hidden="true">
+        <div class="expanding-shield-ring"></div>
+      </div>
+    </section>
+
+    <!-- 7. MISSION + HIGHLIGHTS + TIMELINE + REGISTER (COMBINED SECTION) -->
+    <section id="mission" class="section mission-combined-section" data-nav="mission">
+      <div class="mission-ambient-glow" aria-hidden="true"></div>
+
+      <div class="mission-block-wrap">
+        <!-- 7A. Mission Intro Beat -->
+        <div class="mission-intro-beat" id="mission-intro">
+          <div class="mission-header">
+            <span class="section-label">OPERATIONAL BRIEF</span>
+            <h2 class="section-title">THE MISSION.</h2>
+            <p class="mission-subheading">GEEKSFORGEEKS STUDENT CHAPTER × BENNETT UNIVERSITY</p>
+            <p class="mission-copy">
+              The multiverse brought the heroes together. Now it's your turn to enter the mission. Join Bennett University's flagship computing chapter and engineer the future of technical leadership.
+            </p>
+          </div>
+
+          <!-- 4 Clean Labeled Stats (Populated dynamically from script.js constants) -->
+          <div class="stats-panel-grid" role="region" aria-label="Event Details">
+            <div class="stat-card">
+              <span class="stat-meta">DATE</span>
+              <span class="stat-value" id="stat-event-date">LOADING...</span>
+              <span class="stat-accent-bar"></span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-meta">TIME</span>
+              <span class="stat-value" id="stat-event-time">LOADING...</span>
+              <span class="stat-accent-bar"></span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-meta">VENUE</span>
+              <span class="stat-value" id="stat-event-venue">LOADING...</span>
+              <span class="stat-accent-bar"></span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-meta">MODE</span>
+              <span class="stat-value" id="stat-event-mode">LOADING...</span>
+              <span class="stat-accent-bar"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 7B. Highlights Beat (Compact strip) -->
+        <div class="highlights-beat" id="highlights-block">
+          <div class="section-sub-header">
+            <span class="section-label">CURRICULUM & TRIALS</span>
+            <h3 class="sub-title">CORE HIGHLIGHTS</h3>
+          </div>
+
+          <div class="highlights-strip" role="list">
+            <!-- Item 1 -->
+            <div class="highlight-item" role="listitem" tabindex="0">
+              <div class="highlight-header">
+                <span class="highlight-code">01 // COMBAT</span>
+                <h4 class="highlight-title">TECH CHALLENGES</h4>
+              </div>
+              <p class="highlight-body">
+                Algorithmic speed runs, multi-stack debugging gauntlets, and high-intensity problem solving under real-time multiverse stress.
+              </p>
+              <div class="highlight-border"></div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="highlight-item" role="listitem" tabindex="0">
+              <div class="highlight-header">
+                <span class="highlight-code">02 // TACTICS</span>
+                <h4 class="highlight-title">INTERACTIVE MISSIONS</h4>
+              </div>
+              <p class="highlight-body">
+                Live interactive role-play scenarios where software architecture decisions directly govern your faction’s survival index.
+              </p>
+              <div class="highlight-border"></div>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="highlight-item" role="listitem" tabindex="0">
+              <div class="highlight-header">
+                <span class="highlight-code">03 // SYNERGY</span>
+                <h4 class="highlight-title">TEAM COMPETITION</h4>
+              </div>
+              <p class="highlight-body">
+                Assemble your squad of coders, designers, and strategists. Combine unique skilltrees to climb the live multiverse leaderboard.
+              </p>
+              <div class="highlight-border"></div>
+            </div>
+
+            <!-- Item 4 -->
+            <div class="highlight-item" role="listitem" tabindex="0">
+              <div class="highlight-header">
+                <span class="highlight-code">04 // ALLIANCE</span>
+                <h4 class="highlight-title">NETWORKING</h4>
+              </div>
+              <p class="highlight-body">
+                Form alliances with senior developers, GFG chapter alumni, core mentors, and the most driven tech minds across Bennett University.
+              </p>
+              <div class="highlight-border"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 7C. Timeline Beat (Compact 4-step vertical line) -->
+        <div class="timeline-beat" id="timeline-block" data-nav="timeline">
+          <div class="section-sub-header">
+            <span class="section-label">MISSION PROTOCOL</span>
+            <h3 class="sub-title">DEPLOYMENT TIMELINE</h3>
+          </div>
+
+          <div class="timeline-container">
+            <div class="timeline-rail" aria-hidden="true">
+              <div class="timeline-rail-fill" id="timeline-rail-fill"></div>
+            </div>
+
+            <div class="timeline-steps">
+              <!-- Step 1 -->
+              <div class="timeline-step" data-step="1">
+                <div class="step-marker">
+                  <span class="marker-dot"></span>
+                  <span class="marker-num">01</span>
+                </div>
+                <div class="step-card">
+                  <div class="step-meta">PHASE 01</div>
+                  <h4 class="step-title">ARRIVAL & CHECK-IN</h4>
+                  <p class="step-desc">Recruit authentication, identity badge assignment, and deployment into designated multiverse staging sectors.</p>
+                </div>
+              </div>
+
+              <!-- Step 2 -->
+              <div class="timeline-step" data-step="2">
+                <div class="step-marker">
+                  <span class="marker-dot"></span>
+                  <span class="marker-num">02</span>
+                </div>
+                <div class="step-card">
+                  <div class="step-meta">PHASE 02</div>
+                  <h4 class="step-title">CORE BRIEFING</h4>
+                  <p class="step-desc">Strategic mission overview presented by GFG Student Chapter executive leads. Threat analysis and scoring criteria revealed.</p>
+                </div>
+              </div>
+
+              <!-- Step 3 -->
+              <div class="timeline-step" data-step="3">
+                <div class="step-marker">
+                  <span class="marker-dot"></span>
+                  <span class="marker-num">03</span>
+                </div>
+                <div class="step-card">
+                  <div class="step-meta">PHASE 03</div>
+                  <h4 class="step-title">THE GAUNTLET CHALLENGE</h4>
+                  <p class="step-desc">Full throttle competitive hacking, interactive mission stations, and collaborative problem-solving trials.</p>
+                </div>
+              </div>
+
+              <!-- Step 4 -->
+              <div class="timeline-step" data-step="4">
+                <div class="step-marker">
+                  <span class="marker-dot"></span>
+                  <span class="marker-num">04</span>
+                </div>
+                <div class="step-card">
+                  <div class="step-meta">PHASE 04</div>
+                  <h4 class="step-title">GRAND FINALE & INDUCTION</h4>
+                  <p class="step-desc">Leaderboard resolution, champion honors, and formal induction of top recruits into the Junior Core vanguard.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 7D. Register Beat -->
+        <div class="register-beat" id="register-block" data-nav="register">
+          <div class="register-inner">
+            <span class="register-eyebrow">FINAL CALL TO ACTION</span>
+            <h2 class="register-title">
+              <span>THE MULTIVERSE</span>
+              <span class="text-accent-red">NEEDS YOU.</span>
+            </h2>
+            <p class="register-support">
+              Stop watching from the sidelines. Step through the breach and claim your place in the GFG Student Chapter vanguard.
+            </p>
+
+            <div class="register-cta-wrap">
+              <a href="register.html" id="main-register-btn" class="btn btn-register btn-magnetic">
+                <span class="btn-magnetic-content">
+                  <span class="btn-text">REGISTER NOW</span>
+                  <span class="btn-arrow" aria-hidden="true">→</span>
+                </span>
+                <span class="btn-register-glow" aria-hidden="true"></span>
+              </a>
+            </div>
+
+            <div class="register-footnote">
+              <span class="footnote-item">OFFICIAL RECRUITMENT PORTAL</span>
+              <span class="footnote-divider">•</span>
+              <span class="footnote-item">BENNETT UNIVERSITY CHAPTER</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-col footer-col--brand">
+          <span class="footer-logo">GFG <span class="brand-cross">×</span> BENNETT UNIVERSITY</span>
+          <p class="footer-tagline">Built for the next generation of builders.</p>
+        </div>
+
+        <div class="footer-col footer-col--credit">
+          <span class="footer-badge">MARVEL × WEB DESIGN</span>
+          <p class="footer-rights">© 2026 GeeksForGeeks Student Chapter. All rights reserved.</p>
+        </div>
+
+        <div class="footer-col footer-col--social">
+          <span class="social-label">SECURE CHANNELS</span>
+          <div class="social-links" id="social-links-wrap">
+            <a href="#" id="social-instagram" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+              </svg>
+              <span>INSTAGRAM</span>
+            </a>
+            <a href="#" id="social-linkedin" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                <rect x="2" y="9" width="4" height="12"></rect>
+                <circle cx="4" cy="4" r="2"></circle>
+              </svg>
+              <span>LINKEDIN</span>
+            </a>
+            <a href="#" id="social-github" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+              </svg>
+              <span>GITHUB</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <!-- External Script Libraries: GSAP + ScrollTrigger + Lenis -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" onerror="this.onerror=null;this.src='assets/vendor/gsap.min.js'"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" onerror="this.onerror=null;this.src='assets/vendor/ScrollTrigger.min.js'"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lenis/1.1.13/lenis.min.js" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js';this.onerror=()=>this.src='assets/vendor/lenis.min.js'"></script>
+
+  <!-- Three.js r147 (UMD + examples/js globals — last version shipping both) with CDN primary / local-vendor fallback -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js" onerror="this.onerror=null;this.src='assets/vendor/three.min.js'"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/loaders/DRACOLoader.js" onerror="this.onerror=null;this.src='assets/vendor/DRACOLoader.js'"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/loaders/GLTFLoader.js" onerror="this.onerror=null;this.src='assets/vendor/GLTFLoader.js'"></script>
+
+  <!-- Core App Logic -->
+  <script src="script.js"></script>
+
+  <!-- 3D Model Integration: native GLB character scenes + Sketchfab embed lazy-mounting -->
+  <script src="models3d.js"></script>
+</body>
+</html>

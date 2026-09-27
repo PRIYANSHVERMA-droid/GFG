@@ -1,0 +1,30 @@
+# Dependencies (installed via package.json / package-lock.json)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS junk
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Editor / IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Temp / backup files
+*.tmp
+*.bak
+*.log
+
+# ---------------------------------------------------------------------------
+# OPTIONAL: heavyweight uncompressed source GLBs (~37MB, not referenced by the
+# site — only the compressed spiderman.glb / captain_america.glb / shield.glb /
+# doom_mask.glb are served). Uncomment to keep them out of the repo; keep local
+# copies somewhere safe if you do.
+# assets/Modles/spiderman_brand_new_day_from_fortnite.glb
+# assets/Modles/doctor_dooms_mask.glb
+# assets/Modles/captain_america_-_shield.glb

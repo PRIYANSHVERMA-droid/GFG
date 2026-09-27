@@ -1,0 +1,1260 @@
+/* ==========================================================================
+   DOOMSDAY — GFG STUDENT CHAPTER × BENNETT UNIVERSITY
+   Cadet Registration Portal Stylesheet
+   ========================================================================== */
+
+:root {
+  --active-realm-color: #3AFFA0;
+  --active-realm-glow: rgba(58, 255, 160, 0.28);
+  --active-realm-bg: rgba(15, 61, 46, 0.15);
+}
+
+.reg-body {
+  background-color: var(--bg-black);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Ambient Reactor Glow behind the Form */
+.reg-ambient-glow {
+  position: fixed;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(100vw, 1100px);
+  height: 600px;
+  background: radial-gradient(circle at 50% 30%, var(--active-realm-glow) 0%, transparent 70%);
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+  transition: background 0.6s ease, filter 0.6s ease;
+}
+
+/* Tactical Top Navigation */
+.reg-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: rgba(10, 10, 10, 0.88);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 1.1rem 2rem;
+}
+
+.reg-nav-inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.reg-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.reg-back-link:hover {
+  color: var(--text-primary);
+  transform: translateX(-3px);
+}
+
+.back-arrow-svg {
+  transition: transform 0.2s ease;
+}
+
+.reg-back-link:hover .back-arrow-svg {
+  transform: translateX(-2px);
+}
+
+.reg-nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  letter-spacing: 0.08em;
+}
+
+.reg-badge-gfg {
+  background-color: var(--accent-red);
+  color: #FFFFFF;
+  padding: 0.15rem 0.55rem;
+  font-weight: 700;
+  border-radius: 1px;
+}
+
+.reg-cross {
+  color: var(--accent-red);
+  font-size: 0.95rem;
+}
+
+.reg-brand-sub {
+  color: var(--text-primary);
+}
+
+.reg-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  background-color: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+}
+
+.status-pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--active-realm-color);
+  box-shadow: 0 0 10px var(--active-realm-color);
+  animation: radarPing 1.8s infinite ease-out;
+}
+
+/* Main Container Layout */
+.reg-main-container {
+  position: relative;
+  z-index: 1;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 3.5rem 1.5rem 6rem;
+}
+
+/* Header & Eyebrow */
+.reg-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.reg-eyebrow-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.reg-eyebrow-tag {
+  display: inline-block;
+  background: rgba(217, 30, 54, 0.15);
+  border: 1px solid rgba(217, 30, 54, 0.45);
+  color: #FF5A6E;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  padding: 0.35rem 0.9rem;
+  border-radius: 2px;
+}
+
+.reg-timestamp {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  letter-spacing: 0.08em;
+}
+
+.reg-main-title {
+  font-family: var(--font-display);
+  font-size: clamp(3.2rem, 8vw, 5.5rem);
+  line-height: 0.92;
+  letter-spacing: 0.03em;
+  margin-bottom: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.reg-description {
+  max-width: 680px;
+  margin: 0 auto;
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--text-secondary);
+}
+
+/* Form Card Container */
+.reg-form-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-medium);
+  border-radius: 4px;
+  padding: 3rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.75);
+  position: relative;
+  transition: border-color 0.4s ease;
+}
+
+/* Section Header Structure */
+.form-section-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+  margin-bottom: 1.8rem;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 1rem;
+}
+
+.form-step-num {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  line-height: 1;
+  color: var(--active-realm-color);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+  flex-shrink: 0;
+  transition: color 0.4s ease;
+}
+
+.form-step-title {
+  font-family: var(--font-display);
+  font-size: 1.55rem;
+  letter-spacing: 0.04em;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.form-step-subtitle {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+}
+
+/* Section Spacing */
+.form-step-section {
+  margin-top: 3.2rem;
+  padding-top: 0.5rem;
+}
+
+/* Form Grid */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group.full-width {
+  grid-column: 1 / -1;
+}
+
+/* Labels and Indicators */
+.form-label {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  color: var(--text-primary);
+  margin-bottom: 0.55rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.label-with-counter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.55rem;
+}
+
+.char-counter {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-dim);
+}
+
+.req {
+  color: var(--accent-red);
+  margin-left: 0.2rem;
+  font-weight: 700;
+}
+
+/* Inputs & Focus States */
+.input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.form-input,
+.form-textarea {
+  width: 100%;
+  background-color: var(--bg-charcoal);
+  border: 1px solid var(--border-medium);
+  border-radius: 2px;
+  padding: 0.95rem 1.15rem;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  line-height: 1.4;
+  outline: none;
+  transition: border-color 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: var(--text-dim);
+  font-size: 0.88rem;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  border-color: var(--active-realm-color);
+  background-color: #141414;
+  box-shadow: 0 0 16px var(--active-realm-glow);
+}
+
+.text-uppercase {
+  text-transform: uppercase;
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 110px;
+}
+
+/* Select Styling */
+.select-wrapper {
+  position: relative;
+}
+
+.form-select {
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  padding-right: 2.5rem;
+}
+
+.form-select option {
+  background-color: var(--bg-surface-elevated);
+  color: var(--text-primary);
+  padding: 0.5rem;
+}
+
+.form-select optgroup {
+  background-color: #1a1a1a;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+}
+
+.select-chevron {
+  position: absolute;
+  right: 1.1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-size: 0.65rem;
+  color: var(--text-secondary);
+}
+
+/* Field Hints & Errors */
+.field-hint {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  margin-top: 0.45rem;
+  font-family: var(--font-mono);
+}
+
+.field-error {
+  display: none;
+  font-size: 0.75rem;
+  color: #FF5A6E;
+  margin-top: 0.45rem;
+  font-family: var(--font-mono);
+}
+
+.has-error .form-input,
+.has-error .form-textarea,
+.has-error .form-select {
+  border-color: #D91E36 !important;
+  box-shadow: 0 0 12px rgba(217, 30, 54, 0.4) !important;
+}
+
+.has-error .field-error {
+  display: block;
+}
+
+/* ==========================================================================
+   FACTION / REALM SELECTOR CARDS
+   ========================================================================== */
+.realm-choice-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.realm-card {
+  position: relative;
+  background-color: var(--bg-charcoal);
+  border: 1px solid var(--border-medium);
+  border-radius: 3px;
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: transform 0.3s var(--ease-cinematic), border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.realm-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 255, 255, 0.3);
+  background-color: var(--bg-surface-elevated);
+}
+
+.realm-card-corner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 18px 18px 0;
+  border-color: transparent var(--border-medium) transparent transparent;
+  transition: border-color 0.3s ease;
+}
+
+.realm-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.85rem;
+}
+
+.realm-code {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+}
+
+.realm-char-tag {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 0.2rem 0.55rem;
+  border-radius: 1px;
+}
+
+.tag-doom { background: rgba(58, 255, 160, 0.15); color: #3AFFA0; }
+.tag-spiderman { background: rgba(217, 30, 54, 0.18); color: #FF5A6E; }
+.tag-thor { background: rgba(123, 92, 255, 0.18); color: #A68FFF; }
+.tag-cap { background: rgba(94, 129, 172, 0.2); color: #88C0D0; }
+
+.realm-name {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  letter-spacing: 0.04em;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.realm-track {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+  margin-bottom: 0.85rem;
+  flex-grow: 1;
+}
+
+.realm-quote {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: var(--text-dim);
+  font-style: italic;
+  line-height: 1.4;
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 0.75rem;
+}
+
+/* Realm Selected States */
+.realm-card.is-selected {
+  background-color: var(--active-realm-bg);
+  border-color: var(--active-realm-color);
+  box-shadow: 0 0 24px var(--active-realm-glow);
+}
+
+.realm-card.is-selected .realm-card-corner {
+  border-color: transparent var(--active-realm-color) transparent transparent;
+}
+
+.realm-card.is-selected .realm-name {
+  color: var(--active-realm-color);
+}
+
+/* Realm Transmission Banner */
+.realm-transmission-box {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--active-realm-color);
+  border-left-width: 4px;
+  padding: 1rem 1.4rem;
+  border-radius: 2px;
+  transition: border-color 0.4s ease;
+}
+
+.transmission-icon {
+  font-size: 1.4rem;
+  color: var(--active-realm-color);
+  flex-shrink: 0;
+}
+
+.transmission-text strong {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--active-realm-color);
+  letter-spacing: 0.06em;
+  margin-bottom: 0.2rem;
+  transition: color 0.4s ease;
+}
+
+.transmission-text p {
+  font-size: 0.86rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* Proficiency Tier Group */
+.proficiency-radio-group {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 0.25rem;
+}
+
+.prof-option {
+  cursor: pointer;
+}
+
+.prof-option input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.prof-box {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-charcoal);
+  border: 1px solid var(--border-medium);
+  padding: 1.1rem;
+  border-radius: 2px;
+  transition: all 0.25s ease;
+  height: 100%;
+}
+
+.prof-option:hover .prof-box {
+  background-color: var(--bg-surface-elevated);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.prof-option input:checked + .prof-box {
+  border-color: var(--active-realm-color);
+  background-color: var(--active-realm-bg);
+  box-shadow: 0 0 16px var(--active-realm-glow);
+}
+
+.prof-tier {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--active-realm-color);
+  letter-spacing: 0.1em;
+  margin-bottom: 0.25rem;
+}
+
+.prof-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  color: var(--text-primary);
+  letter-spacing: 0.04em;
+  margin-bottom: 0.4rem;
+}
+
+.prof-desc {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+/* Agreement Checkboxes */
+.agreements-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.agreement-checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.agreement-checkbox-label input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.custom-checkbox {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  background-color: var(--bg-charcoal);
+  border: 1.5px solid var(--border-medium);
+  border-radius: 2px;
+  margin-top: 0.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.agreement-checkbox-label input:checked + .custom-checkbox {
+  background-color: var(--active-realm-color);
+  border-color: var(--active-realm-color);
+  box-shadow: 0 0 10px var(--active-realm-glow);
+}
+
+.agreement-checkbox-label input:checked + .custom-checkbox::after {
+  content: '✓';
+  color: #000000;
+  font-weight: 900;
+  font-size: 0.85rem;
+}
+
+.agreement-text {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.agreement-text strong {
+  color: var(--text-primary);
+}
+
+/* Action Bar */
+.form-action-bar {
+  margin-top: 3.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-medium);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.action-tools {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.btn-tool {
+  background: transparent;
+  border: 1px solid var(--border-medium);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  padding: 0.6rem 0.95rem;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-tool:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-primary);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.btn-tool--danger:hover {
+  border-color: var(--accent-red);
+  color: #FF5A6E;
+  background: rgba(217, 30, 54, 0.1);
+}
+
+.draft-indicator {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--active-realm-color);
+}
+
+.btn-submit-dossier {
+  position: relative;
+  background-color: var(--active-realm-color);
+  color: #000000;
+  border: none;
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  letter-spacing: 0.08em;
+  padding: 1.1rem 2.5rem;
+  border-radius: 2px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.25s var(--ease-cinematic), box-shadow 0.25s ease;
+  font-weight: 700;
+}
+
+.btn-submit-dossier:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 35px var(--active-realm-glow);
+}
+
+.btn-submit-content {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.btn-submit-arrow {
+  transition: transform 0.25s ease;
+}
+
+.btn-submit-dossier:hover .btn-submit-arrow {
+  transform: translateX(4px);
+}
+
+/* Submit loading state */
+.btn-submit-dossier.is-transmitting {
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+.btn-submit-dossier.is-transmitting .btn-submit-content {
+  opacity: 0.5;
+}
+
+/* ==========================================================================
+   MULTIVERSE CLEARANCE PASS (SUCCESS SCREEN)
+   ========================================================================== */
+.clearance-pass-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: fadeInPass 0.7s var(--ease-cinematic) forwards;
+}
+
+@keyframes fadeInPass {
+  from { opacity: 0; transform: translateY(30px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.is-hidden {
+  display: none !important;
+}
+
+.pass-header-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 760px;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.pass-confirmed-badge {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: #3AFFA0;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.pass-timestamp-badge {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-dim);
+}
+
+.clearance-pass-card {
+  position: relative;
+  width: 100%;
+  max-width: 760px;
+  background: linear-gradient(135deg, #121415 0%, #0A0B0C 100%);
+  border: 2px solid var(--active-realm-color);
+  box-shadow: 0 0 50px var(--active-realm-glow), inset 0 0 30px rgba(0, 0, 0, 0.8);
+  border-radius: 4px;
+  padding: 2.5rem;
+  overflow: hidden;
+}
+
+/* Pass Corners */
+.pass-corner-decor {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-color: var(--active-realm-color);
+}
+.pass-tl { top: 8px; left: 8px; border-top: 3px solid; border-left: 3px solid; }
+.pass-tr { top: 8px; right: 8px; border-top: 3px solid; border-right: 3px solid; }
+.pass-bl { bottom: 8px; left: 8px; border-bottom: 3px solid; border-left: 3px solid; }
+.pass-br { bottom: 8px; right: 8px; border-bottom: 3px solid; border-right: 3px solid; }
+
+.pass-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.18);
+  padding-bottom: 1.25rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.pass-gfg {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  letter-spacing: 0.06em;
+  color: #FFFFFF;
+}
+
+.pass-sub {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  color: var(--text-secondary);
+}
+
+.pass-seal-badge {
+  text-align: right;
+}
+
+.pass-seal-badge span {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-dim);
+  letter-spacing: 0.1em;
+}
+
+.pass-clearance-level {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  color: var(--active-realm-color);
+  letter-spacing: 0.08em;
+}
+
+.pass-hero-nameplate {
+  margin-bottom: 1.8rem;
+}
+
+.pass-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.15em;
+  color: var(--text-dim);
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.pass-candidate-name {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 6vw, 3.8rem);
+  line-height: 1;
+  letter-spacing: 0.04em;
+  color: #FFFFFF;
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+}
+
+.pass-meta-row {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.meta-label {
+  color: var(--text-dim);
+  margin-right: 0.3rem;
+}
+
+.meta-val {
+  color: var(--active-realm-color);
+  font-weight: 600;
+}
+
+.pass-body-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 2rem;
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 1.5rem 0;
+  margin-bottom: 1.5rem;
+}
+
+.pass-data-item {
+  margin-bottom: 0.85rem;
+}
+
+.pdi-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  letter-spacing: 0.08em;
+  margin-bottom: 0.15rem;
+}
+
+.pdi-val {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+  letter-spacing: 0.08em;
+}
+
+.pdi-status-approved {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: #FF5A6E;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.pass-barcode-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+}
+
+.pass-barcode-graphic {
+  text-align: center;
+}
+
+.barcode-lines {
+  width: 190px;
+  height: 48px;
+  background: repeating-linear-gradient(
+    90deg,
+    #FFFFFF,
+    #FFFFFF 2px,
+    transparent 2px,
+    transparent 4px,
+    #FFFFFF 4px,
+    #FFFFFF 7px,
+    transparent 7px,
+    transparent 8px,
+    #FFFFFF 8px,
+    #FFFFFF 12px,
+    transparent 12px,
+    transparent 14px
+  );
+  margin-bottom: 0.35rem;
+  opacity: 0.9;
+}
+
+.barcode-num {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  color: var(--text-secondary);
+}
+
+.pass-digital-stamp {
+  border: 2px dashed var(--active-realm-color);
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  transform: rotate(-3deg);
+  opacity: 0.85;
+}
+
+.stamp-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.stamp-inner span {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  color: var(--active-realm-color);
+}
+
+.stamp-inner strong {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  letter-spacing: 0.1em;
+  color: #FFFFFF;
+}
+
+.pass-footer-bar {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-dim);
+  letter-spacing: 0.06em;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* Pass Actions */
+.pass-action-bar {
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+}
+
+.btn-print-pass {
+  background-color: transparent;
+  border: 1px solid var(--border-medium);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  letter-spacing: 0.06em;
+  padding: 0.9rem 1.6rem;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.btn-print-pass:hover {
+  border-color: var(--text-primary);
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+.btn-join-hub {
+  background-color: var(--accent-red);
+  color: #FFFFFF;
+  text-decoration: none;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  letter-spacing: 0.06em;
+  padding: 0.8rem 1.8rem;
+  border-radius: 2px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-join-hub:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 25px rgba(217, 30, 54, 0.5);
+}
+
+.btn-back-home {
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  text-decoration: none;
+  letter-spacing: 0.06em;
+  padding: 0.6rem;
+  transition: color 0.2s ease;
+}
+
+.btn-back-home:hover {
+  color: var(--text-primary);
+}
+
+/* Toast Notifications */
+.reg-toast {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background-color: var(--bg-surface-elevated);
+  border: 1px solid var(--border-bright);
+  border-left: 4px solid var(--active-realm-color);
+  padding: 0.9rem 1.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--text-primary);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+  border-radius: 2px;
+  z-index: 1000;
+  opacity: 0;
+  transform: translateY(15px);
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.reg-toast.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   RESPONSIVE BREAKPOINTS
+   ========================================================================== */
+@media (max-width: 900px) {
+  .reg-form-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .pass-body-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .pass-barcode-col {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 680px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+  }
+
+  .realm-choice-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .proficiency-radio-group {
+    grid-template-columns: 1fr;
+  }
+
+  .form-action-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .action-tools {
+    justify-content: space-between;
+  }
+
+  .btn-submit-dossier {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .pass-meta-row {
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .clearance-pass-card {
+    padding: 1.5rem;
+  }
+}
+
+/* ==========================================================================
+   PRINT STYLES FOR THE CLEARANCE PASS
+   ========================================================================== */
+@media print {
+  body {
+    background: #FFFFFF !important;
+    color: #000000 !important;
+  }
+
+  .film-grain,
+  .reg-nav,
+  .reg-header,
+  .reg-form-card,
+  .pass-action-bar,
+  .pass-header-strip,
+  .reg-toast,
+  .reg-ambient-glow {
+    display: none !important;
+  }
+
+  .reg-main-container {
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .clearance-pass-card {
+    border: 2px solid #000000 !important;
+    background: #FFFFFF !important;
+    color: #000000 !important;
+    box-shadow: none !important;
+    margin: 20px auto !important;
+    padding: 24px !important;
+  }
+
+  .pass-candidate-name,
+  .pass-gfg {
+    color: #000000 !important;
+  }
+
+  .meta-val,
+  .pdi-val,
+  .pdi-status-approved,
+  .pass-clearance-level {
+    color: #000000 !important;
+  }
+
+  .barcode-lines {
+    background: repeating-linear-gradient(
+      90deg,
+      #000000,
+      #000000 2px,
+      transparent 2px,
+      transparent 4px,
+      #000000 4px,
+      #000000 7px,
+      transparent 7px,
+      transparent 8px,
+      #000000 8px,
+      #000000 12px,
+      transparent 12px,
+      transparent 14px
+    ) !important;
+  }
+
+  .pass-digital-stamp {
+    border-color: #000000 !important;
+  }
+
+  .stamp-inner strong,
+  .stamp-inner span {
+    color: #000000 !important;
+  }
+}
