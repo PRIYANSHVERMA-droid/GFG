@@ -6,14 +6,14 @@
    2. Hero Roster Cards: 4 interactive 3D models
       - Doctor Doom: Doom Mask (assets/Modles/doom_mask.glb)
       - Spider-Man: 3D Spider Logo (assets/Modles/spider_logo3d.glb)
-      - Thor: Thunder Bolt (assets/Modles/lightning_bolt.glb)
+      - Thor: Mjolnir — Thor's Hammer (assets/Modles/mjolnir_thors_hammer.glb)
       - Captain America: Vibranium Shield (assets/Modles/shield.glb)
       With direct 360° drag rotation, idle float, card hover tilt, 360° twirl scan,
       and scroll scrub.
    3. Character Showcase Figurines:
       - Doctor Doom: 360° draggable Doom Mask with Latverian emerald aura
       - Spider-Man: 360° draggable rigged character with web-line accent
-      - Thor: 360° draggable celestial lightning bolt with cosmic energy
+      - Thor: 360° draggable Mjolnir with celestial lightning arcs and Asgardian particle storm
       - Captain America: 360° draggable tactical Steve Rogers
    ========================================================================== */
 (function () {
@@ -456,7 +456,7 @@
      Models:
      - Card 01: Doctor Doom Mask (doom_mask.glb)
      - Card 02: Spider-Man Logo (spider_logo3d.glb)
-     - Card 03: Thor Lightning Bolt (lightning_bolt.glb)
+     - Card 03: Thor Mjolnir Hammer (mjolnir_thors_hammer.glb)
      - Card 04: Captain America Shield (shield.glb)
      Features:
      - Direct 360° drag to rotate any model with momentum inertia
@@ -490,8 +490,8 @@
         idleAxis: 'y'
       },
       thor: {
-        baseRotation: [0, 0, 0.12],
-        targetSize: 2.2,
+        baseRotation: [0.15, 0.45, 0.2],
+        targetSize: 2.25,
         accent: 0x7B5CFF,
         idleAxis: 'y'
       },
@@ -559,10 +559,12 @@
         if (heroKey === 'thor') {
           rawModel.traverse(function (c) {
             if (c.isMesh && c.material) {
-              c.material.metalness = 0.8;
-              c.material.roughness = 0.2;
-              c.material.emissive = new THREE.Color(0x7B5CFF);
-              c.material.emissiveIntensity = 0.25;
+              if (c.material.metalness !== undefined) c.material.metalness = Math.max(c.material.metalness, 0.85);
+              if (c.material.roughness !== undefined) c.material.roughness = Math.min(c.material.roughness, 0.3);
+              if (!c.material.emissive || c.material.emissive.getHex() === 0) {
+                c.material.emissive = new THREE.Color(0x3B2C88);
+                c.material.emissiveIntensity = 0.2;
+              }
             }
           });
         }
@@ -864,7 +866,13 @@
         } else if (heroKey === 'doom') {
           pivot = normalizeAndPivot(rawModel, 2.6, [0.06, Math.PI, 0]);
         } else if (heroKey === 'thor') {
-          pivot = normalizeAndPivot(rawModel, 2.6, [0, 0, 0.12]);
+          rawModel.traverse(function (c) {
+            if (c.isMesh && c.material) {
+              if (c.material.metalness !== undefined) c.material.metalness = Math.max(c.material.metalness, 0.85);
+              if (c.material.roughness !== undefined) c.material.roughness = Math.min(c.material.roughness, 0.32);
+            }
+          });
+          pivot = normalizeAndPivot(rawModel, 2.7, [0.15, 0.45, 0.1]);
         } else if (heroKey === 'cap') {
           pivot = normalizeAndPivot(rawModel, 2.6, [0, 0, 0]);
         } else {
