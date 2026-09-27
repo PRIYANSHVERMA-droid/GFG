@@ -1,4 +1,4 @@
-<div align="center">
+
 
 # ⚡ DOOMSDAY — GFG × Bennett University
 
