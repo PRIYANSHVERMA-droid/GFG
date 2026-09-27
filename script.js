@@ -3,20 +3,22 @@
    Core Application & Cinematic Animation Controller
    ========================================================================== */
 
-// --- DATA CONSTANTS (Required: exact naming at top of script.js) ---
-const EVENT_DATE = "TBD — update before launch";
-const EVENT_TIME = "TBD";
-const EVENT_VENUE = "TBD";
-const EVENT_MODE = "In-person / Bennett University";
+// --- DATA CONSTANTS (Confirmed Event Details & Chapter Profiles) ---
+const EVENT_DATE = "OCTOBER 15, 2026";
+const EVENT_TIME = "05:30 PM IST";
+const EVENT_VENUE = "MAIN AUDITORIUM, BU";
+const EVENT_MODE = "OFFLINE // IN-PERSON (CAMPUS)";
 const REGISTRATION_URL = "register.html";
 const SOCIAL_LINKS = {
-  instagram: "#",
-  linkedin: "#",
-  github: "#"
+  instagram: "https://www.instagram.com/geeksforgeeks_bu/",
+  linkedin: "https://www.linkedin.com/company/geeksforgeeks-bu-student-chapter/",
+  github: "https://github.com/gfg-bu",
+  discord: "https://discord.gg/bennett-gfg"
 };
 
-// Check for reduced motion preference
+// Device & Accessibility Flags
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const isMobileDevice = window.innerWidth < 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
 // Wait for DOM to be ready
 document.addEventListener('DOMContentLoaded', () => {
@@ -28,13 +30,17 @@ document.addEventListener('DOMContentLoaded', () => {
   initBreachAndSelector();
   initHeroCardReveal();
   initCharacterSections();
+  initStatDecryptionAnimation();
   initHighlightsInteraction();
+  initPerksAndSocialProof();
   initTimelineScroll();
   initMagneticButton();
+  initIpCreditsModal();
+  initTabVisibilityLifecycle();
 });
 
 /* ==========================================================================
-   1. DATA BINDING (Inject constants into DOM)
+   1. DATA BINDING (Inject constants into DOM & wire up links)
    ========================================================================== */
 function initDataBinding() {
   // Event stats
@@ -50,21 +56,25 @@ function initDataBinding() {
 
   // Registration links
   const regBtn = document.getElementById('main-register-btn');
-  const navRegBtn = document.querySelector('.nav-link--register');
+  const navRegBtn = document.getElementById('nav-register-cta');
+  const heroPrimaryBtn = document.getElementById('hero-primary-cta');
   const mobileRegBtn = document.querySelector('.mobile-nav-link--accent');
 
   if (regBtn) regBtn.href = REGISTRATION_URL;
   if (navRegBtn && REGISTRATION_URL !== "#") navRegBtn.href = REGISTRATION_URL;
+  if (heroPrimaryBtn && REGISTRATION_URL !== "#") heroPrimaryBtn.href = REGISTRATION_URL;
   if (mobileRegBtn && REGISTRATION_URL !== "#") mobileRegBtn.href = REGISTRATION_URL;
 
   // Social links
   const instaLink = document.getElementById('social-instagram');
   const linkedinLink = document.getElementById('social-linkedin');
   const githubLink = document.getElementById('social-github');
+  const discordLink = document.getElementById('social-discord');
 
   if (instaLink) instaLink.href = SOCIAL_LINKS.instagram;
   if (linkedinLink) linkedinLink.href = SOCIAL_LINKS.linkedin;
   if (githubLink) githubLink.href = SOCIAL_LINKS.github;
+  if (discordLink) discordLink.href = SOCIAL_LINKS.discord;
 }
 
 /* ==========================================================================
@@ -134,25 +144,26 @@ function initLenis() {
 }
 
 /* ==========================================================================
-   3. GLOBAL NAVIGATION
+   3. GLOBAL NAVIGATION (Consolidated & Synchronized)
    ========================================================================== */
 function initNavigation() {
   const nav = document.getElementById('global-nav');
   const mobileToggle = document.getElementById('mobile-toggle');
   const mobileMenu = document.getElementById('mobile-nav-menu');
-  const navLinks = document.querySelectorAll('.desktop-nav .nav-link:not(.nav-link--register)');
-  const sections = document.querySelectorAll('section[id], .timeline-beat[id], .register-beat[id]');
+  const desktopNavLinks = document.querySelectorAll('.desktop-nav .nav-link');
+  const mobileNavLinks = document.querySelectorAll('.mobile-nav-link:not(.mobile-nav-link--accent)');
+  const navRegisterCta = document.getElementById('nav-register-cta');
 
-  // Scroll navbar background styling
+  // Sticky navbar shadow and glassmorphism on scroll
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 60) {
+    if (window.scrollY > 40) {
       nav.classList.add('nav-scrolled');
     } else {
       nav.classList.remove('nav-scrolled');
     }
   }, { passive: true });
 
-  // Mobile menu toggle
+  // Mobile menu drawer toggle
   if (mobileToggle && mobileMenu) {
     mobileToggle.addEventListener('click', () => {
       const isOpen = mobileToggle.classList.toggle('is-open');
@@ -163,32 +174,91 @@ function initNavigation() {
     });
   }
 
-  // Close mobile menu on escape key
+  // Close mobile menu on Escape key
   window.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeMobileMenu();
   });
 
-  // Track active section and underline nav link
-  if (typeof ScrollTrigger !== 'undefined') {
-    sections.forEach((sec) => {
-      const id = sec.getAttribute('id');
-      const matchingLink = document.querySelector(`.desktop-nav .nav-link[href="#${id}"]`);
+  // Section groupings mapping to single consolidated nav buttons
+  const navMappings = [
+    {
+      key: 'heroes',
+      triggers: ['#breach-selector', '#hero-doom', '#hero-spiderman', '#hero-thor', '#hero-cap']
+    },
+    {
+      key: 'mission',
+      triggers: ['#mission-intro', '#highlights-block']
+    },
+    {
+      key: 'perks',
+      triggers: ['#perks-block']
+    },
+    {
+      key: 'timeline',
+      triggers: ['#timeline-block']
+    },
+    {
+      key: 'register',
+      triggers: ['#register-block']
+    }
+  ];
 
-      if (matchingLink) {
-        ScrollTrigger.create({
-          trigger: sec,
-          start: 'top 50%',
-          end: 'bottom 50%',
-          onEnter: () => setActiveNavLink(matchingLink),
-          onEnterBack: () => setActiveNavLink(matchingLink),
-        });
+  function setActiveKey(activeKey) {
+    desktopNavLinks.forEach((link) => {
+      if (link.getAttribute('data-section') === activeKey) {
+        link.classList.add('nav-active');
+      } else {
+        link.classList.remove('nav-active');
       }
     });
+
+    mobileNavLinks.forEach((link) => {
+      if (link.getAttribute('data-section') === activeKey) {
+        link.classList.add('mobile-nav-active');
+      } else {
+        link.classList.remove('mobile-nav-active');
+      }
+    });
+
+    if (navRegisterCta) {
+      if (activeKey === 'register') {
+        navRegisterCta.classList.add('nav-cta-pulse-active');
+      } else {
+        navRegisterCta.classList.remove('nav-cta-pulse-active');
+      }
+    }
   }
 
-  function setActiveNavLink(activeLink) {
-    navLinks.forEach((link) => link.classList.remove('nav-active'));
-    activeLink.classList.add('nav-active');
+  // Track active section with ScrollTrigger
+  if (typeof ScrollTrigger !== 'undefined') {
+    navMappings.forEach((group) => {
+      group.triggers.forEach((sel) => {
+        const el = document.querySelector(sel);
+        if (el) {
+          ScrollTrigger.create({
+            trigger: el,
+            start: 'top 55%',
+            end: 'bottom 45%',
+            onEnter: () => setActiveKey(group.key),
+            onEnterBack: () => setActiveKey(group.key),
+          });
+        }
+      });
+    });
+
+    // Reset at top hero
+    const heroEl = document.getElementById('hero');
+    if (heroEl) {
+      ScrollTrigger.create({
+        trigger: heroEl,
+        start: 'top 80%',
+        end: 'bottom 60%',
+        onEnterBack: () => {
+          desktopNavLinks.forEach((l) => l.classList.remove('nav-active'));
+          mobileNavLinks.forEach((l) => l.classList.remove('mobile-nav-active'));
+        }
+      });
+    }
   }
 }
 
@@ -205,7 +275,7 @@ function closeMobileMenu() {
 }
 
 /* ==========================================================================
-   4. MARVEL × GFG FLIPBOOK INTRO SEQUENCE
+   4. MARVEL × GFG FLIPBOOK INTRO SEQUENCE (With Mobile Acceleration)
    ========================================================================== */
 function initIntroSequence() {
   const intro = document.getElementById('intro-screen');
@@ -258,19 +328,27 @@ function initIntroSequence() {
     }
   });
 
+  // Graceful degradation on mobile or reduced motion:
   if (prefersReducedMotion || typeof gsap === 'undefined') {
     dismissIntro(false);
     return;
   }
 
-  // Intro Timeline (~1.55s total: compressed, punchy, no wasted beats)
+  // Fast-track on mobile devices for smooth performance & instant responsiveness
+  if (isMobileDevice) {
+    setTimeout(() => {
+      dismissIntro(true);
+    }, 450);
+    return;
+  }
+
+  // Desktop Cinematic Timeline (~1.55s total)
   const tl = gsap.timeline({
     onComplete: () => {
       dismissIntro(false);
     }
   });
 
-  // Animate HUD progress rail
   if (progressFill) {
     tl.to(progressFill, {
       width: '100%',
@@ -279,7 +357,6 @@ function initIntroSequence() {
     }, 0);
   }
 
-  // Sequence: Comic panels flash -> Marvel red badge slams in -> DOOMSDAY reveal -> Zoom/fade out
   tl.fromTo('.marvel-red-box',
       { scale: 0.7, opacity: 0, y: 15 },
       { scale: 1, opacity: 1, y: 0, duration: 0.3, ease: 'back.out(2)' },
@@ -488,7 +565,7 @@ function initBreachAndSelector() {
       });
     }
 
-    // Front Card Click: Smooth scroll to hero section
+    // Front Card Click & Keyboard activation
     if (frontCard) {
       frontCard.addEventListener('click', () => {
         const targetId = frontCard.getAttribute('data-target');
@@ -500,6 +577,10 @@ function initBreachAndSelector() {
           e.preventDefault();
           const targetId = frontCard.getAttribute('data-target');
           scrollToHeroRealm(targetId);
+        } else if (e.key === 'Escape' && flipper && flipper.classList.contains('is-flipped')) {
+          e.preventDefault();
+          flipper.classList.remove('is-flipped');
+          flipper.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg)';
         }
       });
     }
@@ -513,6 +594,31 @@ function initBreachAndSelector() {
         scrollToHeroRealm(targetId);
       });
     }
+  });
+
+  // Tablist Keyboard Arrow Navigation (Accessible Roster Selection)
+  const cardTabs = Array.from(document.querySelectorAll('.hero-card.card-front[role="tab"]'));
+  cardTabs.forEach((card, index) => {
+    card.addEventListener('keydown', (e) => {
+      let nextIndex = null;
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+        e.preventDefault();
+        nextIndex = (index + 1) % cardTabs.length;
+      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        nextIndex = (index - 1 + cardTabs.length) % cardTabs.length;
+      } else if (e.key === 'Home') {
+        e.preventDefault();
+        nextIndex = 0;
+      } else if (e.key === 'End') {
+        e.preventDefault();
+        nextIndex = cardTabs.length - 1;
+      }
+
+      if (nextIndex !== null) {
+        cardTabs[nextIndex].focus();
+      }
+    });
   });
 
   // Global 360° Multiverse Scan: Sequential cascading 360° twirl across all cards
@@ -910,4 +1016,178 @@ function initMagneticButton() {
       }
     });
   }
+}
+
+/* ==========================================================================
+   11. QUANTUM CYPHER STAT DECRYPTION (Intentional Sci-Fi Reveal Effect)
+   ========================================================================== */
+function initStatDecryptionAnimation() {
+  const statCards = document.querySelectorAll('.stat-card[data-decode-target]');
+  const missionSection = document.getElementById('mission');
+  if (!statCards.length || !missionSection) return;
+
+  const glyphs = ['0', '1', 'Δ', 'Ω', 'Ψ', 'X', '#', '§', '9', '7', 'Z', '%', 'K'];
+
+  function decodeCard(card, delayMs) {
+    const valueEl = card.querySelector('.stat-value');
+    if (!valueEl) return;
+    const targetText = card.getAttribute('data-decode-target') || valueEl.textContent;
+    const totalFrames = 22;
+    let frame = 0;
+
+    setTimeout(() => {
+      card.classList.add('is-decrypting');
+      const interval = setInterval(() => {
+        frame++;
+        const progress = frame / totalFrames;
+        const revealedCount = Math.floor(progress * targetText.length);
+
+        let scrambled = '';
+        for (let i = 0; i < targetText.length; i++) {
+          if (targetText[i] === ' ' || targetText[i] === '/' || targetText[i] === ':' || targetText[i] === ',') {
+            scrambled += targetText[i];
+          } else if (i < revealedCount) {
+            scrambled += targetText[i];
+          } else {
+            scrambled += glyphs[Math.floor(Math.random() * glyphs.length)];
+          }
+        }
+
+        valueEl.textContent = scrambled;
+
+        if (frame >= totalFrames) {
+          clearInterval(interval);
+          valueEl.textContent = targetText;
+          card.classList.remove('is-decrypting');
+          card.classList.add('is-decoded');
+        }
+      }, 35);
+    }, delayMs);
+  }
+
+  if (typeof ScrollTrigger !== 'undefined' && !prefersReducedMotion) {
+    ScrollTrigger.create({
+      trigger: '.stats-panel-grid',
+      start: 'top 80%',
+      once: true,
+      onEnter: () => {
+        statCards.forEach((card, idx) => {
+          decodeCard(card, idx * 140);
+        });
+      }
+    });
+  } else {
+    statCards.forEach((card) => {
+      const val = card.querySelector('.stat-value');
+      const target = card.getAttribute('data-decode-target');
+      if (val && target) val.textContent = target;
+      card.classList.add('is-decoded');
+    });
+  }
+}
+
+/* ==========================================================================
+   12. PERKS & SOCIAL PROOF SCROLL ANIMATIONS
+   ========================================================================== */
+function initPerksAndSocialProof() {
+  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined' || prefersReducedMotion) {
+    return;
+  }
+
+  // Perks Cards Stagger
+  gsap.from('.perk-card', {
+    scrollTrigger: {
+      trigger: '.perks-grid',
+      start: 'top 78%',
+    },
+    y: 35,
+    opacity: 0,
+    stagger: 0.1,
+    duration: 0.65,
+    ease: 'power2.out'
+  });
+
+  // Track Record Metric Boxes
+  gsap.from('.metric-box', {
+    scrollTrigger: {
+      trigger: '.metrics-row-wrap',
+      start: 'top 80%',
+    },
+    scale: 0.92,
+    y: 20,
+    opacity: 0,
+    stagger: 0.12,
+    duration: 0.7,
+    ease: 'back.out(1.4)'
+  });
+
+  // Testimonials Cards
+  gsap.from('.testimonial-card', {
+    scrollTrigger: {
+      trigger: '.testimonials-grid',
+      start: 'top 80%',
+    },
+    y: 30,
+    opacity: 0,
+    stagger: 0.14,
+    duration: 0.7,
+    ease: 'power3.out'
+  });
+}
+
+/* ==========================================================================
+   13. LEGAL & 3D CREDITS MODAL CONTROLLER
+   ========================================================================== */
+function initIpCreditsModal() {
+  const modal = document.getElementById('ip-credits-modal');
+  const openBtn = document.getElementById('open-ip-credits-btn');
+  const closeBtn = document.getElementById('close-ip-credits-btn');
+  const ackBtn = document.getElementById('modal-ack-btn');
+
+  if (!modal) return;
+
+  function openModal() {
+    modal.classList.add('is-active');
+    modal.setAttribute('aria-hidden', 'false');
+    if (openBtn) openBtn.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+    if (closeBtn) closeBtn.focus();
+  }
+
+  function closeModal() {
+    modal.classList.remove('is-active');
+    modal.setAttribute('aria-hidden', 'true');
+    if (openBtn) {
+      openBtn.setAttribute('aria-expanded', 'false');
+      openBtn.focus();
+    }
+    document.body.style.overflow = '';
+  }
+
+  if (openBtn) openBtn.addEventListener('click', openModal);
+  if (closeBtn) closeBtn.addEventListener('click', closeModal);
+  if (ackBtn) ackBtn.addEventListener('click', closeModal);
+
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('is-active')) {
+      closeModal();
+    }
+  });
+}
+
+/* ==========================================================================
+   14. TAB VISIBILITY LIFECYCLE (Battery & CPU conservation)
+   ========================================================================== */
+function initTabVisibilityLifecycle() {
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      document.body.classList.add('tab-inactive');
+    } else {
+      document.body.classList.remove('tab-inactive');
+    }
+  });
 }

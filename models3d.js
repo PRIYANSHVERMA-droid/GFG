@@ -1,19 +1,20 @@
 /* ==========================================================================
-   DOOMSDAY — 3D MODEL INTEGRATION SYSTEM
-   Full native Three.js integration for:
-   1. Hero Section: Doctor Doom Mask background with interactive mouse
-      tracking and cinematic scroll-driven 3D transforms.
+   DOOMSDAY — 3D MODEL INTEGRATION SYSTEM (FULLY INTERACTIVE)
+   Full native Three.js integration with 360° orbit drag, inertia, and scroll:
+   1. Hero Section: Doctor Doom Mask background with interactive 360° mouse/touch
+      drag, mouse-look parallax, and cinematic scroll-driven 3D transforms.
    2. Hero Roster Cards: 4 interactive 3D models
       - Doctor Doom: Doom Mask (assets/Modles/doom_mask.glb)
       - Spider-Man: 3D Spider Logo (assets/Modles/spider_logo3d.glb)
       - Thor: Thunder Bolt (assets/Modles/lightning_bolt.glb)
       - Captain America: Vibranium Shield (assets/Modles/shield.glb)
-      With idle float, card hover tilt, 360° twirl scan, and scroll scrub.
-   3. Character Showcase Sections:
-      - Doctor Doom: Native 3D Doom Mask with Latverian emerald aura
-      - Spider-Man: Full rigged character with web-line accent
-      - Thor: Celestial lightning bolt with cosmic energy
-      - Captain America: Tactical Steve Rogers with orbiting vibranium shield
+      With direct 360° drag rotation, idle float, card hover tilt, 360° twirl scan,
+      and scroll scrub.
+   3. Character Showcase Figurines:
+      - Doctor Doom: 360° draggable Doom Mask with Latverian emerald aura
+      - Spider-Man: 360° draggable rigged character with web-line accent
+      - Thor: 360° draggable celestial lightning bolt with cosmic energy
+      - Captain America: 360° draggable tactical Steve Rogers
    ========================================================================== */
 (function () {
   'use strict';
@@ -81,9 +82,116 @@
     return pivot;
   }
 
+  /* ----------------------------------------------------------------------
+     INTERACTIVE 3D ORBIT DRAG CONTROLLER
+     Provides click/touch drag rotation with momentum inertia across all models.
+     ---------------------------------------------------------------------- */
+  function createOrbitDragController(element, options) {
+    options = options || {};
+    var isDragging = false;
+    var prevX = 0, prevY = 0;
+    var velX = 0, velY = 0;
+    var dragYaw = 0, dragPitch = 0;
+    var movedDist = 0;
+    var friction = options.friction || 0.92;
+    var sensX = options.sensX || 0.009;
+    var sensY = options.sensY || 0.007;
+    var container = options.container || element.parentElement;
+
+    element.style.cursor = 'grab';
+    element.style.pointerEvents = 'auto';
+
+    function onPointerDown(e) {
+      if (e.button !== undefined && e.button !== 0) return;
+      isDragging = true;
+      prevX = e.clientX;
+      prevY = e.clientY;
+      velX = 0;
+      velY = 0;
+      movedDist = 0;
+      element.style.cursor = 'grabbing';
+      if (container) container.classList.add('is-interacting');
+      if (element.setPointerCapture && e.pointerId) {
+        try { element.setPointerCapture(e.pointerId); } catch (_) {}
+      }
+    }
+
+    function onPointerMove(e) {
+      if (!isDragging) return;
+      var cx = e.clientX;
+      var cy = e.clientY;
+      var dx = cx - prevX;
+      var dy = cy - prevY;
+      prevX = cx;
+      prevY = cy;
+      movedDist += Math.abs(dx) + Math.abs(dy);
+
+      velX = dx * sensX;
+      velY = dy * sensY;
+
+      dragYaw += velX;
+      dragPitch += velY;
+
+      if (options.clampPitch) {
+        var minP = options.minPitch !== undefined ? options.minPitch : -0.65;
+        var maxP = options.maxPitch !== undefined ? options.maxPitch : 0.65;
+        dragPitch = Math.max(minP, Math.min(maxP, dragPitch));
+      }
+    }
+
+    function onPointerUp(e) {
+      if (!isDragging) return;
+      isDragging = false;
+      element.style.cursor = 'grab';
+      if (element.releasePointerCapture && e.pointerId) {
+        try { element.releasePointerCapture(e.pointerId); } catch (_) {}
+      }
+    }
+
+    element.addEventListener('pointerdown', onPointerDown);
+    window.addEventListener('pointermove', onPointerMove);
+    window.addEventListener('pointerup', onPointerUp);
+    window.addEventListener('pointercancel', onPointerUp);
+
+    // Double click to smoothly reset orientation
+    element.addEventListener('dblclick', function () {
+      dragYaw = 0;
+      dragPitch = 0;
+      velX = 0;
+      velY = 0;
+    });
+
+    return {
+      update: function () {
+        if (!isDragging) {
+          dragYaw += velX;
+          dragPitch += velY;
+          velX *= friction;
+          velY *= friction;
+        }
+        return {
+          yaw: dragYaw,
+          pitch: dragPitch,
+          isDragging: isDragging,
+          didDrag: movedDist > 6
+        };
+      },
+      addSpin: function (amount) {
+        velX += amount;
+      },
+      reset: function () {
+        dragYaw = 0;
+        dragPitch = 0;
+        velX = 0;
+        velY = 0;
+      }
+    };
+  }
+
   /* ======================================================================
      1. HERO SECTION: DOCTOR DOOM MASK (Background 3D Model)
      Features:
+     - 360° interactive drag to rotate with momentum
      - Sinister Latverian lighting (emerald rim + eye glow + metallic speculars)
      - Hover breathing & organic idle floating
      - Mouse parallax tracking (turns head towards user cursor)
@@ -107,6 +215,16 @@
     var mouseTargetY = 0;
     var mouseCurX = 0;
     var mouseCurY = 0;
+
+    // Orbit Drag Interaction
+    var orbitCtrl = createOrbitDragController(canvasEl, {
+      container: container,
+      clampPitch: true,
+      minPitch: -0.6,
+      maxPitch: 0.6,
+      sensX: 0.01,
+      sensY: 0.008
+    });
 
     function init() {
       var width = container.clientWidth || 600;
@@ -186,8 +304,8 @@
         var rect = heroSection.getBoundingClientRect();
         var relX = (e.clientX - rect.left) / rect.width - 0.5;
         var relY = (e.clientY - rect.top) / rect.height - 0.5;
-        mouseTargetX = relX * 0.55;
-        mouseTargetY = relY * 0.35;
+        mouseTargetX = relX * 0.45;
+        mouseTargetY = relY * 0.3;
       }, { passive: true });
 
       heroSection.addEventListener('mouseleave', function () {
@@ -241,13 +359,14 @@
         mouseCurX += (mouseTargetX - mouseCurX) * 0.06;
         mouseCurY += (mouseTargetY - mouseCurY) * 0.06;
 
+        var drag = orbitCtrl.update();
+
         if (pivot) {
           // Hover bobbing & breathing
           var hoverY = Math.sin(time * 1.4) * 0.07;
           var breathPitch = Math.sin(time * 1.1) * 0.03;
 
           // Scroll-driven yaw and pitch transforms
-          // As user scrolls down, mask turns smoothly and pushes slightly into the multiverse
           var scrollYaw = scrollProgress * Math.PI * 0.55;
           var scrollPitch = -scrollProgress * 0.2;
           var scrollZ = -scrollProgress * 0.7;
@@ -256,8 +375,9 @@
           pivot.position.y = hoverY + scrollTransY;
           pivot.position.z = scrollZ;
 
-          pivot.rotation.y = Math.PI + mouseCurX + scrollYaw;
-          pivot.rotation.x = 0.08 + mouseCurY + breathPitch + scrollPitch;
+          // Integrate base rotation + interactive drag + mouse-look + scroll scrub
+          pivot.rotation.y = Math.PI + mouseCurX + scrollYaw + drag.yaw;
+          pivot.rotation.x = 0.08 + mouseCurY + breathPitch + scrollPitch + drag.pitch;
 
           // Subtle scale adjustment on scroll
           var s = 1.0 + scrollProgress * 0.12;
@@ -292,6 +412,7 @@
      - Card 03: Thor Lightning Bolt (lightning_bolt.glb)
      - Card 04: Captain America Shield (shield.glb)
      Features:
+     - Direct 360° drag to rotate any model with momentum inertia
      - Continuous organic floating and subtle idle rotation
      - Card mouse tilt interaction
      - 360° Twirl button and Global 360° Multiverse Scan spin animation
@@ -307,7 +428,6 @@
     var isRosterVisible = false;
     var rosterScrollProgress = 0;
 
-    // Card model specific configurations calibrated for cinematic framing
     var cardConfigs = {
       doom: {
         baseRotation: [0.05, 0, 0],
@@ -372,13 +492,19 @@
       var hoverTiltX = 0;
       var hoverTiltY = 0;
 
+      // Orbit Drag controller for this card model
+      var orbitCtrl = createOrbitDragController(canvasEl, {
+        container: wrapperEl,
+        clampPitch: false,
+        sensX: 0.012,
+        sensY: 0.009
+      });
+
       var loader = createGLTFLoader();
       loader.load(modelPath, function (gltf) {
         var rawModel = gltf.scene;
 
-        // Custom material touches
         if (heroKey === 'thor') {
-          // Give lightning bolt electric shine
           rawModel.traverse(function (c) {
             if (c.isMesh && c.material) {
               c.material.metalness = 0.8;
@@ -406,14 +532,24 @@
           var rect = wrapperEl.getBoundingClientRect();
           var px = (e.clientX - rect.left) / rect.width - 0.5;
           var py = (e.clientY - rect.top) / rect.height - 0.5;
-          hoverTiltY = px * 0.45;
-          hoverTiltX = -py * 0.35;
+          hoverTiltY = px * 0.4;
+          hoverTiltX = -py * 0.3;
         }, { passive: true });
 
         wrapperEl.addEventListener('mouseleave', function () {
           hoverTiltX = 0;
           hoverTiltY = 0;
         }, { passive: true });
+
+        // If user was dragging 3D model, prevent card click from descending
+        if (cardFront) {
+          cardFront.addEventListener('click', function (e) {
+            var drag = orbitCtrl.update();
+            if (drag.didDrag) {
+              e.stopPropagation();
+            }
+          }, true);
+        }
       }
 
       function twirl360() {
@@ -443,13 +579,13 @@
           if (!pivot) return;
           var idleBob = Math.sin(time * 2.0 + cardControllers.indexOf(this)) * 0.04;
           var idleDrift = Math.sin(time * 0.8 + cardControllers.indexOf(this)) * 0.06;
-          // Smooth scroll scrub: faces forward when section is in view, tilts subtly as you scroll
           var scrollRotation = (scrollP - 0.5) * Math.PI * 0.35;
+          var drag = orbitCtrl.update();
 
           pivot.position.y = idleBob;
-          // rawModel already has baseEuler applied inside pivot wrapper
-          pivot.rotation.y = idleDrift + scrollRotation + spinOffset + hoverTiltY;
-          pivot.rotation.x = hoverTiltX;
+          // Combine idle drift + scroll rotation + 360 twirl + hover tilt + interactive drag!
+          pivot.rotation.y = idleDrift + scrollRotation + spinOffset + hoverTiltY + drag.yaw;
+          pivot.rotation.x = hoverTiltX + drag.pitch;
 
           renderer.render(scene, camera);
         },
@@ -533,22 +669,42 @@
   }
 
   /* ======================================================================
-     3. FULL-PAGE CHARACTER SHOWCASE SECTIONS
+     3. FULL-PAGE CHARACTER SHOWCASE SECTIONS (360° DRAGGABLE FIGURINES)
      Native Three.js scenes for Doctor Doom, Spider-Man, Thor, Captain America.
-     Lazy-mounted via IntersectionObserver and disposed when scrolled away.
+     Full 360° click/touch orbit drag with momentum inertia and scroll scrub.
      ====================================================================== */
   function createCharacterScene(canvasEl, modelPath, options) {
     var container = canvasEl.parentElement;
     var renderer = null, scene = null, camera = null;
-    var pivot = null, accentPivot = null;
+    var pivot = null;
     var rafId = null;
     var scrollProgress = 0;
     var idleYaw = 0;
     var heroKey = canvasEl.id.replace('canvas-', '');
 
+    // Orbit Drag controller for this character showcase
+    var orbitCtrl = createOrbitDragController(canvasEl, {
+      container: container,
+      clampPitch: true,
+      minPitch: -0.55,
+      maxPitch: 0.55,
+      sensX: 0.01,
+      sensY: 0.007
+    });
+
+    var isMobile = window.innerWidth < 768;
+    var stormParticles = null;
+    var lightningArcs = null;
+    var stormPoint = null;
+
     function init() {
-      renderer = new THREE.WebGLRenderer({ canvas: canvasEl, alpha: true, antialias: true });
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
+      renderer = new THREE.WebGLRenderer({
+        canvas: canvasEl,
+        alpha: true,
+        antialias: !isMobile,
+        powerPreference: "high-performance"
+      });
+      renderer.setPixelRatio(isMobile ? 1.0 : Math.min(window.devicePixelRatio || 1, 1.5));
       renderer.setSize(container.clientWidth, container.clientHeight);
       renderer.setClearColor(0x000000, 0);
       if ('outputEncoding' in renderer && THREE.sRGBEncoding !== undefined) {
@@ -581,9 +737,54 @@
         eyePoint.position.set(0, 0.2, 0.5);
         scene.add(eyePoint);
       } else if (heroKey === 'thor') {
-        var stormPoint = new THREE.PointLight(0x7B5CFF, 2.5, 4);
+        stormPoint = new THREE.PointLight(0x7B5CFF, 2.8, 4.5);
         stormPoint.position.set(0, 0, 0.5);
         scene.add(stormPoint);
+
+        // Procedural Celestial Storm Particle Vortex (elevating Thor's visual grandeur)
+        var pCount = isMobile ? 120 : 340;
+        var pGeom = new THREE.BufferGeometry();
+        var pPos = new Float32Array(pCount * 3);
+        var pCol = new Float32Array(pCount * 3);
+        for (var pi = 0; pi < pCount; pi++) {
+          var radius = 0.6 + Math.random() * 1.5;
+          var angle = Math.random() * Math.PI * 2;
+          var y = (Math.random() - 0.5) * 2.6;
+          pPos[pi * 3] = Math.cos(angle) * radius;
+          pPos[pi * 3 + 1] = y;
+          pPos[pi * 3 + 2] = Math.sin(angle) * radius;
+
+          var isPurple = Math.random() > 0.45;
+          pCol[pi * 3] = isPurple ? 0.48 : 0.22;
+          pCol[pi * 3 + 1] = isPurple ? 0.36 : 0.31;
+          pCol[pi * 3 + 2] = 1.0;
+        }
+        pGeom.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
+        pGeom.setAttribute('color', new THREE.BufferAttribute(pCol, 3));
+        var pMat = new THREE.PointsMaterial({
+          size: isMobile ? 0.05 : 0.075,
+          vertexColors: true,
+          transparent: true,
+          opacity: 0.85,
+          blending: THREE.AdditiveBlending
+        });
+        stormParticles = new THREE.Points(pGeom, pMat);
+        scene.add(stormParticles);
+
+        // Dynamic Electrostatic Lightning Arcs
+        var lineCount = isMobile ? 8 : 16;
+        var lineGeom = new THREE.BufferGeometry();
+        var linePos = new Float32Array(lineCount * 2 * 3);
+        for (var li = 0; li < lineCount * 2 * 3; li++) linePos[li] = 0;
+        lineGeom.setAttribute('position', new THREE.BufferAttribute(linePos, 3));
+        var lineMat = new THREE.LineBasicMaterial({
+          color: 0x9A82FF,
+          transparent: true,
+          opacity: 0.75,
+          blending: THREE.AdditiveBlending
+        });
+        lightningArcs = new THREE.LineSegments(lineGeom, lineMat);
+        scene.add(lightningArcs);
       }
 
       var loader = createGLTFLoader();
@@ -592,7 +793,6 @@
         var rawModel = gltf.scene;
 
         if (heroKey === 'spiderman') {
-          // Spider-Man custom normalize to keep full body centered in frame
           pivot = normalizeAndPivot(rawModel, 2.4, [0, 0, 0], function (obj) {
             var scale = 2.4 / 1.67;
             obj.scale.setScalar(scale);
@@ -601,7 +801,7 @@
         } else if (heroKey === 'doom') {
           pivot = normalizeAndPivot(rawModel, 2.6, [0.06, Math.PI, 0]);
         } else if (heroKey === 'thor') {
-          pivot = normalizeAndPivot(rawModel, 2.5, [0, 0, 0.12]);
+          pivot = normalizeAndPivot(rawModel, 2.6, [0, 0, 0.12]);
         } else if (heroKey === 'cap') {
           pivot = normalizeAndPivot(rawModel, 2.6, [0, 0, 0]);
         } else {
@@ -618,21 +818,6 @@
         console.error('[models3d] Failed to load character model ' + modelPath, err);
       });
 
-      // Optional orbiting accent model (Captain America's Shield)
-      if (options.accentModel) {
-        loader.load(options.accentModel, function (gltf) {
-          var rawAccent = gltf.scene;
-          accentPivot = normalizeAndPivot(rawAccent, 0.95, [-Math.PI / 2, 0, 0]);
-          scene.add(accentPivot);
-          if (reducedMotion && accentPivot) {
-            accentPivot.position.set(1.15, -0.15, 0.3);
-            renderOnce();
-          }
-        }, undefined, function (err) {
-          console.error('[models3d] Accent model failed (non-fatal):', err);
-        });
-      }
-
       window.addEventListener('resize', handleResize, { passive: true });
 
       if (reducedMotion) {
@@ -643,20 +828,46 @@
     }
 
     function animate(time) {
+      if (document.hidden) {
+        rafId = requestAnimationFrame(animate);
+        return;
+      }
+
       rafId = requestAnimationFrame(animate);
       idleYaw += 0.002;
 
+      var drag = orbitCtrl.update();
+
       if (pivot) {
-        // Quarter turn scrub across section passage + idle drift
-        pivot.rotation.y = scrollProgress * Math.PI * 0.5 + idleYaw;
+        pivot.rotation.y = scrollProgress * Math.PI * 0.5 + idleYaw + drag.yaw;
+        pivot.rotation.x = drag.pitch;
       }
 
-      if (accentPivot && typeof time === 'number') {
-        var t = time * 0.001;
-        accentPivot.position.x = Math.cos(t * 0.55) * 1.35;
-        accentPivot.position.z = Math.sin(t * 0.55) * 1.35;
-        accentPivot.position.y = Math.sin(t * 1.2) * 0.12;
-        accentPivot.rotation.y = t * 0.8;
+      // Thor Dynamic Storm Animation
+      if (heroKey === 'thor') {
+        if (stormParticles) {
+          stormParticles.rotation.y += 0.006;
+          stormParticles.rotation.x = Math.sin((time || 0) * 0.001) * 0.06;
+        }
+        if (lightningArcs && Math.random() < 0.22) {
+          var posArr = lightningArcs.geometry.attributes.position.array;
+          var count = lightningArcs.geometry.attributes.position.count / 2;
+          for (var i = 0; i < count; i++) {
+            var ox = (Math.random() - 0.5) * 0.4;
+            var oy = (Math.random() - 0.5) * 2.0;
+            var oz = (Math.random() - 0.5) * 0.4;
+            posArr[i * 6] = ox;
+            posArr[i * 6 + 1] = oy;
+            posArr[i * 6 + 2] = oz;
+            posArr[i * 6 + 3] = ox + (Math.random() - 0.5) * 0.6;
+            posArr[i * 6 + 4] = oy + (Math.random() - 0.5) * 0.4;
+            posArr[i * 6 + 5] = oz + (Math.random() - 0.5) * 0.6;
+          }
+          lightningArcs.geometry.attributes.position.needsUpdate = true;
+          if (stormPoint) {
+            stormPoint.intensity = 2.4 + Math.random() * 2.0;
+          }
+        }
       }
 
       renderer.render(scene, camera);
@@ -704,7 +915,7 @@
         if (renderer.forceContextLoss) renderer.forceContextLoss();
       }
 
-      renderer = scene = camera = pivot = accentPivot = null;
+      renderer = scene = camera = pivot = stormParticles = lightningArcs = stormPoint = null;
     }
 
     return {
