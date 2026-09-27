@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initNavigation();
   initIntroSequence();
   initHeroParticles();
+  initCosmicCollision();
   initBreachAndSelector();
   initHeroCardReveal();
   initCharacterSections();
@@ -481,6 +482,379 @@ function initHeroParticles() {
   }
 
   renderParticles();
+}
+
+/* ==========================================================================
+   5.1  COSMIC COLLISION — scroll-driven planet convergence & impact
+   Two planet orbs (emerald-green / crimson-red) drift from opposite screen
+   edges toward centre as the user scrolls from #hero → #breach-selector.
+   At full convergence the collision syncs with the breach fracture crack,
+   then the canvas fades out over ~300 px of additional scroll.
+   ========================================================================== */
+function initCosmicCollision() {
+  if (prefersReducedMotion) return;
+
+  const canvas = document.getElementById('cosmic-collision-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+
+  /* ── dimensions ── */
+  let W, H;
+  function resize() {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  /* ── planet config ── */
+  const EMERALD  = { r: 0.058, g: 1.0,  b: 0.627 };   /* #3AFFA0 */
+  const CRIMSON  = { r: 0.851, g: 0.118, b: 0.212 };   /* #D91E36 */
+
+  const baseRadius  = isMobileDevice ? 45 : 80;
+  const glowRadius  = isMobileDevice ? 90 : 170;
+  const ringRadius  = isMobileDevice ? 52 : 95;
+  const RING_WIDTH  = isMobileDevice ? 1 : 1.5;
+
+  /* ── state driven by ScrollTrigger ── */
+  let progress    = 0;   /* 0 → 1 : convergence phase                */
+  let fadeProgress = 0;  /* 0 → 1 : post-collision fade-out phase     */
+  let collided     = false;
+
+  /* ── convergence ScrollTrigger (hero → breach-beat) ── */
+  ScrollTrigger.create({
+    trigger: '#hero',
+    start: 'top top',
+    endTrigger: '#breach-beat',
+    end: 'top 80%',
+    scrub: true,
+    onUpdate: (self) => { progress = self.progress; },
+  });
+
+  /* ── fade-out ScrollTrigger (breach-beat → +300px) ── */
+  ScrollTrigger.create({
+    trigger: '#breach-beat',
+    start: 'top 80%',
+    end: '+=300',
+    scrub: true,
+    onUpdate: (self) => { fadeProgress = self.progress; },
+  });
+
+  /* ── screen shake & collision state ── */
+  let flashAlpha = 0;
+
+  /* ── drawing helpers ── */
+  function drawPlanet(cx, cy, col, radius, glow, ring, alpha) {
+    if (alpha <= 0.001) return;
+    ctx.save();
+    ctx.globalAlpha = alpha;
+
+    /* outer glow */
+    const grad = ctx.createRadialGradient(cx, cy, radius * 0.2, cx, cy, glow);
+    grad.addColorStop(0, `rgba(${col.r * 255 | 0}, ${col.g * 255 | 0}, ${col.b * 255 | 0}, 0.45)`);
+    grad.addColorStop(0.5, `rgba(${col.r * 255 | 0}, ${col.g * 255 | 0}, ${col.b * 255 | 0}, 0.12)`);
+    grad.addColorStop(1, 'transparent');
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.arc(cx, cy, glow, 0, Math.PI * 2);
+    ctx.fill();
+
+    /* core orb */
+    const core = ctx.createRadialGradient(cx, cy, 0, cx, cy, radius);
+    core.addColorStop(0, `rgba(${col.r * 255 | 0}, ${col.g * 255 | 0}, ${col.b * 255 | 0}, 0.95)`);
+    core.addColorStop(0.7, `rgba(${col.r * 255 | 0}, ${col.g * 255 | 0}, ${col.b * 255 | 0}, 0.55)`);
+    core.addColorStop(1, 'transparent');
+    ctx.fillStyle = core;
+    ctx.beginPath();
+    ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+    ctx.fill();
+
+    /* subtle ring */
+    ctx.strokeStyle = `rgba(${col.r * 255 | 0}, ${col.g * 255 | 0}, ${col.b * 255 | 0}, 0.3)`;
+    ctx.lineWidth = RING_WIDTH;
+    ctx.beginPath();
+    ctx.arc(cx, cy, ring, 0, Math.PI * 2);
+    ctx.stroke();
+
+    ctx.restore();
+  }
+
+  /* ── COSMIC PARTICLE EXPLOSION & SHOCKWAVE SYSTEM ── */
+  const EXPLOSION_COUNT = isMobileDevice ? 60 : 130;
+  const explosionParticles = [];
+  const shockwaves = [];
+
+  class ExplosionParticle {
+    constructor() {
+      this.active = false;
+    }
+    ignite(ox, oy) {
+      this.x = ox + (Math.random() - 0.5) * 16;
+      this.y = oy + (Math.random() - 0.5) * 16;
+      this.prevX = this.x;
+      this.prevY = this.y;
+
+      const angle = Math.random() * Math.PI * 2;
+      const speed = Math.random() * (isMobileDevice ? 9 : 15) + 3;
+      this.vx = Math.cos(angle) * speed;
+      this.vy = Math.sin(angle) * speed;
+
+      this.life = 1.0;
+      this.decay = Math.random() * 0.012 + 0.006;
+      this.drag = Math.random() * 0.02 + 0.95;
+      this.r = Math.random() * (isMobileDevice ? 2.5 : 4.5) + 1;
+
+      // Multiverse color scheme: Emerald (Doom), Crimson (Spidey), Solar Gold, White core
+      const pick = Math.random();
+      if (pick < 0.42) {
+        this.color = '58, 255, 160'; // Emerald #3AFFA0
+      } else if (pick < 0.84) {
+        this.color = '217, 30, 54';  // Crimson #D91E36
+      } else if (pick < 0.93) {
+        this.color = '255, 220, 110'; // Solar flare gold
+      } else {
+        this.color = '255, 255, 255'; // Hyperdrive singularity white
+      }
+
+      this.active = true;
+    }
+    update() {
+      if (!this.active) return;
+      this.prevX = this.x;
+      this.prevY = this.y;
+      this.x += this.vx;
+      this.y += this.vy;
+      this.vx *= this.drag;
+      this.vy *= this.drag;
+      this.life -= this.decay;
+      if (this.life <= 0) this.active = false;
+    }
+    draw() {
+      if (!this.active) return;
+      const alpha = Math.max(0, this.life);
+
+      // High-velocity streak trail
+      const speedSq = this.vx * this.vx + this.vy * this.vy;
+      if (speedSq > 2.5) {
+        ctx.beginPath();
+        ctx.moveTo(this.prevX, this.prevY);
+        ctx.lineTo(this.x, this.y);
+        ctx.strokeStyle = `rgba(${this.color}, ${alpha * 0.85})`;
+        ctx.lineWidth = Math.max(1, this.r * 0.7);
+        ctx.stroke();
+      }
+
+      // Luminous particle body
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.r * (0.6 + 0.4 * alpha), 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${this.color}, ${alpha})`;
+      ctx.fill();
+    }
+  }
+
+  for (let i = 0; i < EXPLOSION_COUNT; i++) {
+    explosionParticles.push(new ExplosionParticle());
+  }
+
+  class Shockwave {
+    constructor(x, y, maxR, speed, color, maxLine) {
+      this.x = x;
+      this.y = y;
+      this.r = 8;
+      this.maxR = maxR;
+      this.speed = speed;
+      this.color = color;
+      this.maxLine = maxLine;
+      this.active = true;
+    }
+    update() {
+      if (!this.active) return;
+      this.r += this.speed;
+      this.speed *= 0.965;
+      if (this.r >= this.maxR || this.speed < 0.2) {
+        this.active = false;
+      }
+    }
+    draw() {
+      if (!this.active) return;
+      const progress = this.r / this.maxR;
+      const alpha = Math.max(0, (1 - progress) * 0.8);
+      const lineWidth = Math.max(0.5, (1 - progress) * this.maxLine);
+
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(${this.color}, ${alpha})`;
+      ctx.lineWidth = lineWidth;
+      ctx.stroke();
+      ctx.restore();
+    }
+  }
+
+  /* ── ignite explosion when planets collide ── */
+  function triggerCosmicExplosion(cx, cy) {
+    if (collided) return;
+    collided = true;
+
+    // 1. Screen impact flare
+    flashAlpha = 0.85;
+
+    // 2. Camera micro-shake on smooth wrapper
+    const wrapper = document.getElementById('smooth-wrapper');
+    if (wrapper) {
+      gsap.to(wrapper, {
+        x: () => (Math.random() - 0.5) * 8,
+        y: () => (Math.random() - 0.5) * 6,
+        duration: 0.05,
+        repeat: 7,
+        yoyo: true,
+        ease: 'none',
+        onComplete: () => gsap.set(wrapper, { x: 0, y: 0 }),
+      });
+    }
+
+    // 3. Ignite 100+ burst particles
+    explosionParticles.forEach(p => p.ignite(cx, cy));
+
+    // 4. Trigger expanding cosmic shockwaves
+    shockwaves.length = 0;
+    const maxWave = Math.min(W, H) * (isMobileDevice ? 0.7 : 0.85);
+    // White singularity ionization ring
+    shockwaves.push(new Shockwave(cx, cy, maxWave, 18, '255, 255, 255', 6));
+    // Emerald Doom wave
+    shockwaves.push(new Shockwave(cx, cy, maxWave * 0.85, 14, '58, 255, 160', 4.5));
+    // Crimson Spider-Man wave
+    shockwaves.push(new Shockwave(cx, cy, maxWave * 0.72, 10, '217, 30, 54', 4));
+  }
+
+  /* ── render loop ── */
+  function render() {
+    requestAnimationFrame(render);
+
+    /* tab-inactive check (mirror initHeroParticles pattern) */
+    if (document.body.classList.contains('tab-inactive')) return;
+
+    const hasActiveFx = explosionParticles.some(p => p.active) || shockwaves.some(sw => sw.active) || flashAlpha > 0.02;
+
+    /* skip when fully faded out and no explosion active */
+    if (fadeProgress >= 1 && !hasActiveFx) {
+      ctx.clearRect(0, 0, W, H);
+      return;
+    }
+
+    /* skip when hero is nowhere near viewport and no explosion active */
+    const scrollY = window.scrollY || window.pageYOffset;
+    const maxVisible = window.innerHeight * 4;
+    if (scrollY > maxVisible && !hasActiveFx) {
+      ctx.clearRect(0, 0, W, H);
+      return;
+    }
+
+    ctx.clearRect(0, 0, W, H);
+
+    /* canvas-level fade for the post-collision dissolve */
+    const canvasAlpha = 1 - fadeProgress;
+
+    /* ── planet positions ── */
+    const margin = isMobileDevice ? 60 : 120;
+
+    /* eased convergence (ease-in-out feel) */
+    const t = progress < 0.5
+      ? 2 * progress * progress
+      : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+
+    /* emerald: starts top-left, converges to centre */
+    const emeraldX = margin + (W / 2 - margin) * t;
+    const emeraldY = margin + (H / 2 - margin) * t;
+
+    /* crimson: starts bottom-right, converges to centre */
+    const crimsonX = W - margin - (W / 2 - margin) * t;
+    const crimsonY = H - margin - (H / 2 - margin) * t;
+
+    const midX = (emeraldX + crimsonX) / 2;
+    const midY = (emeraldY + crimsonY) / 2;
+
+    /* radius pulsation (subtle breathing) */
+    const pulse = 1 + Math.sin(Date.now() * 0.002) * 0.06;
+
+    /* Upon collision impact (progress > 0.94), planets shatter into the explosion */
+    const shatterFactor = progress >= 0.94 ? Math.max(0, 1 - (progress - 0.94) / 0.06) : 1;
+    const planetAlpha = canvasAlpha * shatterFactor;
+
+    if (planetAlpha > 0.01) {
+      drawPlanet(emeraldX, emeraldY, EMERALD, baseRadius * pulse, glowRadius * pulse, ringRadius * pulse, planetAlpha);
+      drawPlanet(crimsonX, crimsonY, CRIMSON, baseRadius * pulse, glowRadius * pulse, ringRadius * pulse, planetAlpha);
+    }
+
+    /* ── energy tendrils when close (progress > 0.6) ── */
+    if (progress > 0.6 && shatterFactor > 0.1) {
+      const tendrilAlpha = ((progress - 0.6) / 0.4) * 0.35 * canvasAlpha * shatterFactor;
+      ctx.save();
+      ctx.globalAlpha = tendrilAlpha;
+      ctx.strokeStyle = '#fff';
+      ctx.lineWidth = isMobileDevice ? 0.5 : 1;
+
+      const wobble = Math.sin(Date.now() * 0.004) * 30;
+
+      ctx.beginPath();
+      ctx.moveTo(emeraldX, emeraldY);
+      ctx.quadraticCurveTo(midX + wobble, midY - wobble, crimsonX, crimsonY);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(emeraldX, emeraldY);
+      ctx.quadraticCurveTo(midX - wobble, midY + wobble, crimsonX, crimsonY);
+      ctx.stroke();
+
+      ctx.restore();
+    }
+
+    /* ── collision trigger (planets collide at centre) ── */
+    if (progress >= 0.94) {
+      triggerCosmicExplosion(midX, midY);
+    }
+
+    /* ── render shockwaves ── */
+    shockwaves.forEach(sw => {
+      sw.update();
+      sw.draw();
+    });
+
+    /* ── render explosion particles ── */
+    explosionParticles.forEach(p => {
+      p.update();
+      p.draw();
+    });
+
+    /* ── render impact flare / screen flash ── */
+    if (flashAlpha > 0.01) {
+      ctx.save();
+      // Core radial flare
+      const flareR = Math.min(W, H) * (isMobileDevice ? 0.6 : 0.8);
+      const flareGrad = ctx.createRadialGradient(midX, midY, 0, midX, midY, flareR);
+      flareGrad.addColorStop(0, `rgba(255, 255, 255, ${flashAlpha * 0.9})`);
+      flareGrad.addColorStop(0.25, `rgba(58, 255, 160, ${flashAlpha * 0.45})`);
+      flareGrad.addColorStop(0.55, `rgba(217, 30, 54, ${flashAlpha * 0.35})`);
+      flareGrad.addColorStop(1, 'transparent');
+      ctx.fillStyle = flareGrad;
+      ctx.fillRect(0, 0, W, H);
+
+      // Light ambient flash
+      ctx.fillStyle = `rgba(255, 255, 255, ${flashAlpha * 0.25})`;
+      ctx.fillRect(0, 0, W, H);
+      ctx.restore();
+
+      flashAlpha *= 0.89; // Smooth fade-out
+    }
+
+    /* Reset collision flag when scrolling back up */
+    if (progress < 0.82 && collided) {
+      collided = false;
+    }
+  }
+
+  render();
 }
 
 /* ==========================================================================
@@ -1095,44 +1469,19 @@ function initPerksAndSocialProof() {
   }
 
   // Perks Cards Stagger
-  gsap.from('.perk-card', {
-    scrollTrigger: {
-      trigger: '.perks-grid',
-      start: 'top 78%',
-    },
-    y: 35,
-    opacity: 0,
-    stagger: 0.1,
-    duration: 0.65,
-    ease: 'power2.out'
-  });
-
-  // Track Record Metric Boxes
-  gsap.from('.metric-box', {
-    scrollTrigger: {
-      trigger: '.metrics-row-wrap',
-      start: 'top 80%',
-    },
-    scale: 0.92,
-    y: 20,
-    opacity: 0,
-    stagger: 0.12,
-    duration: 0.7,
-    ease: 'back.out(1.4)'
-  });
-
-  // Testimonials Cards
-  gsap.from('.testimonial-card', {
-    scrollTrigger: {
-      trigger: '.testimonials-grid',
-      start: 'top 80%',
-    },
-    y: 30,
-    opacity: 0,
-    stagger: 0.14,
-    duration: 0.7,
-    ease: 'power3.out'
-  });
+  if (document.querySelector('.perks-grid')) {
+    gsap.from('.perk-card', {
+      scrollTrigger: {
+        trigger: '.perks-grid',
+        start: 'top 78%',
+      },
+      y: 35,
+      opacity: 0,
+      stagger: 0.1,
+      duration: 0.65,
+      ease: 'power2.out'
+    });
+  }
 }
 
 /* ==========================================================================
