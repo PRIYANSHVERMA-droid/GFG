@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <!-- Primary Meta Tags -->
   <title>REGISTER // DOOMSDAY Recruitment — GFG × Bennett University</title>
   <meta name="title" content="REGISTER // DOOMSDAY Recruitment — GFG × Bennett University">
@@ -57,18 +57,19 @@
           <line x1="19" y1="12" x2="5" y2="12"></line>
           <polyline points="12 19 5 12 12 5"></polyline>
         </svg>
-        <span>RETURN TO HQ</span>
+        <span class="back-text-full">RETURN TO HQ</span>
+        <span class="back-text-mobile">HQ</span>
       </a>
 
       <div class="reg-nav-brand">
         <span class="reg-badge-gfg">GFG</span>
         <span class="reg-cross">×</span>
-        <span class="reg-brand-sub">BENNETT UNIVERSITY</span>
+        <span class="reg-brand-sub">BENNETT<span class="brand-uni-full"> UNIVERSITY</span></span>
       </div>
 
       <div class="reg-status-pill">
         <span class="status-pulse-dot"></span>
-        <span class="status-pill-text">ENROLLMENT PORTAL // ACTIVE</span>
+        <span class="status-pill-text"><span class="status-prefix">ENROLLMENT PORTAL // </span>ACTIVE</span>
       </div>
     </div>
   </nav>
@@ -201,7 +202,7 @@
                 FULL NAME <span class="req">*</span>
               </label>
               <div class="input-wrapper">
-                <input type="text" id="fullName" name="fullName" class="form-input" placeholder="e.g. Tony Stark" required minlength="3">
+                <input type="text" id="fullName" name="fullName" class="form-input" placeholder="e.g. Tony Stark" required minlength="3" autocomplete="name" autocapitalize="words">
                 <span class="input-focus-line"></span>
               </div>
               <span class="field-error" id="error-fullName">Please enter your official full name.</span>
@@ -213,7 +214,7 @@
                 BENNETT UNIVERSITY EMAIL <span class="req">*</span>
               </label>
               <div class="input-wrapper">
-                <input type="email" id="bennettEmail" name="bennettEmail" class="form-input" placeholder="name@bennett.edu.in" required pattern="^[a-zA-Z0-9._%+-]+@bennett\.edu\.in$">
+                <input type="email" id="bennettEmail" name="bennettEmail" class="form-input" placeholder="name@bennett.edu.in" required pattern="^[a-zA-Z0-9._%+-]+@bennett\.edu\.in$" autocomplete="email" inputmode="email" autocapitalize="none" spellcheck="false">
                 <span class="input-focus-line"></span>
               </div>
               <span class="field-hint">Must end with @bennett.edu.in</span>
@@ -226,7 +227,7 @@
                 ENROLLMENT NUMBER <span class="req">*</span>
               </label>
               <div class="input-wrapper">
-                <input type="text" id="enrollmentNumber" name="enrollmentNumber" class="form-input text-uppercase" placeholder="e.g. E23CSEU0000" required pattern="^[A-Za-z0-9]{8,15}$">
+                <input type="text" id="enrollmentNumber" name="enrollmentNumber" class="form-input text-uppercase" placeholder="e.g. E23CSEU0000" required pattern="^[A-Za-z0-9]{8,15}$" autocomplete="off" autocapitalize="characters" spellcheck="false">
                 <span class="input-focus-line"></span>
               </div>
               <span class="field-error" id="error-enrollmentNumber">Please provide a valid enrollment number.</span>
@@ -238,7 +239,7 @@
                 PHONE / WHATSAPP NUMBER <span class="req">*</span>
               </label>
               <div class="input-wrapper">
-                <input type="tel" id="phoneNumber" name="phoneNumber" class="form-input" placeholder="e.g. 9876543210" required pattern="^[0-9+ -]{10,13}$">
+                <input type="tel" id="phoneNumber" name="phoneNumber" class="form-input" placeholder="e.g. 9876543210" required pattern="^[0-9+ -]{10,13}$" autocomplete="tel" inputmode="tel">
                 <span class="input-focus-line"></span>
               </div>
               <span class="field-error" id="error-phoneNumber">Please provide a valid 10-digit mobile number.</span>
@@ -405,7 +406,7 @@
             <div class="form-group">
               <label for="githubUrl" class="form-label">GITHUB PROFILE URL</label>
               <div class="input-wrapper">
-                <input type="url" id="githubUrl" name="githubUrl" class="form-input" placeholder="https://github.com/username">
+                <input type="url" id="githubUrl" name="githubUrl" class="form-input" placeholder="https://github.com/username" autocomplete="url" inputmode="url" autocapitalize="none" spellcheck="false">
                 <span class="input-focus-line"></span>
               </div>
               <span class="field-hint">Essential for technical & CP applicants</span>
@@ -415,7 +416,7 @@
             <div class="form-group">
               <label for="portfolioUrl" class="form-label">PORTFOLIO / BEHANCE / LINKEDIN</label>
               <div class="input-wrapper">
-                <input type="url" id="portfolioUrl" name="portfolioUrl" class="form-input" placeholder="https://linkedin.com/in/... or behance.net/...">
+                <input type="url" id="portfolioUrl" name="portfolioUrl" class="form-input" placeholder="https://linkedin.com/in/... or behance.net/..." autocomplete="url" inputmode="url" autocapitalize="none" spellcheck="false">
                 <span class="input-focus-line"></span>
               </div>
               <span class="field-hint">Portfolio link for designers, LinkedIn for management</span>
@@ -425,7 +426,7 @@
             <div class="form-group full-width">
               <label for="resumeUrl" class="form-label">RESUME / DRIVE DOSSIER LINK</label>
               <div class="input-wrapper">
-                <input type="url" id="resumeUrl" name="resumeUrl" class="form-input" placeholder="https://drive.google.com/file/d/... (ensure link sharing is Public/Viewer)">
+                <input type="url" id="resumeUrl" name="resumeUrl" class="form-input" placeholder="https://drive.google.com/file/d/... (ensure link sharing is Public/Viewer)" autocomplete="url" inputmode="url" autocapitalize="none" spellcheck="false">
                 <span class="input-focus-line"></span>
               </div>
               <span class="field-hint">Ensure Google Drive link access is set to "Anyone with the link can view".</span>
@@ -451,7 +452,7 @@
               <span class="char-counter" id="char-counter-directive">0 / 600</span>
             </div>
             <div class="input-wrapper">
-              <textarea id="directiveStatement" name="directiveStatement" class="form-textarea" rows="4" maxlength="600" required placeholder="What drives you? What unique skills, energy, and commitment will you contribute to the DOOMSDAY core? (Minimum 50 characters)"></textarea>
+              <textarea id="directiveStatement" name="directiveStatement" class="form-textarea" rows="4" maxlength="600" required placeholder="What drives you? What unique skills, energy, and commitment will you contribute to the DOOMSDAY core? (Minimum 50 characters)" autocapitalize="sentences" spellcheck="true"></textarea>
               <span class="input-focus-line"></span>
             </div>
             <span class="field-error" id="error-directiveStatement">Please provide at least 50 characters explaining your interest.</span>
@@ -465,7 +466,7 @@
               <span class="char-counter" id="char-counter-project">0 / 500</span>
             </div>
             <div class="input-wrapper">
-              <textarea id="greatestProject" name="greatestProject" class="form-textarea" rows="3" maxlength="500" placeholder="Describe the most complex project you built, bug you hunted, event you organized, or creative piece you published."></textarea>
+              <textarea id="greatestProject" name="greatestProject" class="form-textarea" rows="3" maxlength="500" placeholder="Describe the most complex project you built, bug you hunted, event you organized, or creative piece you published." autocapitalize="sentences" spellcheck="true"></textarea>
               <span class="input-focus-line"></span>
             </div>
           </div>

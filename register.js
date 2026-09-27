@@ -234,6 +234,14 @@ function initFormValidationAndDraft() {
       const firstError = form.querySelector('.has-error');
       if (firstError) {
         firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        const focusTarget = firstError.querySelector('input, select, textarea');
+        if (focusTarget) {
+          try {
+            focusTarget.focus({ preventScroll: true });
+          } catch (_) {
+            focusTarget.focus();
+          }
+        }
       }
       return;
     }
@@ -442,7 +450,7 @@ function completeSubmission(form, payload) {
   if (formContainer && passContainer) {
     formContainer.classList.add('is-hidden');
     passContainer.classList.remove('is-hidden');
-    passContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   showToast('✓ Transmission verified! Your clearance pass has been generated.');

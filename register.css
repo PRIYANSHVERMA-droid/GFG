@@ -65,6 +65,14 @@
   transition: color 0.2s ease, transform 0.2s ease;
 }
 
+.back-text-full {
+  display: inline;
+}
+
+.back-text-mobile {
+  display: none;
+}
+
 .reg-back-link:hover {
   color: var(--text-primary);
   transform: translateX(-3px);
@@ -104,6 +112,10 @@
   color: var(--text-primary);
 }
 
+.brand-uni-full {
+  display: inline;
+}
+
 .reg-status-pill {
   display: inline-flex;
   align-items: center;
@@ -116,6 +128,10 @@
   font-size: 0.75rem;
   letter-spacing: 0.08em;
   color: var(--text-secondary);
+}
+
+.status-prefix {
+  display: inline;
 }
 
 .status-pulse-dot {
@@ -1127,11 +1143,17 @@
 }
 
 /* ==========================================================================
-   RESPONSIVE BREAKPOINTS
+   RESPONSIVE BREAKPOINTS & MOBILE OPTIMIZATIONS
    ========================================================================== */
+
+/* Tablet & Smaller Desktops */
 @media (max-width: 900px) {
+  .reg-main-container {
+    padding: 2.5rem 1.25rem 5rem;
+  }
+
   .reg-form-card {
-    padding: 2rem 1.5rem;
+    padding: 2.2rem 1.75rem;
   }
 
   .pass-body-grid {
@@ -1145,6 +1167,7 @@
   }
 }
 
+/* Tablets, Foldables & Large Phones */
 @media (max-width: 768px) {
   /* Prevent iOS Safari 16px auto-zoom bug on input focus & ensure accessible tap targets */
   .form-input,
@@ -1160,50 +1183,516 @@
     min-height: 48px;
   }
 
+  /* Safe Area Insets for Modern Mobile Notches & Gesture Bars */
+  .reg-nav {
+    padding: 0.85rem 1.25rem;
+    padding-top: max(0.85rem, env(safe-area-inset-top));
+    padding-left: max(1.25rem, env(safe-area-inset-left));
+    padding-right: max(1.25rem, env(safe-area-inset-right));
+  }
+
+  .reg-main-container {
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
+    padding-bottom: max(4rem, calc(2.5rem + env(safe-area-inset-bottom)));
+  }
+
+  /* High performance GPU background on mobile */
+  .reg-ambient-glow {
+    width: 100vw;
+    height: 380px;
+    filter: blur(45px);
+    opacity: 0.65;
+    transform: translate3d(-50%, 0, 0);
+    will-change: filter, background;
+  }
+
+  /* Touch Interaction & Tap Responsiveness */
+  .btn,
   .btn-submit-dossier,
-  .btn-action-tool,
-  .realm-card {
-    min-height: 48px;
+  .btn-tool,
+  .realm-card,
+  .prof-option,
+  .agreement-checkbox-label,
+  .btn-print-pass,
+  .btn-join-hub,
+  .btn-back-home {
+    -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
   }
-}
 
-@media (max-width: 680px) {
   .form-grid {
     grid-template-columns: 1fr;
-    gap: 1.2rem;
+    gap: 1.25rem;
   }
 
   .realm-choice-grid {
     grid-template-columns: 1fr;
+    gap: 1rem;
   }
 
   .proficiency-radio-group {
     grid-template-columns: 1fr;
+    gap: 0.85rem;
+  }
+}
+
+/* Standard Mobile Phones (<= 640px) */
+@media (max-width: 640px) {
+  /* Tactical Navigation Bar on Phones */
+  .reg-nav {
+    padding: 0.75rem 1rem;
+    padding-top: max(0.75rem, env(safe-area-inset-top));
   }
 
-  .form-action-bar {
+  .reg-nav-inner {
+    gap: 0.55rem;
+  }
+
+  .back-text-full {
+    display: none;
+  }
+
+  .back-text-mobile {
+    display: inline;
+  }
+
+  .status-prefix {
+    display: none;
+  }
+
+  .reg-status-pill {
+    padding: 0.35rem 0.65rem;
+    font-size: 0.7rem;
+    gap: 0.4rem;
+    white-space: nowrap;
+  }
+
+  .reg-back-link {
+    font-size: 0.78rem;
+    gap: 0.35rem;
+    white-space: nowrap;
+  }
+
+  .reg-nav-brand {
+    font-size: 1.08rem;
+    gap: 0.35rem;
+  }
+
+  .reg-badge-gfg {
+    padding: 0.12rem 0.4rem;
+    font-size: 0.95rem;
+  }
+
+  /* Hero Header on Phones */
+  .reg-main-container {
+    padding-top: 1.75rem;
+    padding-bottom: max(3.5rem, calc(2rem + env(safe-area-inset-bottom)));
+  }
+
+  .reg-header {
+    margin-bottom: 1.75rem;
+  }
+
+  .reg-eyebrow-wrap {
     flex-direction: column;
-    align-items: stretch;
+    gap: 0.4rem;
+    margin-bottom: 0.75rem;
+    align-items: center;
+  }
+
+  .reg-eyebrow-tag {
+    font-size: 0.7rem;
+    padding: 0.3rem 0.65rem;
+    letter-spacing: 0.1em;
+    text-align: center;
+  }
+
+  .reg-timestamp {
+    font-size: 0.68rem;
+  }
+
+  .reg-main-title {
+    font-size: clamp(2.3rem, 11vw, 3.5rem);
+    line-height: 0.95;
+    margin-bottom: 0.85rem;
+  }
+
+  .reg-description {
+    font-size: 0.92rem;
+    line-height: 1.55;
+    padding: 0 0.25rem;
+  }
+
+  /* Form Card on Phones */
+  .reg-form-card {
+    padding: 1.35rem 1rem;
+    border-radius: 4px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  }
+
+  /* Section Spacing & Headers */
+  .form-step-section {
+    margin-top: 2rem;
+    padding-top: 0;
+  }
+
+  .form-section-header {
+    gap: 0.75rem;
+    margin-bottom: 1.15rem;
+    padding-bottom: 0.75rem;
+  }
+
+  .form-step-num {
+    width: 36px;
+    height: 36px;
+    font-size: 1.35rem;
+  }
+
+  .form-step-title {
+    font-size: 1.22rem;
+    letter-spacing: 0.03em;
+    line-height: 1.18;
+  }
+
+  .form-step-subtitle {
+    font-size: 0.8rem;
+    line-height: 1.4;
+  }
+
+  /* Realm Selection Cards on Mobile */
+  .realm-choice-grid {
+    gap: 0.85rem;
+    margin-bottom: 1.15rem;
+  }
+
+  .realm-card {
+    padding: 1.05rem;
+  }
+
+  .realm-card:active {
+    transform: scale(0.985);
+  }
+
+  .realm-card-header {
+    margin-bottom: 0.45rem;
+  }
+
+  .realm-name {
+    font-size: 1.3rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .realm-track {
+    font-size: 0.82rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .realm-quote {
+    font-size: 0.73rem;
+    padding-top: 0.55rem;
+  }
+
+  .realm-transmission-box {
+    padding: 0.8rem 1rem;
+    gap: 0.75rem;
+  }
+
+  .transmission-icon {
+    font-size: 1.2rem;
+  }
+
+  .transmission-text strong {
+    font-size: 0.78rem;
+  }
+
+  .transmission-text p {
+    font-size: 0.82rem;
+    line-height: 1.4;
+  }
+
+  /* Form Controls & Labels */
+  .form-grid {
+    gap: 1.1rem;
+  }
+
+  .form-label {
+    font-size: 0.78rem;
+    margin-bottom: 0.45rem;
+  }
+
+  .form-input,
+  .form-textarea,
+  .form-select {
+    padding: 0.85rem 0.95rem;
+    border-radius: 3px;
+  }
+
+  .form-textarea {
+    min-height: 95px;
+    padding: 0.85rem 0.95rem;
+  }
+
+  .field-hint,
+  .field-error {
+    font-size: 0.72rem;
+    margin-top: 0.35rem;
+  }
+
+  /* Proficiency Cards on Mobile */
+  .proficiency-radio-group {
+    gap: 0.75rem;
+  }
+
+  .prof-box {
+    padding: 0.85rem 0.95rem;
+  }
+
+  .prof-title {
+    font-size: 1.1rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .prof-desc {
+    font-size: 0.76rem;
+  }
+
+  .prof-option:active .prof-box {
+    transform: scale(0.985);
+  }
+
+  /* Agreements & Checkboxes */
+  .agreements-list {
+    gap: 0.9rem;
+  }
+
+  .agreement-checkbox-label {
+    gap: 0.75rem;
+    padding: 0.25rem 0;
+  }
+
+  .custom-checkbox {
+    width: 22px;
+    height: 22px;
+    min-width: 22px;
+    margin-top: 0.1rem;
+  }
+
+  .agreement-text {
+    font-size: 0.84rem;
+    line-height: 1.45;
+  }
+
+  /* Action Bar on Mobile */
+  .form-action-bar {
+    margin-top: 2rem;
+    padding-top: 1.35rem;
+    flex-direction: column;
+    gap: 1rem;
   }
 
   .action-tools {
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    gap: 0.65rem;
+  }
+
+  .btn-tool {
+    width: 100%;
+    padding: 0.75rem 0.5rem;
+    font-size: 0.76rem;
+    justify-content: center;
+    text-align: center;
+    min-height: 46px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .btn-tool:active {
+    transform: scale(0.98);
+  }
+
+  .draft-indicator {
+    grid-column: 1 / -1;
+    text-align: center;
+    font-size: 0.72rem;
+    min-height: 1.1em;
   }
 
   .btn-submit-dossier {
     width: 100%;
-    text-align: center;
+    padding: 1rem 1.25rem;
+    font-size: 1.25rem;
     justify-content: center;
+    min-height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .btn-submit-dossier:active {
+    transform: scale(0.985);
+  }
+
+  .btn-submit-content {
+    justify-content: center;
+    gap: 0.6rem;
+  }
+
+  /* Toast on Mobile */
+  .reg-toast {
+    bottom: 1rem;
+    left: 1rem;
+    right: 1rem;
+    width: auto;
+    max-width: calc(100% - 2rem);
+    margin: 0 auto;
+    text-align: center;
+    padding: 0.75rem 1rem;
+    font-size: 0.8rem;
+    border-left: none;
+    border-bottom: 3px solid var(--active-realm-color);
+  }
+
+  /* Clearance Pass on Mobile */
+  .clearance-pass-card {
+    padding: 1.25rem 1rem;
+    border-radius: 4px;
+  }
+
+  .pass-top-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.65rem;
+    padding-bottom: 0.95rem;
+    margin-bottom: 1.15rem;
+  }
+
+  .pass-gfg {
+    font-size: 1.5rem;
+  }
+
+  .pass-sub {
+    font-size: 0.7rem;
+  }
+
+  .pass-seal-badge {
+    text-align: left;
+  }
+
+  .pass-clearance-level {
+    font-size: 1.2rem;
+  }
+
+  .pass-candidate-name {
+    font-size: clamp(1.8rem, 8vw, 2.6rem);
+    word-break: break-word;
   }
 
   .pass-meta-row {
     flex-direction: column;
-    gap: 0.4rem;
+    gap: 0.35rem;
+    font-size: 0.76rem;
   }
 
-  .clearance-pass-card {
-    padding: 1.5rem;
+  .pass-body-grid {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+    padding: 1rem 0;
+    margin-bottom: 1.2rem;
+  }
+
+  .pass-data-item .pdi-val {
+    font-size: 0.9rem;
+    word-break: break-word;
+  }
+
+  .font-mono {
+    word-break: break-all;
+  }
+
+  .pass-barcode-col {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.85rem;
+    width: 100%;
+  }
+
+  .barcode-lines {
+    width: 160px;
+    height: 40px;
+  }
+
+  .pass-footer-bar {
+    flex-direction: column;
+    gap: 0.35rem;
+    font-size: 0.62rem;
+    text-align: center;
+  }
+
+  .pass-action-bar {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.75rem;
+    margin-top: 1.35rem;
+  }
+
+  .btn-join-hub,
+  .btn-print-pass,
+  .btn-back-home {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .btn-join-hub {
+    font-size: 1.15rem;
+    padding: 0.9rem 1.2rem;
+    min-height: 48px;
+  }
+
+  .btn-print-pass {
+    font-size: 0.82rem;
+    padding: 0.85rem 1rem;
+    min-height: 46px;
+  }
+}
+
+/* Extra Small Phones (<= 400px, e.g. iPhone SE, compact Androids) */
+@media (max-width: 400px) {
+  .brand-uni-full {
+    display: none;
+  }
+
+  .reg-main-container {
+    padding-left: 0.65rem;
+    padding-right: 0.65rem;
+  }
+
+  .reg-form-card {
+    padding: 1.15rem 0.75rem;
+  }
+
+  .reg-main-title {
+    font-size: 2.1rem;
+  }
+
+  .btn-submit-dossier {
+    font-size: 1.15rem;
+    padding: 0.9rem 0.75rem;
+  }
+
+  .action-tools {
+    grid-template-columns: 1fr;
+  }
+
+  .btn-tool {
+    width: 100%;
   }
 }
 
