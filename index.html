@@ -172,17 +172,20 @@
       </div>
 
       <nav class="desktop-nav" aria-label="Main Navigation">
+        <a href="#trailer" class="nav-link" data-section="trailer">
+          <span class="nav-num" aria-hidden="true">01</span> TRAILER
+        </a>
         <a href="#breach-selector" class="nav-link" data-section="heroes">
-          <span class="nav-num" aria-hidden="true">01</span> HEROES
+          <span class="nav-num" aria-hidden="true">02</span> HEROES
         </a>
         <a href="#mission" class="nav-link" data-section="mission">
-          <span class="nav-num" aria-hidden="true">02</span> MISSION
+          <span class="nav-num" aria-hidden="true">03</span> MISSION
         </a>
         <a href="#perks-block" class="nav-link" data-section="perks">
-          <span class="nav-num" aria-hidden="true">03</span> PERKS
+          <span class="nav-num" aria-hidden="true">04</span> PERKS
         </a>
         <a href="#timeline-block" class="nav-link" data-section="timeline">
-          <span class="nav-num" aria-hidden="true">04</span> TIMELINE
+          <span class="nav-num" aria-hidden="true">05</span> TIMELINE
         </a>
         <a href="register.html" class="nav-cta-btn" id="nav-register-cta" aria-label="Register Now for Doomsday Recruitment">
           <span class="nav-cta-pulse" aria-hidden="true"></span>
@@ -201,17 +204,20 @@
     <div class="mobile-menu" id="mobile-nav-menu" aria-hidden="true">
       <div class="mobile-menu-inner">
         <span class="mobile-menu-eyebrow">TACTICAL DIRECTIVE</span>
+        <a href="#trailer" class="mobile-nav-link" data-section="trailer">
+          <span class="mobile-num">01</span> TRAILER
+        </a>
         <a href="#breach-selector" class="mobile-nav-link" data-section="heroes">
-          <span class="mobile-num">01</span> HEROES
+          <span class="mobile-num">02</span> HEROES
         </a>
         <a href="#mission" class="mobile-nav-link" data-section="mission">
-          <span class="mobile-num">02</span> MISSION
+          <span class="mobile-num">03</span> MISSION
         </a>
         <a href="#perks-block" class="mobile-nav-link" data-section="perks">
-          <span class="mobile-num">03</span> PERKS
+          <span class="mobile-num">04</span> PERKS
         </a>
         <a href="#timeline-block" class="mobile-nav-link" data-section="timeline">
-          <span class="mobile-num">04</span> TIMELINE
+          <span class="mobile-num">05</span> TIMELINE
         </a>
         <a href="register.html" class="mobile-nav-link mobile-nav-link--accent" data-section="register">
           <span class="mobile-num">★</span> REGISTER NOW →
@@ -283,6 +289,70 @@
         <span class="scroll-label">SCROLL</span>
         <div class="scroll-indicator-bar">
           <div class="scroll-indicator-pip"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRAILER SECTION — Cinematic Video Reveal -->
+    <section id="trailer" class="section trailer-section" data-nav="trailer">
+      <div class="trailer-ambient-glow" aria-hidden="true"></div>
+
+      <div class="trailer-content-wrap">
+        <div class="trailer-header">
+          <span class="section-label">CLASSIFIED TRANSMISSION</span>
+          <h2 class="section-title trailer-title">THE TRAILER.</h2>
+          <p class="trailer-sub">Witness the call to arms. The multiverse awaits your response.</p>
+        </div>
+
+        <div class="trailer-player-wrap" id="trailer-player-wrap">
+          <!-- Scanline overlay -->
+          <div class="trailer-scanlines" aria-hidden="true"></div>
+
+          <!-- Corner brackets -->
+          <div class="trailer-corner trailer-corner--tl" aria-hidden="true"></div>
+          <div class="trailer-corner trailer-corner--tr" aria-hidden="true"></div>
+          <div class="trailer-corner trailer-corner--bl" aria-hidden="true"></div>
+          <div class="trailer-corner trailer-corner--br" aria-hidden="true"></div>
+
+          <!-- Video element -->
+          <video
+            id="trailer-video"
+            class="trailer-video"
+            preload="metadata"
+            playsinline
+            poster=""
+          >
+            <source src="assets/videos/Trailer_GFG.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+
+          <!-- Big centered play button overlay -->
+          <button class="trailer-play-overlay" id="trailer-play-overlay" aria-label="Play trailer video">
+            <span class="trailer-play-icon" aria-hidden="true">
+              <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="40" cy="40" r="38" stroke="currentColor" stroke-width="2.5" opacity="0.6"/>
+                <polygon points="32,22 62,40 32,58" fill="currentColor"/>
+              </svg>
+            </span>
+            <span class="trailer-play-label">PLAY TRAILER</span>
+          </button>
+
+          <!-- Bottom controls bar -->
+          <div class="trailer-controls" id="trailer-controls">
+            <button class="trailer-btn trailer-btn-playpause" id="trailer-btn-playpause" aria-label="Pause trailer">
+              <span class="trailer-pause-icon">❚❚</span>
+              <span class="trailer-play-icon-sm">▶</span>
+            </button>
+            <div class="trailer-progress-wrap" id="trailer-progress-wrap">
+              <div class="trailer-progress-bar" id="trailer-progress-bar"></div>
+            </div>
+            <span class="trailer-time" id="trailer-time">0:00 / 0:00</span>
+            <button class="trailer-btn trailer-btn-mute" id="trailer-btn-mute" aria-label="Unmute trailer">
+              <span class="trailer-mute-icon">🔇</span>
+              <span class="trailer-unmute-icon">🔊</span>
+            </button>
+            <button class="trailer-btn trailer-btn-fullscreen" id="trailer-btn-fullscreen" aria-label="Fullscreen">⛶</button>
+          </div>
         </div>
       </div>
     </section>

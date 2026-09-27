@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initIntroSequence();
   initHeroParticles();
   initCosmicCollision();
+  initTrailer();
   initBreachAndSelector();
   initHeroCardReveal();
   initCharacterSections();
@@ -182,6 +183,10 @@ function initNavigation() {
 
   // Section groupings mapping to single consolidated nav buttons
   const navMappings = [
+    {
+      key: 'trailer',
+      triggers: ['#trailer']
+    },
     {
       key: 'heroes',
       triggers: ['#breach-selector', '#hero-doom', '#hero-spiderman', '#hero-thor', '#hero-cap']
@@ -855,6 +860,155 @@ function initCosmicCollision() {
   }
 
   render();
+}
+
+/* ==========================================================================
+   5B. TRAILER SECTION (Video Player & Scroll Reveal)
+   ========================================================================== */
+function initTrailer() {
+  const section     = document.getElementById('trailer');
+  const video       = document.getElementById('trailer-video');
+  const wrap        = document.getElementById('trailer-player-wrap');
+  const playOverlay = document.getElementById('trailer-play-overlay');
+  const btnPlay     = document.getElementById('trailer-btn-playpause');
+  const btnMute     = document.getElementById('trailer-btn-mute');
+  const btnFS       = document.getElementById('trailer-btn-fullscreen');
+  const progressWrap= document.getElementById('trailer-progress-wrap');
+  const progressBar = document.getElementById('trailer-progress-bar');
+  const timeDisplay = document.getElementById('trailer-time');
+
+  if (!section || !video || !wrap) return;
+
+  // --- Scroll Reveal ---
+  if (typeof ScrollTrigger !== 'undefined' && typeof gsap !== 'undefined') {
+    ScrollTrigger.create({
+      trigger: section,
+      start: 'top 80%',
+      once: true,
+      onEnter: () => section.classList.add('is-revealed'),
+    });
+
+    // Auto-pause when scrolled away
+    ScrollTrigger.create({
+      trigger: section,
+      start: 'top bottom',
+      end: 'bottom top',
+      onLeave: () => { if (!video.paused) video.pause(); },
+      onLeaveBack: () => { if (!video.paused) video.pause(); },
+    });
+  } else {
+    // Fallback: reveal immediately
+    section.classList.add('is-revealed');
+  }
+
+  // --- Format time helper ---
+  function fmt(seconds) {
+    if (isNaN(seconds)) return '0:00';
+    const m = Math.floor(seconds / 60);
+    const s = Math.floor(seconds % 60);
+    return `${m}:${s < 10 ? '0' : ''}${s}`;
+  }
+
+  function updateTime() {
+    if (timeDisplay) {
+      timeDisplay.textContent = `${fmt(video.currentTime)} / ${fmt(video.duration)}`;
+    }
+  }
+
+  // --- Play / Pause ---
+  function playVideo() {
+    video.play().then(() => {
+      wrap.classList.add('is-playing');
+      if (playOverlay) playOverlay.classList.add('is-hidden');
+    }).catch(() => { /* autoplay blocked — user will click again */ });
+  }
+
+  function pauseVideo() {
+    video.pause();
+    wrap.classList.remove('is-playing');
+  }
+
+  function togglePlay() {
+    if (video.paused || video.ended) {
+      playVideo();
+    } else {
+      pauseVideo();
+    }
+  }
+
+  // Big play overlay click
+  if (playOverlay) {
+    playOverlay.addEventListener('click', () => {
+      playVideo();
+    });
+  }
+
+  // Click on video toggles play/pause
+  video.addEventListener('click', togglePlay);
+
+  // Small play/pause button
+  if (btnPlay) btnPlay.addEventListener('click', togglePlay);
+
+  // When video ends, reset to poster state
+  video.addEventListener('ended', () => {
+    wrap.classList.remove('is-playing');
+    if (playOverlay) playOverlay.classList.remove('is-hidden');
+    if (progressBar) progressBar.style.width = '0%';
+  });
+
+  // When paused externally (e.g. scroll away)
+  video.addEventListener('pause', () => {
+    wrap.classList.remove('is-playing');
+  });
+
+  video.addEventListener('play', () => {
+    wrap.classList.add('is-playing');
+    if (playOverlay) playOverlay.classList.add('is-hidden');
+  });
+
+  // --- Progress Bar ---
+  video.addEventListener('timeupdate', () => {
+    if (video.duration) {
+      const pct = (video.currentTime / video.duration) * 100;
+      if (progressBar) progressBar.style.width = `${pct}%`;
+    }
+    updateTime();
+  });
+
+  video.addEventListener('loadedmetadata', updateTime);
+
+  // Click on progress bar to seek
+  if (progressWrap) {
+    progressWrap.addEventListener('click', (e) => {
+      const rect = progressWrap.getBoundingClientRect();
+      const pct = (e.clientX - rect.left) / rect.width;
+      video.currentTime = pct * video.duration;
+    });
+  }
+
+  // --- Mute / Unmute ---
+  video.muted = true; // Start muted for autoplay compatibility
+
+  if (btnMute) {
+    btnMute.addEventListener('click', () => {
+      video.muted = !video.muted;
+      wrap.classList.toggle('is-unmuted', !video.muted);
+    });
+  }
+
+  // --- Fullscreen ---
+  if (btnFS) {
+    btnFS.addEventListener('click', () => {
+      if (wrap.requestFullscreen) {
+        wrap.requestFullscreen();
+      } else if (wrap.webkitRequestFullscreen) {
+        wrap.webkitRequestFullscreen();
+      } else if (video.webkitEnterFullscreen) {
+        // iOS Safari
+        video.webkitEnterFullscreen();
+      }
+    });
+  }
 }
 
 /* ==========================================================================
