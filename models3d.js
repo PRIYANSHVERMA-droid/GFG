@@ -603,7 +603,7 @@
         } else if (heroKey === 'thor') {
           pivot = normalizeAndPivot(rawModel, 2.5, [0, 0, 0.12]);
         } else if (heroKey === 'cap') {
-          pivot = normalizeAndPivot(rawModel, 2.6, [0, Math.PI, 0]);
+          pivot = normalizeAndPivot(rawModel, 2.6, [0, 0, 0]);
         } else {
           pivot = normalizeAndPivot(rawModel, 2.5, [0, 0, 0]);
         }
